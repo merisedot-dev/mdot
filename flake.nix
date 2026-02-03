@@ -1,0 +1,13 @@
+{
+  description = "MDot toolchain definitions";
+
+  inputs = {
+    # default nix inputs
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
+    # custom rust inputs
+    flakebox = {
+      url = "";
+    };
+  };
+}
