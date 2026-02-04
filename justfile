@@ -1,4 +1,4 @@
 # Some extra commands to ensure we have everything needed
 
-mkbin:
-    meson setup build --reconfigure && meson install -C build
+mkdev: # build dev binary
+    meson setup build --reconfigure --prefix=~/.local && meson install -C build
