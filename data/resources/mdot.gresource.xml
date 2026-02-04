@@ -2,6 +2,6 @@
 <!-- Created with Cambalache 0.96.3 -->
 <gresources>
   <gresource prefix="/com/github/merisedotdev/mdot">
-    <file compressed="true">window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
   </gresource>
 </gresources>

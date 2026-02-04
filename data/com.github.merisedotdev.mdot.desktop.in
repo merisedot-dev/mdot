@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=MeriseGTK
+Exec=mdot
+Terminal=false
+Type=Application
+DBusActivatable=true
+Categories=Utility;
