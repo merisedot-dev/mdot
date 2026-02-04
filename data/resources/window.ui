@@ -9,6 +9,11 @@
     <property name="content">
       <object class="GtkBox">
         <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Jean-Billy</property>
+          </object>
+        </child>
       </object>
     </property>
     <property name="default-height">800</property>

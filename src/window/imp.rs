@@ -1,6 +1,6 @@
-use adw::{subclass::prelude::*};
+use adw::subclass::prelude::*;
 use gtk::{
-    CompositeTemplate, gio,
+    CompositeTemplate,
     glib::{self, subclass::InitializingObject},
 };
 

@@ -4,7 +4,7 @@ project('mdot', 'rust', version: '0.1.0', meson_version: '>= 1.4')
 gnome = import('gnome')
 
 # Application ID
-base_id = 'com.github.merisedot-dev/mdot'
+base_id = 'com.github.merisedotdev.mdot'
 
 # build variables
 bindir = get_option('prefix') / get_option('bindir')

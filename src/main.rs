@@ -13,7 +13,7 @@ use crate::window::Window;
 fn main() -> glib::ExitCode {
     // building app
     let app = Application::builder()
-        .application_id("com.github.merisedot-dev.mdot")
+        .application_id("com.github.merisedotdev.mdot")
         .build();
 
     // connect app to signals
