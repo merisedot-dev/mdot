@@ -1,4 +1,5 @@
 pub(crate) mod config;
+pub(crate) mod constants;
 pub(crate) mod window;
 
 use adw::Application;
@@ -19,13 +20,16 @@ use crate::{
 };
 
 fn main() -> glib::ExitCode {
+    // logs setup (because logs are good)
+    tracing_subscriber::fmt().init();
+
     // building app with resources
     let res = Resource::load(resources_file()).expect("Could not load resource");
     resources_register(&res);
     let app = Application::builder().application_id(app_id()).build();
 
     // startup watchdog
-    app.connect_startup(|app| {
+    app.connect_startup(|_| {
         info!("startup");
     });
 

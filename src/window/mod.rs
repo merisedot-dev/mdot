@@ -1,6 +1,6 @@
 mod imp;
 
-use adw::{Application, subclass::prelude::ObjectSubclassIsExt};
+use adw::Application;
 use gtk::{
     gio,
     glib::{self, Object},
