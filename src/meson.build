@@ -1,6 +1,6 @@
 # checking for cargo information
 cargo = find_program('cargo')
-cargo_options = ['--manifest_path', meson.project_source_root() / 'Cargo.toml']
+cargo_options = ['--manifest-path', meson.project_source_root() / 'Cargo.toml']
 cargo_options += ['--target-dir', meson.project_build_root() / 'target']
 
 # build target
@@ -15,7 +15,7 @@ custom_target(
   depends: resources,
   env: {
     'CARGO_HOME': meson.project_build_root() / 'cargo-home',
-    'APP_ID': application_id,
+    'APP_ID': base_id,
     'RESOURCES_FILE': pkgdatadir / 'mdot.gresource',
   },
   command: [
@@ -24,8 +24,7 @@ custom_target(
     cargo_options,
     '&&',
     'cp',
-    meson.project_build_root() / 'target',
-    rust_target / meson.project_name(),
+    meson.project_build_root() / 'target' / 'debug' / meson.project_name(),
     '@OUTPUT@',
   ],
 )
