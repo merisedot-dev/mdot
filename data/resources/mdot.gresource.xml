@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.96.3 -->
+<gresources>
+  <gresource prefix="/com/github/merisedotdev/mdot">
+    <file compressed="true">window.ui</file>
+  </gresource>
+</gresources>

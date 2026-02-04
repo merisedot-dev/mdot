@@ -14,6 +14,7 @@ pkgdatadir = datadir / meson.project_name()
 
 # build subdirectories
 subdir('src') # build the damn code
+subdir('data') # fetch extra build info
 
 # Post-Install phase
 gnome.post_install(
