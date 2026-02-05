@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8">
 <schemalist>
-    <schema path="/com/github/merisedotdev/mdot" id="com.github.merisedotdev.mdot">
+    <schema path="/com/github/merisedotdev/mdot" id="@APP_ID@">
         <key name="automatic-updates" type="b">
             <default>true</default>
             <summary>Automatically install updates</summary>

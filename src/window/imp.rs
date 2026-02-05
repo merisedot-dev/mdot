@@ -1,13 +1,17 @@
+use std::cell::OnceCell;
+
 use adw::{HeaderBar, SplitButton, subclass::prelude::*};
 use gtk::{
-    Button, CompositeTemplate, MenuButton, Stack,
+    Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
+    gio::Settings,
     glib::{self, subclass::InitializingObject},
 };
 
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/window.ui")]
-pub struct Window {
-    // TODO logic-related elements(like settings)
+pub struct MDotWindow {
+    // TODO logic-related elements (like app settings)
+    pub settings: OnceCell<Settings>,
 
     // template macro components
     #[template_child]
@@ -15,7 +19,7 @@ pub struct Window {
     #[template_child]
     pub page_stack: TemplateChild<Stack>,
 
-    // template button controls
+    // header controls
     #[template_child]
     pub menu_btn: TemplateChild<MenuButton>,
     #[template_child]
@@ -26,11 +30,23 @@ pub struct Window {
     pub undo_btn: TemplateChild<Button>,
     #[template_child]
     pub redo_btn: TemplateChild<Button>,
+
+    // newproj form controls
+    #[template_child]
+    pub proj_name: TemplateChild<Entry>,
+    #[template_child]
+    pub path_picker: TemplateChild<Button>,
+    #[template_child]
+    pub path_lbl: TemplateChild<Label>,
+
+    // workspace controls
+    #[template_child]
+    pub graph_drawing: TemplateChild<DrawingArea>,
 }
 
 // subclassing our window
 #[glib::object_subclass]
-impl ObjectSubclass for Window {
+impl ObjectSubclass for MDotWindow {
     const NAME: &'static str = "MDotWindow";
     type Type = super::Window;
     type ParentType = adw::ApplicationWindow;
@@ -47,19 +63,22 @@ impl ObjectSubclass for Window {
 }
 
 // gobject core trait
-impl ObjectImpl for Window {
+impl ObjectImpl for MDotWindow {
     fn constructed(&self) {
         // super() call
         self.parent_constructed();
         // inner setup
+        let obj = self.obj();
+        obj.set_defaults(); // loading default values
+        obj.setup_settings(); // load application settings
     }
 }
 
 // gtk widget core trait
-impl WidgetImpl for Window {}
+impl WidgetImpl for MDotWindow {}
 
 // window core traits
-impl WindowImpl for Window {
+impl WindowImpl for MDotWindow {
     fn close_request(&self) -> glib::Propagation {
         // pass saved thingies to parent class
         self.parent_close_request()
@@ -67,7 +86,7 @@ impl WindowImpl for Window {
 }
 
 // app window inheritance
-impl ApplicationWindowImpl for Window {}
+impl ApplicationWindowImpl for MDotWindow {}
 
 // adwaita ApplicationWindow inheritance
-impl AdwApplicationWindowImpl for Window {}
+impl AdwApplicationWindowImpl for MDotWindow {}
