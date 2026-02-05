@@ -1,9 +1,6 @@
-use std::cell::OnceCell;
-
 use adw::{HeaderBar, SplitButton, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
-    gio::Settings,
     glib::{self, subclass::InitializingObject},
 };
 
@@ -11,7 +8,6 @@ use gtk::{
 #[template(resource = "/com/github/merisedotdev/mdot/window.ui")]
 pub struct MDotWindow {
     // TODO logic-related elements (like app settings)
-    pub settings: OnceCell<Settings>,
 
     // template macro components
     #[template_child]
@@ -70,7 +66,6 @@ impl ObjectImpl for MDotWindow {
         // inner setup
         let obj = self.obj();
         obj.set_defaults(); // loading default values
-        obj.setup_settings(); // load application settings
     }
 }
 
