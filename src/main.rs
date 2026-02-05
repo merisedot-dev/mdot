@@ -1,5 +1,6 @@
 pub(crate) mod config;
 pub(crate) mod constants;
+pub(crate) mod project;
 pub(crate) mod window;
 
 use adw::Application;
