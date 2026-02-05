@@ -32,7 +32,7 @@ custom_target(
     cargo_options,
     '&&',
     'cp',
-    meson.project_build_root() / rust_target / 'debug' / meson.project_name(),
+    meson.project_build_root() / 'target' / rust_target / meson.project_name(),
     '@OUTPUT@',
   ],
 )
