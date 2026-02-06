@@ -14,7 +14,7 @@
             <child>
               <object class="AdwSplitButton" id="open_btn">
                 <property name="action-name">win.open</property>
-                <property name="label" translatable="yes">__Open_project</property>
+                <property name="label" translatable="yes">__Openproject</property>
                 <property name="menu-model">proj_menu</property>
               </object>
             </child>
@@ -99,7 +99,7 @@
                             <child>
                               <object class="GtkLabel">
                                 <property name="justify">center</property>
-                                <property name="label" translatable="yes">__New_project</property>
+                                <property name="label" translatable="yes">__Newproject</property>
                               </object>
                             </child>
                             <child>
@@ -111,7 +111,7 @@
                                 <child>
                                   <object class="GtkLabel">
                                     <property name="halign">end</property>
-                                    <property name="label" translatable="yes">__Proj_name</property>
+                                    <property name="label" translatable="yes">__Projname</property>
                                     <layout>
                                       <property name="column">0</property>
                                       <property name="row">0</property>
@@ -121,7 +121,7 @@
                                 <child>
                                   <object class="GtkLabel">
                                     <property name="halign">end</property>
-                                    <property name="label" translatable="yes">__Target_SGBD</property>
+                                    <property name="label" translatable="yes">__TargetSGBD</property>
                                     <layout>
                                       <property name="column">0</property>
                                       <property name="row">2</property>
@@ -131,7 +131,7 @@
                                 <child>
                                   <object class="GtkLabel">
                                     <property name="halign">end</property>
-                                    <property name="label" translatable="yes">__Proj_location</property>
+                                    <property name="label" translatable="yes">__Projlocation</property>
                                     <layout>
                                       <property name="column">0</property>
                                       <property name="row">1</property>
@@ -141,7 +141,7 @@
                                 <child>
                                   <object class="GtkEntry" id="proj_name">
                                     <property name="focusable">True</property>
-                                    <property name="input-hints">lowercase | none</property>
+                                    <property name="input-hints">lowercase|none</property>
                                     <property name="input-purpose">alpha</property>
                                     <property name="width-chars">32</property>
                                     <layout>
@@ -228,21 +228,21 @@
   <menu id="main_menu">
     <item>
       <attribute name="action">win.mkproj</attribute>
-      <attribute name="label" translatable="yes">__New_project</attribute>
+      <attribute name="label" translatable="yes">__Newproject</attribute>
     </item>
     <item>
       <attribute name="action">win.open</attribute>
-      <attribute name="label" translatable="yes">__Open_project</attribute>
+      <attribute name="label" translatable="yes">__Openproject</attribute>
     </item>
     <section>
       <attribute name="label" translatable="yes">__MkFile</attribute>
       <item>
         <attribute name="action">win.add_db</attribute>
-        <attribute name="label" translatable="yes">__Add_DB</attribute>
+        <attribute name="label" translatable="yes">__AddDB</attribute>
       </item>
       <item>
         <attribute name="action">win.add_script</attribute>
-        <attribute name="label" translatable="yes">__Add_Script</attribute>
+        <attribute name="label" translatable="yes">__AddScript</attribute>
       </item>
     </section>
     <section>
