@@ -57,7 +57,10 @@ impl ObjectSubclass for MDotWindow {
         klass.bind_template();
         // installing GActions
         for action in mk_actions() {
-            klass.install_action(action.name(), None, |window, text, variant| {});
+            klass.install_action(action.name(), None, move |win, txt, var| {
+                let imp = win.imp(); // fetch window state
+                action.handle_activate(imp, txt, var); // apply action
+            });
         }
     }
 

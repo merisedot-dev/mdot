@@ -10,7 +10,7 @@ impl MDotAction for MkProjAction {
     type InnerCallerType = MDotWindow;
 
     fn name(&self) -> &'static str {
-        "newproj"
+        "win.mkproj"
     }
 
     fn handle_activate(
