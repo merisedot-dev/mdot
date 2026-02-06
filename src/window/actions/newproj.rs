@@ -1,20 +1,27 @@
-use gtk::glib::Variant;
+use gtk::glib::property::PropertySet;
 
-use crate::{utils::MDotAction, window::imp::MDotWindow};
+use crate::{
+    constants::NEWPROJ_SCREEN_NAME, project::Project, utils::MDotAction, window::imp::MDotWindow,
+};
 
 pub struct MkProjAction;
 
 impl MDotAction for MkProjAction {
-    const NAME: &'static str = "mkproj";
-
     type InnerCallerType = MDotWindow;
+
+    fn name(&self) -> &'static str {
+        "newproj"
+    }
 
     fn handle_activate(
         &self,
         caller: &Self::InnerCallerType,
-        text: &str,
-        variant: Option<&Variant>,
+        _: &str,
+        _: Option<&gtk::glib::Variant>,
     ) {
-        // TODO
+        caller
+            .page_stack
+            .set_visible_child_name(NEWPROJ_SCREEN_NAME);
+        caller.project.set(Project::default());
     }
 }

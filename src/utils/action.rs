@@ -6,7 +6,7 @@ use gtk::glib::Variant;
 pub trait MDotAction {
     /// The action's name. Please remove the first part of said name and keep
     /// only the last one.
-    const NAME: &'static str;
+    fn name(&self) -> &'static str;
 
     /// The type of the thing that will use the action. Said type must implement
     /// the [ObjectSubclass] trait.

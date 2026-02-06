@@ -1,4 +1,4 @@
-use std::cell::OnceCell;
+use std::cell::RefCell;
 
 use adw::{HeaderBar, SplitButton, subclass::prelude::*};
 use gtk::{
@@ -6,13 +6,13 @@ use gtk::{
     glib::{self, subclass::InitializingObject},
 };
 
-use crate::project::Project;
+use crate::{project::Project, window::actions::mk_actions};
 
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/window.ui")]
 pub struct MDotWindow {
     // logic-related elements (like app settings)
-    pub project: OnceCell<Project>,
+    pub project: RefCell<Project>,
 
     // template macro components
     #[template_child]
@@ -55,7 +55,10 @@ impl ObjectSubclass for MDotWindow {
     fn class_init(klass: &mut Self::Class) {
         // link the template file to our window class
         klass.bind_template();
-        // TODO add actions
+        // installing GActions
+        for action in mk_actions() {
+            klass.install_action(action.name(), None, |window, text, variant| {});
+        }
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {
