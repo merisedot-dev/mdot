@@ -1,13 +1,18 @@
+use std::cell::OnceCell;
+
 use adw::{HeaderBar, SplitButton, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
     glib::{self, subclass::InitializingObject},
 };
 
+use crate::project::Project;
+
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/window.ui")]
 pub struct MDotWindow {
-    // TODO logic-related elements (like app settings)
+    // logic-related elements (like app settings)
+    pub project: OnceCell<Project>,
 
     // template macro components
     #[template_child]

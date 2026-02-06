@@ -1,3 +1,4 @@
+mod actions;
 mod imp;
 
 use adw::{Application, subclass::prelude::ObjectSubclassIsExt};

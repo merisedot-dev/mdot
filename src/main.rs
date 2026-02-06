@@ -1,6 +1,7 @@
 pub(crate) mod config;
 pub(crate) mod constants;
 pub(crate) mod project;
+pub(crate) mod utils;
 pub(crate) mod window;
 
 use adw::Application;
@@ -32,6 +33,7 @@ fn main() -> glib::ExitCode {
     // startup watchdog
     app.connect_startup(|_| {
         info!("startup");
+        // TODO maybe we'll need to compile extra interfaces
     });
 
     // activation watchdog
