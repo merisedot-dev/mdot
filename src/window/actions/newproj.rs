@@ -24,6 +24,6 @@ impl MDotAction for MkProjAction {
         caller
             .page_stack
             .set_visible_child_name(NEWPROJ_SCREEN_NAME);
-        caller.project.set(Project::default());
+        caller.project.set(Project::default()); // replacing project
     }
 }

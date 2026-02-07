@@ -106,7 +106,7 @@
                               <object class="GtkGrid">
                                 <property name="column-homogeneous">True</property>
                                 <property name="column-spacing">8</property>
-                                <property name="halign">end</property>
+                                <property name="halign">center</property>
                                 <property name="row-spacing">8</property>
                                 <child>
                                   <object class="GtkLabel">
@@ -182,6 +182,26 @@
                                       <property name="column">1</property>
                                       <property name="column-span">3</property>
                                       <property name="row">1</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="cancel_btn">
+                                    <property name="action-name">win.cancel</property>
+                                    <property name="label" translatable="yes">__Cancel</property>
+                                    <layout>
+                                      <property name="column">0</property>
+                                      <property name="row">3</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="validate_btn">
+                                    <property name="action-name">win.validate</property>
+                                    <property name="label" translatable="yes">__Validate</property>
+                                    <layout>
+                                      <property name="column">2</property>
+                                      <property name="row">3</property>
                                     </layout>
                                   </object>
                                 </child>
