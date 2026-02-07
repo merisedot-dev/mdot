@@ -4,6 +4,8 @@ use crate::{
     constants::NEWPROJ_SCREEN_NAME, project::Project, utils::MDotAction, window::imp::MDotWindow,
 };
 
+/// win.mkproj GAction fixing struct. As for it and the others, it will just be
+/// used to fix the operation, no associated value required.
 pub struct MkProjAction;
 
 impl MDotAction for MkProjAction {
