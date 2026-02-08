@@ -1,8 +1,6 @@
 use gtk::glib::Variant;
 
-pub trait MDotActable {
-    type InnerCallerType;
-}
+use crate::utils::MDotActable;
 
 /// Encapsulation trait, this will define how a GTK-related action will behave
 /// here. Please keep in mind that an action may not be suited to be ported over

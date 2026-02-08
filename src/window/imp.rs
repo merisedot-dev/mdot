@@ -61,7 +61,6 @@ impl ObjectSubclass for MDotWindow {
                 action.handle_activate(win, txt, var);
             });
         }
-        // TODO installing dialog windows
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {
@@ -69,7 +68,7 @@ impl ObjectSubclass for MDotWindow {
     }
 }
 
-// gobject core trait
+// GObject core trait
 impl ObjectImpl for MDotWindow {
     fn constructed(&self) {
         // super() call
@@ -78,6 +77,8 @@ impl ObjectImpl for MDotWindow {
         let obj = self.obj();
         info!("Loading default values");
         obj.set_defaults();
+        info!("Setting up click-specific handlers");
+        // TODO define click-handlers
     }
 }
 
