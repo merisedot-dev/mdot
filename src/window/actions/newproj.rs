@@ -1,15 +1,22 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib::property::PropertySet;
 
-use crate::{constants::NEWPROJ_SCREEN_NAME, project::Project, utils::MDotAction, window::Window};
+use crate::{
+    constants::NEWPROJ_SCREEN_NAME,
+    project::Project,
+    utils::{MDotActable, MDotAction},
+    window::Window,
+};
 
 /// win.mkproj GAction fixing struct. As for it and the others, it will just be
 /// used to fix the operation, no associated value required.
 pub struct MkProjAction;
 
-impl MDotAction for MkProjAction {
+impl MDotActable for MkProjAction {
     type InnerCallerType = Window;
+}
 
+impl MDotAction for MkProjAction {
     fn name(&self) -> &'static str {
         "win.mkproj"
     }

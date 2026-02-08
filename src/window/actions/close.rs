@@ -1,12 +1,18 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
 
-use crate::{constants::DEFAULT_SCREEN_NAME, utils::MDotAction, window::Window};
+use crate::{
+    constants::DEFAULT_SCREEN_NAME,
+    utils::{MDotActable, MDotAction},
+    window::Window,
+};
 
 pub struct CloseAction;
 
-impl MDotAction for CloseAction {
+impl MDotActable for CloseAction {
     type InnerCallerType = Window;
+}
 
+impl MDotAction for CloseAction {
     fn name(&self) -> &'static str {
         "win.close"
     }

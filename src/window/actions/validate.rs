@@ -1,12 +1,18 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
 
-use crate::{constants::WORKS_SCREEN_NAME, utils::MDotAction, window::Window};
+use crate::{
+    constants::WORKS_SCREEN_NAME,
+    utils::{MDotActable, MDotAction},
+    window::Window,
+};
 
 pub struct ValidateAction;
 
-impl MDotAction for ValidateAction {
+impl MDotActable for ValidateAction {
     type InnerCallerType = Window;
+}
 
+impl MDotAction for ValidateAction {
     fn name(&self) -> &'static str {
         "win.validate"
     }
