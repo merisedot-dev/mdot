@@ -1,9 +1,11 @@
-use crate::{constants::WORKS_SCREEN_NAME, utils::MDotAction, window::imp::MDotWindow};
+use adw::subclass::prelude::ObjectSubclassIsExt;
+
+use crate::{constants::WORKS_SCREEN_NAME, utils::MDotAction, window::Window};
 
 pub struct ValidateAction;
 
 impl MDotAction for ValidateAction {
-    type InnerCallerType = MDotWindow;
+    type InnerCallerType = Window;
 
     fn name(&self) -> &'static str {
         "win.validate"
@@ -15,11 +17,14 @@ impl MDotAction for ValidateAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
-        let proj = caller.project.borrow_mut();
+        let proj = caller.imp().project.borrow_mut();
         // TODO ensure all data is loaded
         // check if project is valid
         if proj.is_valid() {
-            caller.page_stack.set_visible_child_name(WORKS_SCREEN_NAME);
+            caller
+                .imp()
+                .page_stack
+                .set_visible_child_name(WORKS_SCREEN_NAME);
             // TODO check for additional actions to fire
         }
     }

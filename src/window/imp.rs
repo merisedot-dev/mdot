@@ -1,10 +1,11 @@
 use std::cell::RefCell;
 
-use adw::{HeaderBar, SplitButton, subclass::prelude::*};
+use adw::{SplitButton, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
     glib::{self, subclass::InitializingObject},
 };
+use tracing::info;
 
 use crate::{project::Project, window::actions::mk_actions};
 
@@ -15,8 +16,6 @@ pub struct MDotWindow {
     pub project: RefCell<Project>,
 
     // template macro components
-    #[template_child]
-    pub header: TemplateChild<HeaderBar>,
     #[template_child]
     pub page_stack: TemplateChild<Stack>,
 
@@ -58,8 +57,8 @@ impl ObjectSubclass for MDotWindow {
         // installing GActions
         for action in mk_actions() {
             klass.install_action(action.name(), None, move |win, txt, var| {
-                let imp = win.imp(); // fetch window implementation
-                action.handle_activate(imp, txt, var); // apply action
+                // do not prefetch implementation
+                action.handle_activate(win, txt, var);
             });
         }
     }
@@ -76,7 +75,8 @@ impl ObjectImpl for MDotWindow {
         self.parent_constructed();
         // inner setup
         let obj = self.obj();
-        obj.set_defaults(); // loading default values
+        info!("Loading default values");
+        obj.set_defaults();
     }
 }
 

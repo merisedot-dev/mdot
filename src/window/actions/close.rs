@@ -1,9 +1,11 @@
-use crate::{constants::DEFAULT_SCREEN_NAME, utils::MDotAction, window::imp::MDotWindow};
+use adw::subclass::prelude::ObjectSubclassIsExt;
+
+use crate::{constants::DEFAULT_SCREEN_NAME, utils::MDotAction, window::Window};
 
 pub struct CloseAction;
 
 impl MDotAction for CloseAction {
-    type InnerCallerType = MDotWindow;
+    type InnerCallerType = Window;
 
     fn name(&self) -> &'static str {
         "win.close"
@@ -15,7 +17,10 @@ impl MDotAction for CloseAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
-        caller.page_stack.set_visible_child_name(DEFAULT_SCREEN_NAME);
+        caller
+            .imp()
+            .page_stack
+            .set_visible_child_name(DEFAULT_SCREEN_NAME);
         // TODO tweak project
     }
 }

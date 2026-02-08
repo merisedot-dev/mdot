@@ -10,7 +10,7 @@
       <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
-          <object class="AdwHeaderBar" id="header">
+          <object class="AdwHeaderBar">
             <child>
               <object class="AdwSplitButton" id="open_btn">
                 <property name="action-name">win.open</property>
@@ -164,6 +164,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="path_picker">
+                                    <property name="action-name">win.pick_proj</property>
                                     <property name="child">
                                       <object class="GtkBox">
                                         <child>

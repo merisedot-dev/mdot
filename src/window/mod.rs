@@ -3,7 +3,7 @@ mod imp;
 
 use adw::{Application, subclass::prelude::ObjectSubclassIsExt};
 use gtk::{
-    gio,
+    gio::{self},
     glib::{self, Object},
 };
 

@@ -1,12 +1,21 @@
-use gtk::{glib, glib::Properties, subclass::prelude::*};
+use std::{cell::RefCell, collections::HashMap};
+
+use gtk::{glib, glib::Properties, prelude::*, subclass::prelude::*};
+use serde::{Deserialize, Serialize};
+
+#[derive(Clone, Default, Serialize, Deserialize)]
+pub struct ProjectData {
+    pub name: String,
+    pub path: String,
+    pub files: HashMap<String, String>,
+}
 
 #[derive(Default, Properties)]
 #[properties(wrapper_type=super::Project)]
 pub struct MDotProject {
-    pub name: String,
-    // TODO define project index information
-    // TODO define path map
-    // TODO find a way to save files hash (just for safety)
+    #[property(name="name", get, set, type = String, member = name)]
+    #[property(name="path", get, set, type = String, member = path)]
+    pub data: RefCell<ProjectData>,
 }
 
 // subclassing trait
