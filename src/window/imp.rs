@@ -57,10 +57,11 @@ impl ObjectSubclass for MDotWindow {
         // installing GActions
         for action in mk_actions() {
             klass.install_action(action.name(), None, move |win, txt, var| {
-                // do not prefetch implementation
+                // do NOT prefetch implementation
                 action.handle_activate(win, txt, var);
             });
         }
+        // TODO installing dialog windows
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {

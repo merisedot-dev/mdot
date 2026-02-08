@@ -1,4 +1,4 @@
-use std::{cell::RefCell, collections::HashMap};
+use std::{cell::RefCell, collections::HashMap, path::PathBuf};
 
 use gtk::{glib, glib::Properties, prelude::*, subclass::prelude::*};
 use serde::{Deserialize, Serialize};
@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Serialize, Deserialize)]
 pub struct ProjectData {
     pub name: String,
-    pub path: String,
+    pub path: PathBuf,
     pub files: HashMap<String, String>,
 }
 
@@ -14,7 +14,7 @@ pub struct ProjectData {
 #[properties(wrapper_type=super::Project)]
 pub struct MDotProject {
     #[property(name="name", get, set, type = String, member = name)]
-    #[property(name="path", get, set, type = String, member = path)]
+    #[property(name="path", get, set, type = PathBuf, member = path)]
     pub data: RefCell<ProjectData>,
 }
 

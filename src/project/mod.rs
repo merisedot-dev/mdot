@@ -18,6 +18,6 @@ impl Default for Project {
 impl Project {
     pub fn is_valid(&self) -> bool {
         let proj = self.imp().data.borrow();
-        proj.name != "" && proj.path != "" // TODO other checks
+        proj.name != "" // TODO other checks
     }
 }
