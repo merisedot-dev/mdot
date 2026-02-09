@@ -3,5 +3,5 @@
 <!-- Created with Cambalache 0.96.3 -->
 <cambalache-project version="0.96.0" target_tk="gtk-4.0">
   <gresources filename="mdot.gresource.xml" sha256="74a6bc7411c85952b12e1f148f178608a9269673344975660e04af05ef2068d1"/>
-  <ui template-class="MDotWindow" filename="window.ui" sha256="021c4b6a940d4f9feca1dd3cfb7e8b3f9df4927a57214267ab50ca0b7b873ad0"/>
+  <ui template-class="MDotWindow" filename="window.ui" sha256="7c1a387e49706dbab4cfb93494dac3c756c167466154419a0374089e64650ba3"/>
 </cambalache-project>

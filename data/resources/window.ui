@@ -164,6 +164,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="path_picker">
+                                    <property name="action-name">win.pick_proj</property>
                                     <property name="child">
                                       <object class="GtkBox">
                                         <child>
