@@ -7,3 +7,4 @@ pub trait MDotActable {
 
 // re-exports
 pub(crate) use action::*;
+pub(crate) use dialog::*;
