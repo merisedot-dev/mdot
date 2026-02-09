@@ -3,7 +3,7 @@ use std::cell::RefCell;
 use adw::{SplitButton, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
-    glib::{self, subclass::InitializingObject},
+    glib::{self, clone, subclass::InitializingObject},
 };
 use tracing::info;
 
@@ -68,7 +68,7 @@ impl ObjectSubclass for MDotWindow {
                 action.handle_activate(win, txt, var);
             });
         }
-        // TODO async actions
+        // async actions
         for dialog in mk_dialogs() {
             let dial = match dialog {
                 DialogPopups::PICKPROJ(dial) => dial,
@@ -76,9 +76,9 @@ impl ObjectSubclass for MDotWindow {
             klass.install_action_async(
                 dial.clone().name(),
                 None,
-                |caller_window, _, _| async move {
-                    // FIXME why can't I use dial
-                },
+                clone!(move |caller_window, _, _| async move {
+                    dial.handle_dialog(caller_window).await;
+                }),
             );
         }
     }

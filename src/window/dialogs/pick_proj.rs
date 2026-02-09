@@ -26,12 +26,14 @@ impl MDotDialog for PickProjDialog {
         let filters = ListStore::new::<FileFilter>();
         let proj_filter = FileFilter::new();
         proj_filter.add_suffix(".mrsdproj");
+        proj_filter.set_name(Some("Project file"));
         filters.append(&proj_filter);
 
         // build dialog popup
         let dialog = FileDialog::builder()
             .title("Choose a Project")
             .accept_label("Open")
+            .modal(true)
             .filters(&filters)
             .build();
 
