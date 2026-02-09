@@ -7,7 +7,14 @@ use gtk::{
 };
 use tracing::info;
 
-use crate::{project::Project, window::actions::mk_actions};
+use crate::{
+    project::Project,
+    utils::*,
+    window::{
+        actions::mk_actions,
+        dialogs::{DialogPopups, mk_dialogs},
+    },
+};
 
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/window.ui")]
@@ -62,6 +69,18 @@ impl ObjectSubclass for MDotWindow {
             });
         }
         // TODO async actions
+        for dialog in mk_dialogs() {
+            let dial = match dialog {
+                DialogPopups::PICKPROJ(dial) => dial,
+            };
+            klass.install_action_async(
+                dial.clone().name(),
+                None,
+                |caller_window, _, _| async move {
+                    // FIXME why can't I use dial
+                },
+            );
+        }
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {

@@ -9,6 +9,7 @@ use crate::{
     window::Window,
 };
 
+#[derive(Clone, Copy)]
 pub struct PickProjDialog;
 
 impl MDotActable for PickProjDialog {
@@ -16,6 +17,10 @@ impl MDotActable for PickProjDialog {
 }
 
 impl MDotDialog for PickProjDialog {
+    fn name(&self) -> &'static str {
+        "win.pick_proj"
+    }
+
     async fn handle_dialog(&self, caller: Self::InnerCallerType) {
         // build filters
         let filters = ListStore::new::<FileFilter>();
