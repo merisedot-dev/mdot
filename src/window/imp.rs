@@ -61,6 +61,7 @@ impl ObjectSubclass for MDotWindow {
                 action.handle_activate(win, txt, var);
             });
         }
+        // TODO async actions
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {
@@ -77,8 +78,6 @@ impl ObjectImpl for MDotWindow {
         let obj = self.obj();
         info!("Loading default values");
         obj.set_defaults();
-        info!("Setting up click-specific handlers");
-        // TODO define click-handlers
     }
 }
 
