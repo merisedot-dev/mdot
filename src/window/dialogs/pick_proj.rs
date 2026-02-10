@@ -1,32 +1,21 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
-use gtk::{
-    FileDialog, FileFilter,
-    gio::{ListStore, prelude::FileExt},
-    glib::Variant,
-};
+use gtk::{FileDialog, gio::prelude::FileExt, glib::Variant};
 
 use crate::window::Window;
 
 pub const PICKPROJ_NAME: &'static str = "win.pick_proj";
 
 pub async fn pickproj_dialog(caller: Window, _: String, _: Option<Variant>) {
-    // build filters
-    let filters = ListStore::new::<FileFilter>();
-    let proj_filter = FileFilter::new();
-    proj_filter.add_suffix(".mrsdproj");
-    proj_filter.set_name(Some("Project file"));
-    filters.append(&proj_filter);
-
-    // build dialog popup
+    // fetch dialog
     let dialog = FileDialog::builder()
-        .title("Choose a Project")
-        .accept_label("Open")
+        .title("Project location")
+        .accept_label("Choose")
         .modal(true)
-        .filters(&filters)
         .build();
 
-    if let Ok(file) = dialog.save_future(Some(&caller.clone())).await {
-        // save to MDot project
+    // fetch directory info with the popup
+    if let Ok(file) = dialog.select_folder_future(Some(&caller)).await {
+        // set project file information
         caller
             .imp()
             .project
