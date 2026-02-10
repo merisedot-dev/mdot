@@ -1,5 +1,4 @@
 mod action;
-mod dialog;
 mod files;
 
 pub trait MDotActable {
@@ -8,5 +7,3 @@ pub trait MDotActable {
 
 // re-exports
 pub(crate) use action::*;
-pub(crate) use dialog::*;
-pub(crate) use files::*;

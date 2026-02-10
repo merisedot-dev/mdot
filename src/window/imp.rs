@@ -3,16 +3,15 @@ use std::cell::RefCell;
 use adw::{SplitButton, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
-    glib::{self, clone, subclass::InitializingObject},
+    glib::{self, subclass::InitializingObject},
 };
 use tracing::info;
 
 use crate::{
     project::Project,
-    utils::*,
     window::{
         actions::mk_actions,
-        dialogs::{DialogPopups, mk_dialogs},
+        dialogs::{PICKPROJ_NAME, pickproj_dialog},
     },
 };
 
@@ -68,19 +67,8 @@ impl ObjectSubclass for MDotWindow {
                 action.handle_activate(win, txt, var);
             });
         }
-        // async actions
-        for dialog in mk_dialogs() {
-            let dial = match dialog {
-                DialogPopups::PICKPROJ(dial) => dial,
-            };
-            klass.install_action_async(
-                dial.clone().name(),
-                None,
-                clone!(move |caller_window, _, _| async move {
-                    dial.handle_dialog(caller_window).await;
-                }),
-            );
-        }
+        // project-picker popup
+        klass.install_action_async(PICKPROJ_NAME, None, pickproj_dialog);
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {
