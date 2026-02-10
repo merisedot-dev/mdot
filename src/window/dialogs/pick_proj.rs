@@ -37,7 +37,7 @@ impl MDotDialog for PickProjDialog {
             .filters(&filters)
             .build();
 
-        if let Ok(file) = dialog.open_future(Some(&caller.clone())).await {
+        if let Ok(file) = dialog.save_future(Some(&caller.clone())).await {
             // save to MDot project
             caller
                 .imp()

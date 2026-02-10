@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 pub struct ProjectData {
     pub name: String,
     pub path: PathBuf,
-    pub files: HashMap<String, String>,
+    pub files: HashMap<String, PathBuf>,
 }
 
 #[derive(Default, Properties)]
