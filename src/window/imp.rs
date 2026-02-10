@@ -11,7 +11,7 @@ use crate::{
     project::Project,
     window::{
         actions::mk_actions,
-        dialogs::{PICKPROJ_NAME, pickproj_dialog},
+        dialogs::{OPEN_NAME, PICKPROJ_NAME, open_dialog, pickproj_dialog},
     },
 };
 
@@ -67,8 +67,9 @@ impl ObjectSubclass for MDotWindow {
                 action.handle_activate(win, txt, var);
             });
         }
-        // project-picker popup
+        // install async actions
         klass.install_action_async(PICKPROJ_NAME, None, pickproj_dialog);
+        klass.install_action_async(OPEN_NAME, None, open_dialog);
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {
