@@ -5,6 +5,7 @@ pub(crate) mod utils;
 pub(crate) mod window;
 
 use adw::Application;
+use gettextrs::{LocaleCategory, bind_textdomain_codeset, bindtextdomain, setlocale, textdomain};
 use gtk::{
     gio::{
         Resource,
@@ -16,14 +17,21 @@ use gtk::{
 };
 use tracing::info;
 
-use crate::{
-    config::{app_id, resources_file},
-    window::Window,
-};
+use crate::{config::*, window::Window};
+
+fn i18n_init() {
+    setlocale(LocaleCategory::LcAll, "");
+    bindtextdomain(gettext_package(), localedir())
+        .expect("Unable to bind the merisedot text domain");
+    bind_textdomain_codeset(gettext_package(), "UTF-8")
+        .expect("Unable to set text domain encoding");
+    textdomain(gettext_package()).expect("Unable to switch to text domain");
+}
 
 fn main() -> glib::ExitCode {
     // logs setup (because logs are good)
     tracing_subscriber::fmt().init();
+    i18n_init();
 
     // building app with resources
     let res = Resource::load(resources_file()).expect("Could not load resource");

@@ -1,4 +1,5 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
+use gettextrs::gettext;
 use gtk::{
     FileDialog, FileFilter,
     gio::{Cancellable, ListStore, prelude::FileExt},
@@ -14,14 +15,14 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
     let filters = ListStore::new::<FileFilter>();
     let proj_filter = FileFilter::new();
     proj_filter.add_suffix("*.mrsproj");
-    proj_filter.set_name(Some("MDOT Project"));
+    proj_filter.set_name(Some(gettext("__MDOTProject").as_str()));
     filters.append(&proj_filter);
 
     // build dialog
     let dialog = FileDialog::builder()
-        .title("Open project")
+        .title(gettext("__Selectproject"))
         .filters(&filters)
-        .accept_label("Open")
+        .accept_label(gettext("__Open"))
         .modal(true)
         .build();
 

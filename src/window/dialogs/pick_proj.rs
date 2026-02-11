@@ -1,4 +1,5 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
+use gettextrs::gettext;
 use gtk::{FileDialog, gio::prelude::FileExt, glib::Variant};
 
 use crate::window::Window;
@@ -8,8 +9,8 @@ pub const PICKPROJ_NAME: &'static str = "win.pick_proj";
 pub async fn pickproj_dialog(caller: Window, _: String, _: Option<Variant>) {
     // fetch dialog
     let dialog = FileDialog::builder()
-        .title("Project location")
-        .accept_label("Choose")
+        .title(gettext("__Projectlocation"))
+        .accept_label(gettext("__Choose"))
         .modal(true)
         .build();
 

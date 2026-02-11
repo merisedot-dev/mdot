@@ -2,6 +2,7 @@ project('merisedot', 'rust', version: '0.1.0', meson_version: '>= 1.4')
 
 # imports
 gnome = import('gnome')
+i18n = import('i18n')
 
 # Application ID (basic level)
 base_id = 'com.github.merisedotdev.mdot'
@@ -24,8 +25,8 @@ pkgdatadir = datadir / meson.project_name()
 
 # build subdirectories
 subdir('data') # fetch extra build info
+subdir('po') # Translation files
 subdir('src') # build the damn code
-# TODO loading translations
 
 # Post-Install phase
 gnome.post_install(
