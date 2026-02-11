@@ -86,7 +86,7 @@ impl ObjectImpl for MDotWindow {
     }
 }
 
-// gtk widget core trait
+// GTK widget core trait
 impl WidgetImpl for MDotWindow {}
 
 // window core traits
