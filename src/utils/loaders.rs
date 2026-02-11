@@ -18,7 +18,7 @@ pub fn i18n_init() {
 pub fn load_css() {
     // fetch CSS content
     let provider = CssProvider::new();
-    provider.load_from_resource("/com/github.merisedotdev/mdot/mdot.css");
+    provider.load_from_resource("/com/github/merisedotdev/mdot/mdot.css");
 
     // slot that CSS in the app
     style_context_add_provider_for_display(

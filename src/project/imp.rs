@@ -3,6 +3,8 @@ use std::{cell::RefCell, path::PathBuf};
 use gtk::{glib, glib::Properties, prelude::*, subclass::prelude::*};
 use serde::{Deserialize, Serialize};
 
+/// Inner project data for MeriseDot. It is more of a placeholder struct, as the
+/// true data will be held by the inner library.
 #[derive(Clone, Default, Serialize, Deserialize)]
 pub struct ProjectData {
     pub name: String,
@@ -11,6 +13,8 @@ pub struct ProjectData {
     // TODO define from<JSON> implementation
 }
 
+/// GTK implementor, it will be a storefront and value logic checker for the
+/// [ProjectData] struct.
 #[derive(Default, Properties)]
 #[properties(wrapper_type=super::Project)]
 pub struct MDotProject {
