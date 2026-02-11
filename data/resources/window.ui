@@ -38,7 +38,7 @@
             </child>
             <child type="end">
               <object class="GtkButton" id="newfile_btn">
-                <property name="action-name">win.mkfile</property>
+                <property name="action-name">win.mkgraph</property>
                 <property name="icon-name">list-add-symbolic</property>
               </object>
             </child>
@@ -256,7 +256,7 @@
       <attribute name="label" translatable="yes">__Openproject</attribute>
     </item>
     <section>
-      <attribute name="label" translatable="yes">__MkFile</attribute>
+      <attribute name="label" translatable="yes">__MkGraph</attribute>
       <item>
         <attribute name="action">win.add_db</attribute>
         <attribute name="label" translatable="yes">__AddDB</attribute>

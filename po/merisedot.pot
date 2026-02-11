@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-07 10:31+0100\n"
+"POT-Creation-Date: 2026-02-11 08:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/resources/window.ui:17 data/resources/window.ui:255
+#: data/resources/window.ui:17 data/resources/window.ui:256
 msgid "__Openproject"
 msgstr ""
 
-#: data/resources/window.ui:102 data/resources/window.ui:251
+#: data/resources/window.ui:102 data/resources/window.ui:252
 msgid "__Newproject"
 msgstr ""
 
@@ -37,30 +37,30 @@ msgstr ""
 msgid "__Projlocation"
 msgstr ""
 
-#: data/resources/window.ui:191
+#: data/resources/window.ui:192
 msgid "__Cancel"
 msgstr ""
 
-#: data/resources/window.ui:201
+#: data/resources/window.ui:202
 msgid "__Validate"
 msgstr ""
 
-#: data/resources/window.ui:258
-msgid "__MkFile"
+#: data/resources/window.ui:259
+msgid "__MkGraph"
 msgstr ""
 
-#: data/resources/window.ui:261
+#: data/resources/window.ui:262
 msgid "__AddDB"
 msgstr ""
 
-#: data/resources/window.ui:265
+#: data/resources/window.ui:266
 msgid "__AddScript"
 msgstr ""
 
-#: data/resources/window.ui:271
+#: data/resources/window.ui:272
 msgid "__Save"
 msgstr ""
 
-#: data/resources/window.ui:275
+#: data/resources/window.ui:276
 msgid "__Close"
 msgstr ""

@@ -1,4 +1,4 @@
-use std::{cell::RefCell, collections::HashMap, path::PathBuf};
+use std::{cell::RefCell, path::PathBuf};
 
 use gtk::{glib, glib::Properties, prelude::*, subclass::prelude::*};
 use serde::{Deserialize, Serialize};
@@ -7,7 +7,8 @@ use serde::{Deserialize, Serialize};
 pub struct ProjectData {
     pub name: String,
     pub path: PathBuf,
-    pub files: HashMap<String, PathBuf>,
+    // TODO add relevant graph data
+    // TODO define from<JSON> implementation
 }
 
 #[derive(Default, Properties)]

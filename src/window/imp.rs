@@ -9,10 +9,7 @@ use tracing::info;
 
 use crate::{
     project::Project,
-    window::{
-        actions::mk_actions,
-        dialogs::{OPEN_NAME, PICKPROJ_NAME, open_dialog, pickproj_dialog},
-    },
+    window::{actions::mk_actions, dialogs::*},
 };
 
 #[derive(CompositeTemplate, Default)]
