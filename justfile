@@ -13,5 +13,5 @@ mkprod: # build production-ready binary
 fetchtxt: # define a potfile from sources
     xgettext --files-from=po/POTFILES.in --output=po/merisedot.pot
 
-translate: # define a po translation file from pot file
-    msginit -i po/merisedot.pot -o po/$1 -l $1.UTF-8
+translate lang: # define a po translation file from pot file
+    msginit -i po/merisedot.pot -o po/{{lang}}.po -l {{lang}}.UTF-8

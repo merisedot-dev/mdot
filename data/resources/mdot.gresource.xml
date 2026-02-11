@@ -3,5 +3,6 @@
 <gresources>
   <gresource prefix="/com/github/merisedotdev/mdot">
     <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
+    <file compressed="true">mdot.css</file>
   </gresource>
 </gresources>

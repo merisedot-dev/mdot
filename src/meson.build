@@ -27,6 +27,7 @@ custom_target(
     'GETTEXT_PACKAGE': meson.project_name(),
     'LOCALEDIR': localedir,
     'RESOURCES_FILE': pkgdatadir / 'mdot.gresource',
+    'RUST_LOG': 'info',
   },
   command: [
     cargo,
