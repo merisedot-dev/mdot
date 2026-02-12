@@ -1,7 +1,6 @@
 pub(crate) mod config;
 pub(crate) mod constants;
 pub(crate) mod project;
-pub(crate) mod toolbar;
 pub(crate) mod utils;
 pub(crate) mod window;
 
@@ -39,7 +38,7 @@ fn main() -> glib::ExitCode {
     app.connect_startup(|_| {
         info!("startup");
         load_css();
-        // TODO maybe we'll need to compile extra interfaces
+        info!("Loaded css");
     });
 
     // activation watchdog

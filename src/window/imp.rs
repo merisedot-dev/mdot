@@ -21,6 +21,9 @@ pub struct MDotWindow {
     // template macro components
     #[template_child]
     pub page_stack: TemplateChild<Stack>,
+    // TODO define extra components
+    #[template_child]
+    pub graph_drawing: TemplateChild<DrawingArea>,
 
     // header controls
     #[template_child]
@@ -41,10 +44,6 @@ pub struct MDotWindow {
     pub path_picker: TemplateChild<Button>,
     #[template_child]
     pub path_lbl: TemplateChild<Label>,
-
-    // workspace controls
-    #[template_child]
-    pub graph_drawing: TemplateChild<DrawingArea>,
 }
 
 // subclassing our window
