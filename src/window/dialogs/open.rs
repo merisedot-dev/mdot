@@ -29,7 +29,7 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
     // call upon file dialog
     if let Ok(file) = dialog.open_future(Some(&caller)).await {
         // fetch informations from project file
-        let content = match file.read(Cancellable::NONE) {
+        let _content = match file.read(Cancellable::NONE) {
             Ok(content) => content,
             _ => {
                 // no file info, returning

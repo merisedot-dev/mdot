@@ -16,11 +16,23 @@ pub async fn pickproj_dialog(caller: Window, _: String, _: Option<Variant>) {
 
     // fetch directory info with the popup
     if let Ok(file) = dialog.select_folder_future(Some(&caller)).await {
+        let proj_filepath = match file.path() {
+            Some(path) => path,
+            _ => {
+                // no use in continuing
+                return;
+            }
+        };
         // set project file information
         caller
             .imp()
             .project
-            .borrow_mut()
-            .set_path(file.path().unwrap_or_default());
+            .borrow()
+            .set_path(proj_filepath.clone());
+        // tweak file picker label
+        caller
+            .imp()
+            .path_lbl
+            .set_text(proj_filepath.to_str().unwrap_or_default());
     }
 }

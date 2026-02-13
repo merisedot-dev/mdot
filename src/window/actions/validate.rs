@@ -1,4 +1,5 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
+use gtk::prelude::EditableExt;
 
 use crate::{
     constants::WORKS_SCREEN_NAME,
@@ -23,8 +24,9 @@ impl MDotAction for ValidateAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
-        let proj = caller.imp().project.borrow_mut();
+        let proj = caller.imp().project.borrow();
         // TODO ensure all data is loaded
+        proj.set_name(caller.imp().proj_name.text());
         // check if project is valid
         if proj.is_valid() {
             caller

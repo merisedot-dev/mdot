@@ -11,11 +11,18 @@ impl ObjectSubclass for MDotEditionPanel {
     const NAME: &'static str = "MDotEditionPanel";
     type Type = super::EditionPanel;
     type ParentType = Box;
+
+    fn class_init(klass: &mut Self::Class) {
+        // link the template file
+        klass.bind_template();
+        // TODO define actions (no async actions here)
+    }
 }
 
 // main GObject trait
 impl ObjectImpl for MDotEditionPanel {
     fn constructed(&self) {
+        // parent constructor, always
         self.parent_constructed();
     }
 }
