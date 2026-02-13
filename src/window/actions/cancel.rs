@@ -21,7 +21,9 @@ impl MDotAction for CancelAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
-        // back to main page
+        // TODO erase information from form widgets
+        caller.clear_form();
+        // jump back to main page
         caller.set_screen(DEFAULT_SCREEN_NAME);
     }
 }

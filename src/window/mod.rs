@@ -6,6 +6,7 @@ use adw::{Application, subclass::prelude::ObjectSubclassIsExt};
 use gtk::{
     gio::{self},
     glib::{self, Object},
+    prelude::EditableExt,
 };
 
 use crate::constants::DEFAULT_SCREEN_NAME;
@@ -39,5 +40,10 @@ impl Window {
         self.imp()
             .page_stack
             .set_visible_child_name(name.to_string().as_str());
+    }
+
+    pub fn clear_form(&self) {
+        self.imp().path_lbl.set_label(""); // no more path label
+        self.imp().proj_name.set_text(""); // no more project name
     }
 }
