@@ -6,7 +6,10 @@ use gtk::{
     glib::Variant,
 };
 
-use crate::{constants::WORKS_SCREEN_NAME, window::Window};
+use crate::{
+    constants::{PROJ_FILE_EXTENSION, WORKS_SCREEN_NAME},
+    window::Window,
+};
 
 pub const OPEN_NAME: &'static str = "win.open";
 
@@ -14,7 +17,7 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
     // build filters
     let filters = ListStore::new::<FileFilter>();
     let proj_filter = FileFilter::new();
-    proj_filter.add_suffix("*.mrsproj");
+    proj_filter.add_suffix(format!("*.{}", PROJ_FILE_EXTENSION).as_str());
     proj_filter.set_name(Some(gettext("__MDOTProject").as_str()));
     filters.append(&proj_filter);
 

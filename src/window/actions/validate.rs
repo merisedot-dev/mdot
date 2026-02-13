@@ -29,11 +29,12 @@ impl MDotAction for ValidateAction {
         proj.set_name(caller.imp().proj_name.text());
         // check if project is valid
         if proj.is_valid() {
-            caller
-                .imp()
-                .page_stack
-                .set_visible_child_name(WORKS_SCREEN_NAME);
-            // TODO check for additional actions to fire
+            caller.set_screen(WORKS_SCREEN_NAME);
+            // ensure project file exists
+            if !proj.filepath().exists() {
+                // TODO create new file
+                // nothing to write in it for now
+            }
         }
     }
 }

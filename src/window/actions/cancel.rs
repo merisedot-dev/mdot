@@ -4,15 +4,15 @@ use crate::{
     window::Window,
 };
 
-pub struct CloseAction;
+pub struct CancelAction;
 
-impl MDotActable for CloseAction {
+impl MDotActable for CancelAction {
     type InnerCallerType = Window;
 }
 
-impl MDotAction for CloseAction {
+impl MDotAction for CancelAction {
     fn name(&self) -> &'static str {
-        "win.close"
+        "win.cancel"
     }
 
     fn handle_activate(
@@ -21,7 +21,7 @@ impl MDotAction for CloseAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
+        // back to main page
         caller.set_screen(DEFAULT_SCREEN_NAME);
-        // TODO tweak project
     }
 }

@@ -27,10 +27,7 @@ impl MDotAction for MkProjAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
-        caller
-            .imp()
-            .page_stack
-            .set_visible_child_name(NEWPROJ_SCREEN_NAME);
+        caller.set_screen(NEWPROJ_SCREEN_NAME);
         caller.imp().project.set(Project::default()); // replacing project with default
     }
 }

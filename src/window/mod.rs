@@ -32,8 +32,12 @@ impl Window {
     /// Setting up window default values. It is meant to be called at launch.
     fn set_defaults(&self) {
         // load default app screen
+        self.set_screen(DEFAULT_SCREEN_NAME);
+    }
+
+    pub fn set_screen(&self, name: impl ToString) {
         self.imp()
             .page_stack
-            .set_visible_child_name(DEFAULT_SCREEN_NAME);
+            .set_visible_child_name(name.to_string().as_str());
     }
 }

@@ -18,10 +18,7 @@ pub async fn pickproj_dialog(caller: Window, _: String, _: Option<Variant>) {
     if let Ok(file) = dialog.select_folder_future(Some(&caller)).await {
         let proj_filepath = match file.path() {
             Some(path) => path,
-            _ => {
-                // no use in continuing
-                return;
-            }
+            _ => return, // no use continuing
         };
         // set project file information
         caller

@@ -5,6 +5,8 @@ use std::path::PathBuf;
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib::{self, Object};
 
+use crate::constants::PROJ_FILE_EXTENSION;
+
 glib::wrapper! {
     pub struct Project(ObjectSubclass<imp::MDotProject>);
 }
@@ -37,7 +39,7 @@ impl Project {
 
     pub fn filepath(&self) -> PathBuf {
         let mut path = self.get_path();
-        path.push(self.get_name());
+        path.push(format!("{}{}", self.get_name(), PROJ_FILE_EXTENSION));
         path
     }
 }
