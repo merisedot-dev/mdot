@@ -8,6 +8,7 @@ use gtk::{
 use tracing::info;
 
 use crate::{
+    edition::EditionPanel,
     project::Project,
     window::{actions::mk_actions, dialogs::*},
 };
@@ -21,7 +22,8 @@ pub struct MDotWindow {
     // template macro components
     #[template_child]
     pub page_stack: TemplateChild<Stack>,
-    // TODO define extra components
+    #[template_child]
+    pub editor_pane: TemplateChild<EditionPanel>,
     #[template_child]
     pub graph_drawing: TemplateChild<DrawingArea>,
 

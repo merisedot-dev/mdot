@@ -226,6 +226,9 @@
                                 <property name="end-child">
                                   <object class="GtkDrawingArea" id="graph_drawing"/>
                                 </property>
+                                <property name="start-child">
+                                  <object class="MDotEditionPanel" id="editor_pane"/>
+                                </property>
                               </object>
                             </property>
                           </object>

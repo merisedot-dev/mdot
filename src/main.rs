@@ -1,5 +1,6 @@
 pub(crate) mod config;
 pub(crate) mod constants;
+pub(crate) mod edition;
 pub(crate) mod project;
 pub(crate) mod utils;
 pub(crate) mod window;
@@ -45,6 +46,7 @@ fn main() -> glib::ExitCode {
     app.connect_activate(|app| {
         info!("activate");
         let window = Window::new(app);
+        info!("Loaded main window");
         window.present();
     });
 
