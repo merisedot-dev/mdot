@@ -15,3 +15,6 @@ fetchtxt: # define a potfile from sources
 
 translate lang: # define a po translation file from pot file
     msginit -i po/merisedot.pot -o po/{{lang}}.po -l {{lang}}.UTF-8
+
+uplang lang: # update an existing translation file
+    msgmerge -U po/{{lang}}.po po/merisedot.pot

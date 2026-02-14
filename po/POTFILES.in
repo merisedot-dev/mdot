@@ -3,3 +3,7 @@
 
 # UI definition files
 data/resources/window.ui
+
+# Rust files
+src/window/dialogs/open.rs
+src/window/dialogs/pick_proj.rs

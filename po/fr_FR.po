@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 09:29+0100\n"
+"POT-Creation-Date: 2026-02-14 11:36+0100\n"
 "PO-Revision-Date: 2026-02-11 12:06+0100\n"
 "Last-Translator: kheldae <taho.gougeon@gmail.com>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: data/resources/window.ui:17 data/resources/window.ui:256
+#: data/resources/window.ui:17 data/resources/window.ui:259
 msgid "__Openproject"
 msgstr "Ouvrir"
 
-#: data/resources/window.ui:102 data/resources/window.ui:252
+#: data/resources/window.ui:102 data/resources/window.ui:255
 msgid "__Newproject"
 msgstr "Nouveau projet"
 
@@ -46,22 +46,42 @@ msgstr "Annuler"
 msgid "__Validate"
 msgstr "Créer"
 
-#: data/resources/window.ui:259
+#: data/resources/window.ui:262
 msgid "__MkGraph"
 msgstr "Nouveau fichier"
 
-#: data/resources/window.ui:262
+#: data/resources/window.ui:265
 msgid "__AddDB"
 msgstr "Base de données"
 
-#: data/resources/window.ui:266
+#: data/resources/window.ui:269
 msgid "__AddScript"
 msgstr "Script SQL"
 
-#: data/resources/window.ui:272
+#: data/resources/window.ui:275
 msgid "__Save"
 msgstr "Sauvegarder"
 
-#: data/resources/window.ui:276
+#: data/resources/window.ui:279
 msgid "__Close"
 msgstr "Fermer le projet"
+
+#: src/window/dialogs/open.rs:21
+msgid "__MDOTProject"
+msgstr "Ouvrir"
+
+#: src/window/dialogs/open.rs:26
+msgid "__Selectproject"
+msgstr "Nouveau projet"
+
+#: src/window/dialogs/open.rs:28
+msgid "__Open"
+msgstr "Ouvrir"
+
+#: src/window/dialogs/pick_proj.rs:12
+msgid "__Projectlocation"
+msgstr "Emplacement du Projet"
+
+#: src/window/dialogs/pick_proj.rs:13
+msgid "__Choose"
+msgstr "Choisir"
