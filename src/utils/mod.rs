@@ -1,5 +1,4 @@
 mod action;
-mod files;
 mod loaders;
 
 pub trait MDotActable {
