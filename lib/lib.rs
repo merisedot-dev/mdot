@@ -3,5 +3,5 @@
 pub mod attribute;
 pub mod entity;
 pub mod error;
-pub mod link;
+pub mod graph;
 pub mod project;

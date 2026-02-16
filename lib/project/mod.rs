@@ -1,8 +1,6 @@
 pub mod enumerate;
 
-use std::collections::HashMap;
-
-use crate::{attribute::EntityAttribute, entity::Entity};
+use crate::{attribute::EntityAttribute, graph::MeriseGraph};
 
 /// Logic processing struct for a database design project. It will hold
 /// all logic-based info, abstract from the target SGBD.
@@ -11,7 +9,7 @@ pub struct StagProject<T>
 where
     T: EntityAttribute,
 {
-    entities: HashMap<String, Entity<T>>,
+    graph: MeriseGraph<T>,
 }
 
 impl<T> StagProject<T>
@@ -20,7 +18,7 @@ where
 {
     pub fn new() -> Self {
         Self {
-            entities: HashMap::new(),
+            graph: MeriseGraph::new(),
         }
     }
 }

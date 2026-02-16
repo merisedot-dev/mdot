@@ -33,19 +33,43 @@ where
         }
     }
 
+    /// Fetches [Entity] name, this will however be kept immutable.
     pub fn get_name(&self) -> String {
         self.name.clone()
     }
 
+    /// Fetches every known attribute name in the current [Entity].
+    /// The returned values may not be sorted.
+    pub fn get_attrs_names(&self) -> impl Iterator {
+        self.attrs.keys()
+    }
+
+    /// Fetch relevant attribute value depending on the given name. To be simpler,
+    /// errors will be coerced into the [StagError] error enumeration.
+    ///
+    /// **Note** : Due to the name being used as ID, it will be lowercased.
     pub fn get_attr(&self, name: impl ToString) -> StagResult<&AttrValue<T>> {
-        match self.attrs.get(&name.to_string()) {
+        let str_name = name.to_string().to_lowercase();
+        match self.attrs.get(&str_name) {
             Some(val) => Ok(val),
-            _ => Err(StagError::AttributeNotFound),
+            None => Err(StagError::AttributeNotFound(str_name)),
         }
     }
 
+    /// Add a new attribute in our [Entity]. Keep in mind the `name` parameter
+    /// will be lowercased to avoid ID confusion.
     pub fn add_attr(&mut self, name: impl ToString, nullable: bool, attr: T) {
         self.attrs
             .insert(name.to_string(), AttrValue::new(nullable, attr));
+    }
+
+    /// Remove an existing attribute from the current [Entity]. In case of
+    /// missing attribute, please check the [StagError] type for info.
+    pub fn del_attr(&mut self, name: impl ToString) -> StagResult<()> {
+        let str_name = name.to_string().to_lowercase();
+        match self.attrs.remove(&str_name) {
+            Some(_) => Ok(()),
+            None => Err(StagError::AttributeNotFound(str_name)),
+        }
     }
 }

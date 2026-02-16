@@ -12,7 +12,7 @@ impl Default for LocalizedProject {
 }
 
 impl Serialize for LocalizedProject {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    fn serialize<S>(&self, _: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -21,7 +21,7 @@ impl Serialize for LocalizedProject {
 }
 
 impl<'de> Deserialize<'de> for LocalizedProject {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    fn deserialize<D>(_: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
