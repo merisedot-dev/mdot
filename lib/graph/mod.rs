@@ -6,6 +6,7 @@ use crate::{
     attribute::EntityAttribute,
     entity::Entity,
     error::{StagError, StagResult},
+    graph::link::GraphLink,
 };
 
 /// A single layer of a database graph.
@@ -14,7 +15,8 @@ pub struct MeriseGraph<T>
 where
     T: EntityAttribute,
 {
-    entities: HashMap<String, Entity<T>>,
+    entities: HashMap<String, Entity<T>>, // the entities themselves
+    links: HashMap<String, GraphLink<T>>, // link between two or more entities
 }
 
 impl<T> MeriseGraph<T>
@@ -25,6 +27,7 @@ where
     pub fn new() -> Self {
         Self {
             entities: HashMap::new(),
+            links: HashMap::new(),
         }
     }
 
@@ -49,6 +52,31 @@ where
         match self.entities.get(&name.to_string().to_lowercase()) {
             Some(val) => Ok(val),
             None => Err(StagError::EntityNotFound),
+        }
+    }
+
+    /// Removes an existing [Entity] from graph, and remove each [GraphLink]
+    /// previously linked to it. If any [GraphLink] is down to only one link,
+    /// it will be removed from graph.
+    ///
+    /// **Note** : This may be a bit longer than expected for large databases...
+    pub fn del_entity(&mut self, name: impl ToString) -> StagResult<()> {
+        let entity = self.get_entity(name.to_string())?;
+        self.del_entity(entity.get_name())?;
+        for (_e_name, _link) in self.links.iter() {
+            // TODO check if entity is in link entity
+            // TODO delete said entity
+            // TODO check link post-deletion
+        }
+        Ok(())
+    }
+
+    /// Fetches relevant [GraphLink] from graph. As for an [Entity], the name
+    /// will act as ID, so they will be passed through `to_lowercase`.
+    pub fn get_link(&self, name: impl ToString) -> StagResult<&GraphLink<T>> {
+        match self.links.get(&name.to_string().to_lowercase()) {
+            Some(val) => Ok(val),
+            None => Err(StagError::LinkNotFound),
         }
     }
 }
