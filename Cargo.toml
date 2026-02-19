@@ -3,10 +3,6 @@ name = "merisedot"
 version = "0.1.0"
 edition = "2024"
 
-[lib]
-name = "stag"
-path = "lib/lib.rs"
-
 [dependencies]
 adw = { version = "0.8.1", package = "libadwaita", features = ["v1_8"] }
 gettext-rs = "0.7.7"

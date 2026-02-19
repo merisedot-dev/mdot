@@ -2,7 +2,6 @@ use std::{cell::RefCell, path::PathBuf};
 
 use gtk::{glib, glib::Properties, prelude::*, subclass::prelude::*};
 use serde::{Deserialize, Serialize};
-use stag::project::enumerate::LocalizedProject;
 
 /// Inner project data for MeriseDot. It is more of a placeholder struct, as the
 /// true data will be held by the inner library.
@@ -10,7 +9,6 @@ use stag::project::enumerate::LocalizedProject;
 pub struct ProjectData {
     pub name: String,
     pub path: PathBuf,
-    pub stag_proj: LocalizedProject,
 }
 
 /// GTK implementor, it will be a storefront and value logic checker for the
