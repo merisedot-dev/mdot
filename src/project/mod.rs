@@ -22,7 +22,9 @@ impl Default for Project {
 
 // Utitility-based implementation of Project
 impl Project {
-    pub fn get_path(&self) -> PathBuf {
+    /// Fetches the root path for the [Project]. This will not fetch the index
+    /// file path of said [Project].
+    pub fn get_dir_path(&self) -> PathBuf {
         self.imp().data.borrow().path.clone()
     }
 
@@ -33,12 +35,16 @@ impl Project {
 
 // logic-based implementation of a project
 impl Project {
+    /// Checks if the current [Project] is in a usable state. This means making
+    /// sure the [Project] has a valid name and its directory root path isn't
+    /// an empty path. Individual indexes should be checked later on.
     pub fn is_valid(&self) -> bool {
-        self.get_name() != "" && self.get_path().to_str().unwrap_or_default() != "" // TODO other checks
+        self.get_name() != "" && self.get_dir_path().to_str().unwrap_or_default() != "" // TODO other checks
     }
 
+    /// Fetches the index file path for the current [Project].
     pub fn filepath(&self) -> PathBuf {
-        let mut path = self.get_path();
+        let mut path = self.get_dir_path();
         path.push(format!("{}{}", self.get_name(), PROJ_FILE_EXTENSION));
         path
     }

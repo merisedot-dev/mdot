@@ -7,8 +7,8 @@ use serde::{Deserialize, Serialize};
 /// true data will be held by the inner library.
 #[derive(Clone, Default, Serialize, Deserialize)]
 pub struct ProjectData {
-    pub name: String,
-    pub path: PathBuf,
+    pub name: String,  // project name, will not move at any cost
+    pub path: PathBuf, // directory root path for the project
 }
 
 /// GTK implementor, it will be a storefront and value logic checker for the

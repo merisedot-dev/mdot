@@ -3,8 +3,8 @@
 <!-- Created with Cambalache 0.96.3 -->
 <cambalache-project version="0.96.0" target_tk="gtk-4.0">
   <gresources filename="mdot.gresource.xml" sha256="cf87ff7759e72acfe2b0d7caf3023584ab217ad5b197e3a301f321b4863e5419"/>
-  <ui template-class="MDotEditionPanel" filename="editionpanel.ui" sha256="481be1c4b0705c959a60b3e1c8d93029c60a28ccfbf2b4da9886b0e2371ddb98"/>
-  <ui template-class="MDotWindow" filename="window.ui" sha256="f0a2270769a9f13d03c856614a03eb1b98db05874635f8084a1e69c21f994956">
+  <ui template-class="MDotEditionPanel" filename="editionpanel.ui" sha256="9775b5db1407dae5d56b5004fbad53c6d00ef281c94b720ee9fe317c1d6cd25d"/>
+  <ui template-class="MDotWindow" filename="window.ui" sha256="7ddb2e78c096187b15baf27aee4a89d15f3243cdd9e91b013ce1f298cb85a054">
     <requires>MDotEditionPanel</requires>
   </ui>
 </cambalache-project>

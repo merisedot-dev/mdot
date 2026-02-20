@@ -221,6 +221,11 @@
                       <object class="GtkOverlay">
                         <property name="child">
                           <object class="GtkPaned">
+                            <property name="end-child">
+                              <object class="GtkLabel">
+                                <property name="label">TODO</property>
+                              </object>
+                            </property>
                             <property name="start-child">
                               <object class="GtkPaned">
                                 <property name="end-child">
