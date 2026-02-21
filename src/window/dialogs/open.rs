@@ -1,4 +1,3 @@
-use adw::subclass::prelude::ObjectSubclassIsExt;
 use gettextrs::gettext;
 use gtk::{
     FileDialog, FileFilter,
@@ -41,9 +40,6 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
         };
         // TODO load project data
         // edit visible stack page
-        caller
-            .imp()
-            .page_stack
-            .set_visible_child_name(WORKS_SCREEN_NAME);
+        caller.set_screen(WORKS_SCREEN_NAME);
     }
 }

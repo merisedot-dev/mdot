@@ -1,5 +1,5 @@
 use crate::{
-    constants::DEFAULT_SCREEN_NAME,
+    constants::NEWPROJ_SCREEN_NAME,
     utils::{MDotActable, MDotAction},
     window::Window,
 };
@@ -21,7 +21,7 @@ impl MDotAction for CloseAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
-        caller.set_screen(DEFAULT_SCREEN_NAME);
+        caller.set_screen(NEWPROJ_SCREEN_NAME);
         // TODO tweak project
     }
 }

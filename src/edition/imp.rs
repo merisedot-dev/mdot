@@ -3,7 +3,9 @@ use gtk::{Box, CompositeTemplate, glib, subclass::prelude::*};
 
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/editionpanel.ui")]
-pub struct MDotEditionPanel {}
+pub struct MDotEditionPanel {
+    // TODO add important components
+}
 
 // subclass core trait
 #[glib::object_subclass]

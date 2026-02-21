@@ -9,7 +9,7 @@ use gtk::{
     prelude::EditableExt,
 };
 
-use crate::constants::DEFAULT_SCREEN_NAME;
+use crate::constants::NEWPROJ_SCREEN_NAME;
 
 glib::wrapper! {
     pub struct Window(ObjectSubclass<imp::MDotWindow>)
@@ -33,7 +33,7 @@ impl Window {
     /// Setting up window default values. It is meant to be called at launch.
     fn set_defaults(&self) {
         // load default app screen
-        self.set_screen(DEFAULT_SCREEN_NAME);
+        self.set_screen(NEWPROJ_SCREEN_NAME);
     }
 
     pub fn set_screen(&self, name: impl ToString) {

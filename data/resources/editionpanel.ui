@@ -4,36 +4,23 @@
   <!-- interface-name editionpanel.ui -->
   <requires lib="gtk" version="4.0"/>
   <template class="MDotEditionPanel" parent="GtkBox">
+    <property name="orientation">vertical</property>
     <child>
       <object class="GtkPaned">
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkStackSwitcher">
-            <property name="stack">
-              <object class="GtkStack">
-                <child>
-                  <object class="GtkStackPage">
-                    <property name="child">
-                      <object class="GtkOverlay">
-                        <property name="child">
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="label">test</property>
-                              </object>
-                            </child>
-                          </object>
-                        </property>
-                      </object>
-                    </property>
-                    <property name="name">mcd-tools</property>
+        <property name="end-child">
+          <object class="GtkListBox">
+            <child>
+              <object class="GtkListBoxRow">
+                <property name="child">
+                  <object class="GtkLabel">
+                    <property name="label">miaouh</property>
                   </object>
-                </child>
+                </property>
               </object>
-            </property>
+            </child>
           </object>
-        </child>
+        </property>
+        <property name="orientation">vertical</property>
       </object>
     </child>
   </template>

@@ -1,5 +1,5 @@
 use crate::{
-    constants::DEFAULT_SCREEN_NAME,
+    constants::NEWPROJ_SCREEN_NAME,
     utils::{MDotActable, MDotAction},
     window::Window,
 };
@@ -24,6 +24,6 @@ impl MDotAction for CancelAction {
         // TODO erase information from form widgets
         caller.clear_form();
         // jump back to main page
-        caller.set_screen(DEFAULT_SCREEN_NAME);
+        caller.set_screen(NEWPROJ_SCREEN_NAME);
     }
 }
