@@ -48,7 +48,7 @@
           <object class="GtkOverlay">
             <property name="child">
               <object class="GtkStack" id="page_stack">
-                <property name="visible-child-name">newproj_screen</property>
+                <property name="visible-child-name">b</property>
                 <child>
                   <object class="GtkStackPage">
                     <property name="child">
@@ -192,7 +192,12 @@
                                   <object class="GtkDrawingArea" id="graph_drawing"/>
                                 </property>
                                 <property name="start-child">
-                                  <object class="MDotEditionPanel" id="editor_pane"/>
+                                  <object class="GtkPaned">
+                                    <property name="orientation">vertical</property>
+                                    <property name="start-child">
+                                      <object class="GtkListBox"/>
+                                    </property>
+                                  </object>
                                 </property>
                               </object>
                             </property>

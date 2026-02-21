@@ -4,6 +4,5 @@
   <gresource prefix="/com/github/merisedotdev/mdot">
     <file compressed="true">mdot.css</file>
     <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks">editionpanel.ui</file>
   </gresource>
 </gresources>
