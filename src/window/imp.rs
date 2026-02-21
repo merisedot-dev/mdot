@@ -28,8 +28,6 @@ pub struct MDotWindow {
     #[template_child]
     pub menu_btn: TemplateChild<MenuButton>,
     #[template_child]
-    pub newfile_btn: TemplateChild<Button>,
-    #[template_child]
     pub open_btn: TemplateChild<SplitButton>,
     #[template_child]
     pub undo_btn: TemplateChild<Button>,
@@ -90,6 +88,7 @@ impl WidgetImpl for MDotWindow {}
 // window core traits
 impl WindowImpl for MDotWindow {
     fn close_request(&self) -> glib::Propagation {
+        // TODO save popup
         // pass saved thingies to parent class
         self.parent_close_request()
     }

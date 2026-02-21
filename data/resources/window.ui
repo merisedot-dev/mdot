@@ -36,12 +36,6 @@
                 <property name="menu-model">main_menu</property>
               </object>
             </child>
-            <child type="end">
-              <object class="GtkButton" id="newfile_btn">
-                <property name="action-name">win.mkgraph</property>
-                <property name="icon-name">list-add-symbolic</property>
-              </object>
-            </child>
           </object>
         </child>
         <child>
@@ -193,10 +187,10 @@
                                 </property>
                                 <property name="start-child">
                                   <object class="GtkPaned">
-                                    <property name="orientation">vertical</property>
-                                    <property name="start-child">
+                                    <property name="end-child">
                                       <object class="GtkListBox"/>
                                     </property>
+                                    <property name="orientation">vertical</property>
                                   </object>
                                 </property>
                               </object>
