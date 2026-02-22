@@ -36,12 +36,16 @@ impl Window {
         self.set_screen(NEWPROJ_SCREEN_NAME);
     }
 
+    /// Change the displayed screen. This may come with logic checks to avoid
+    /// breaking user experience. Please call this method to avoid problems.
     pub fn set_screen(&self, name: impl ToString) {
         self.imp()
             .page_stack
             .set_visible_child_name(name.to_string().as_str());
     }
 
+    /// Remove all information from the project form screen. This is not
+    /// exhaustive and can be extended should new widgets be added to the screen.
     pub fn clear_form(&self) {
         self.imp().path_lbl.set_label(""); // no more path label
         self.imp().proj_name.set_text(""); // no more project name

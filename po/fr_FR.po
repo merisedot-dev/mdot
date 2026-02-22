@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 11:36+0100\n"
-"PO-Revision-Date: 2026-02-11 12:06+0100\n"
+"POT-Creation-Date: 2026-02-22 11:59+0100\n"
+"PO-Revision-Date: 2026-02-22 12:01+0100\n"
 "Last-Translator: kheldae <taho.gougeon@gmail.com>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -18,69 +18,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: data/resources/window.ui:17 data/resources/window.ui:259
+#: data/resources/window.ui:17 data/resources/window.ui:223
 msgid "__Openproject"
 msgstr "Ouvrir"
 
-#: data/resources/window.ui:102 data/resources/window.ui:255
+#: data/resources/window.ui:56 data/resources/window.ui:219
 msgid "__Newproject"
-msgstr "Nouveau projet"
+msgstr "Nouveau Projet"
 
-#: data/resources/window.ui:114
+#: data/resources/window.ui:68
 msgid "__Projname"
 msgstr "Nom du Projet"
 
-#: data/resources/window.ui:124
+#: data/resources/window.ui:78
 msgid "__TargetSGBD"
 msgstr "SGBD cible"
 
-#: data/resources/window.ui:134
+#: data/resources/window.ui:88
 msgid "__Projlocation"
-msgstr "Emplacement du Projet"
+msgstr "Emplacement"
 
-#: data/resources/window.ui:192
+#: data/resources/window.ui:146
 msgid "__Cancel"
 msgstr "Annuler"
 
-#: data/resources/window.ui:202
+#: data/resources/window.ui:156
 msgid "__Validate"
-msgstr "Créer"
+msgstr "Valider"
 
-#: data/resources/window.ui:262
-msgid "__MkGraph"
-msgstr "Nouveau fichier"
-
-#: data/resources/window.ui:265
-msgid "__AddDB"
-msgstr "Base de données"
-
-#: data/resources/window.ui:269
-msgid "__AddScript"
-msgstr "Script SQL"
-
-#: data/resources/window.ui:275
+#: data/resources/window.ui:228
 msgid "__Save"
-msgstr "Sauvegarder"
+msgstr "Enregistrer"
 
-#: data/resources/window.ui:279
+#: data/resources/window.ui:232
 msgid "__Close"
-msgstr "Fermer le projet"
+msgstr "Fermer"
 
-#: src/window/dialogs/open.rs:21
+#: src/window/dialogs/open.rs:20
 msgid "__MDOTProject"
-msgstr "Ouvrir"
+msgstr "Projet MeriseDot"
 
-#: src/window/dialogs/open.rs:26
+#: src/window/dialogs/open.rs:25
 msgid "__Selectproject"
-msgstr "Nouveau projet"
+msgstr "Sélectionner"
 
-#: src/window/dialogs/open.rs:28
+#: src/window/dialogs/open.rs:27
 msgid "__Open"
 msgstr "Ouvrir"
 
 #: src/window/dialogs/pick_proj.rs:12
 msgid "__Projectlocation"
-msgstr "Emplacement du Projet"
+msgstr "Emplacement"
 
 #: src/window/dialogs/pick_proj.rs:13
 msgid "__Choose"

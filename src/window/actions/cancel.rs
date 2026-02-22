@@ -1,5 +1,4 @@
 use crate::{
-    constants::NEWPROJ_SCREEN_NAME,
     utils::{MDotActable, MDotAction},
     window::Window,
 };
@@ -21,9 +20,7 @@ impl MDotAction for CancelAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
-        // TODO erase information from form widgets
+        // erase information from form widgets
         caller.clear_form();
-        // jump back to main page
-        caller.set_screen(NEWPROJ_SCREEN_NAME);
     }
 }

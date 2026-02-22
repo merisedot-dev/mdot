@@ -42,7 +42,7 @@
           <object class="GtkOverlay">
             <property name="child">
               <object class="GtkStack" id="page_stack">
-                <property name="visible-child-name">b</property>
+                <property name="visible-child-name">newproj_screen</property>
                 <child>
                   <object class="GtkStackPage">
                     <property name="child">
@@ -222,17 +222,6 @@
       <attribute name="action">win.open</attribute>
       <attribute name="label" translatable="yes">__Openproject</attribute>
     </item>
-    <section>
-      <attribute name="label" translatable="yes">__MkGraph</attribute>
-      <item>
-        <attribute name="action">win.add_db</attribute>
-        <attribute name="label" translatable="yes">__AddDB</attribute>
-      </item>
-      <item>
-        <attribute name="action">win.add_script</attribute>
-        <attribute name="label" translatable="yes">__AddScript</attribute>
-      </item>
-    </section>
     <section>
       <item>
         <attribute name="action">win.save</attribute>
