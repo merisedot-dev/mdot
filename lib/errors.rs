@@ -11,7 +11,9 @@ pub enum StagError {
     // entity-related errors
     EntityAttributeNotFound(String),
     EntityWrongAttributeOverride(String),
-    // TODO add graph-related errors
+    // graph-related errors
+    NonexistantLink(String),
+    UnauthorizedLinkOverride,
 }
 
 // Display error definition for easy reading
@@ -23,6 +25,12 @@ impl Display for StagError {
             }
             Self::EntityWrongAttributeOverride(name) => {
                 frm.write_str(format!("Can't change attribute {}", name).as_str())
+            }
+            Self::NonexistantLink(name) => {
+                frm.write_str(format!("Nonexistant link {}", name).as_str())
+            }
+            Self::UnauthorizedLinkOverride => {
+                frm.write_str("Unauthorized graph link value override")
             }
         }
     }
