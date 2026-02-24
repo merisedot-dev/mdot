@@ -27,7 +27,7 @@ impl Entity {
         self.name.clone()
     }
 
-    /// Fetches attribute from [Entity].
+    /// Fetches attribute value from [Entity].
     ///
     /// **Warning**: In case of missing attribute, throws a
     /// [StagError::EntityAttributeNotFound] error.
