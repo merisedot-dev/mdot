@@ -9,9 +9,6 @@ pub trait MDotAction: MDotActable {
     /// The action's name. Please keep the ENTIRE name in there.
     fn name(&self) -> &'static str;
 
-    /// The type of the thing that will use the action. Said type must implement
-    /// the [ObjectSubclass] trait.
-
     /// activation handler for the action
     fn handle_activate(
         &self,

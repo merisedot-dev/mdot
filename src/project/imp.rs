@@ -2,13 +2,15 @@ use std::{cell::RefCell, path::PathBuf};
 
 use gtk::{glib, glib::Properties, prelude::*, subclass::prelude::*};
 use serde::{Deserialize, Serialize};
+use stag::graph::Graph;
 
 /// Inner project data for MeriseDot. It is more of a placeholder struct, as the
 /// true data will be held by the inner library.
 #[derive(Clone, Default, Serialize, Deserialize)]
 pub struct ProjectData {
-    pub name: String,  // project name, will not move at any cost
-    pub path: PathBuf, // directory root path for the project
+    pub name: String,          // project name, will not move at any cost
+    pub path: PathBuf,         // directory root path for the project
+    pub graph: RefCell<Graph>, // inner project graph
 }
 
 /// GTK implementor, it will be a storefront and value logic checker for the
