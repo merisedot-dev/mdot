@@ -3,7 +3,7 @@ use stag::entity::Entity;
 
 use crate::MDotWorld;
 
-#[given(expr = "a new entity named\"{word}\"")]
+#[given(expr = "a new entity named \"{word}\"")]
 #[when(expr = "we build a new entity named \"{word}\"")]
 fn mk_entity(world: &mut MDotWorld, name: String) {
     world.entity = Entity::new(name);

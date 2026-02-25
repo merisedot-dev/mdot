@@ -8,7 +8,7 @@ mkdev: # build dev binary
 mkprod: # build production-ready binary
     meson setup build --reconfigure --prefix=~/.local && meson install -C build
 
-mktests: # TODO build test suite for library AND run it
+mktest: # build test suite for library AND run it
     cargo test --test mdottest
 
 # ------------ I18N COMMANDS -------------

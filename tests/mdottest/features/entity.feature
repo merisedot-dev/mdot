@@ -14,6 +14,23 @@ Feature: Managing individual entities
         And the attribute "<attr>" is of type <attrtype>
 
         Examples:
-            |name |attr|attrtype|
-            |test |t   |int     |
-            |graou|tt  |bool    |
+            |name |attr       |attrtype   |
+            |test |t          |int        |
+            |graou|tt         |bool       |
+            |jade |pier       |varchar(42)|
+            |billy|truc       |text       |
+            |pommy|testopommes|uuid       |
+
+    Scenario Outline: Deleting an attribute
+        Given a new entity named "<name>"
+        And the entity has an attribute "<attr>" of type <attrtype>
+        And we add the attribute in the entity
+        When the attribute "<attr>" is deleted from the entity
+        Then the entity has 0 attributes
+        And the entity doesn't have an attribute named "<attr>"
+
+        Examples:
+            |name  |attr     |attrtype|
+            |mew   |id       |int     |
+            |saphir|caillasse|text    |
+            |rubis |graou    |uuid    |

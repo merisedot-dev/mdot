@@ -5,7 +5,9 @@ use stag::entity::Entity;
 
 #[derive(Debug, Default, World)]
 pub struct MDotWorld {
+    // Entity testing
     entity: Entity,
+    // TODO necessary fields for other test suites
 }
 
 fn main() {
