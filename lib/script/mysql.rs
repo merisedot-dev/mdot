@@ -8,7 +8,7 @@ use crate::{
 pub struct MySqlConversionCore;
 
 impl ConversionCore for MySqlConversionCore {
-    fn convert(&self, graph: Graph) -> StagResult<String> {
+    fn convert(&self, _: Graph) -> StagResult<String> {
         let script = ScriptBuilder::new("");
         // TODO conversion
         Ok(script.to_string())

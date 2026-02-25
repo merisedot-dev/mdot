@@ -8,6 +8,9 @@ mkdev: # build dev binary
 mkprod: # build production-ready binary
     meson setup build --reconfigure --prefix=~/.local && meson install -C build
 
+mktests: # TODO build test suite for library AND run it
+    echo "echo"
+
 # ------------ I18N COMMANDS -------------
 
 fetchtxt: # define a potfile from sources

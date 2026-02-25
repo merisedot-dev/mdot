@@ -7,7 +7,7 @@ use crate::{
 
 /// Base entity definition. It will be used both for standalone entities and for
 /// various GraphLinks in MCD and MLD graphs.
-#[derive(Clone)]
+#[derive(Clone, Debug, Default)]
 pub struct Entity {
     name: String,
     attrs: HashMap<String, EntityAttr>,
