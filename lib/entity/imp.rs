@@ -27,6 +27,10 @@ impl Entity {
         self.name.clone()
     }
 
+    pub fn get_all_attrs(&self) -> HashMap<String, EntityAttr> {
+        self.attrs.clone()
+    }
+
     /// Fetches attribute value from [Entity].
     ///
     /// **Warning**: In case of missing attribute, throws a
