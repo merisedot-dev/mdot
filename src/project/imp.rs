@@ -5,12 +5,12 @@ use serde::{Deserialize, Serialize};
 use stag::graph::Graph;
 
 /// Inner project data for MeriseDot. It is more of a placeholder struct, as the
-/// true data will be held by the inner library.
+/// true data will be held by the inner library (mostly the [Graph] struct).
 #[derive(Clone, Default, Serialize, Deserialize)]
 pub struct ProjectData {
     pub name: String,          // project name, will not move at any cost
     pub path: PathBuf,         // directory root path for the project
-    pub graph: RefCell<Graph>, // inner project graph
+    pub graph: RefCell<Graph>, // inner project graph (MCD graph by default)
 }
 
 /// GTK implementor, it will be a storefront and value logic checker for the
