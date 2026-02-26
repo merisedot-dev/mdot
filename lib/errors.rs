@@ -1,5 +1,6 @@
 use std::{
     fmt::{Display, Formatter as FmtFormatter, Result as FmtResult},
+    num::ParseIntError,
     result::Result as StdResult,
 };
 
@@ -49,5 +50,11 @@ impl Display for StagError {
             }
             Self::ParseError => frm.write_str("parse error"),
         }
+    }
+}
+
+impl From<ParseIntError> for StagError {
+    fn from(_: ParseIntError) -> Self {
+        Self::ParseError
     }
 }

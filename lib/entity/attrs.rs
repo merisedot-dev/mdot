@@ -1,5 +1,3 @@
-use regex::Regex;
-
 use crate::errors::StagError;
 
 // some constants for simplicity
@@ -53,13 +51,32 @@ impl TryFrom<String> for EntityAttr {
             INT_NAME => Ok(Self::INTEGER),
             TEXT_NAME => Ok(Self::TEXT),
             UUID_NAME => Ok(Self::UUID),
-            _ => match Regex::new(r"varchar([0-9]+)").unwrap().captures(&value) {
-                Some(val) => {
-                    let test: [&str; 1] = val.extract().1;
-                    todo!()
+            _ => {
+                if let Some(varchar_val) = value
+                    .clone()
+                    .strip_prefix(format!("{}(", VARCHAR_NAME).as_str())
+                {
+                    Ok(Self::VARCHAR(
+                        varchar_val
+                            .strip_suffix(")")
+                            .unwrap_or_default()
+                            .parse::<usize>()?,
+                    ))
+                } else if let Some(char_val) = value
+                    .clone()
+                    .strip_prefix(format!("{}(", CHAR_NAME).as_str())
+                {
+                    Ok(Self::CHAR(
+                        char_val
+                            .strip_suffix(")")
+                            .unwrap_or_default()
+                            .parse::<usize>()?,
+                    ))
+                } else {
+                    // default scenario, nothing works
+                    Err(StagError::ParseError)
                 }
-                _ => Err(StagError::ParseError),
-            },
+            }
         }
     }
 }

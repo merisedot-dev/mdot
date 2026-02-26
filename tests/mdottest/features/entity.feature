@@ -18,6 +18,7 @@ Feature: Managing individual entities
             |test |t          |int        |
             |graou|tt         |bool       |
             |jade |pier       |varchar(42)|
+            |tiger|eye        |varchar(2) |
             |billy|truc       |text       |
             |pommy|testopommes|uuid       |
             |truc |blep       |char(6)    |
@@ -30,8 +31,11 @@ Feature: Managing individual entities
         And the entity doesn't have an attribute named "<attr>"
 
         Examples:
-            |name   |attr     |attrtype|
-            |mew    |id       |int     |
-            |saphir |caillasse|text    |
-            |rubis  |graou    |uuid    |
-            |diamond|truc     |bool    |
+            |name   |attr     |attrtype     |
+            |mew    |id       |int          |
+            |saphir |caillasse|text         |
+            |rubis  |graou    |uuid         |
+            |diamond|truc     |bool         |
+            |holl   |vide     |varchar(100) |
+            |hell   |orne     |varchar(6666)|
+            |truc   |muche    |char(1234)   |
