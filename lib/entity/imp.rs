@@ -61,4 +61,16 @@ impl Entity {
             Ok(())
         }
     }
+
+    /// Deletes an existing attribute from the current [Entity].
+    ///
+    /// **Warning**: In case of the attribute unable to be deleted, throws a
+    /// [StagError::EntityAttributeNotFound] error.
+    pub fn del_attr(&mut self, name: impl ToString) -> StagResult<()> {
+        let str_name = name.to_string().to_lowercase();
+        match self.attrs.remove(&str_name) {
+            Some(_) => Ok(()),
+            None => Err(StagError::EntityAttributeNotFound(str_name)),
+        }
+    }
 }

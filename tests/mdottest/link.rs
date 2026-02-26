@@ -18,3 +18,8 @@ fn check_name(world: &mut MDotWorld, name: String) {
 fn check_nb_attrs(world: &mut MDotWorld, nb: usize) {
     assert_eq!(world.entity.get_all_attrs().len(), nb)
 }
+
+#[then(expr = "the GraphLink has {int} known entities")]
+fn check_nb_entities(world: &mut MDotWorld, nb: usize) {
+    assert_eq!(world.link.get_all_lks().len(), nb)
+}

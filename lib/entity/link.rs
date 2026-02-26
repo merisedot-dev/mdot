@@ -28,6 +28,10 @@ impl GraphLink {
         &self.inner
     }
 
+    pub fn get_all_lks(&self) -> HashMap<String, (String, u8, u8)> {
+        self.lks.clone()
+    }
+
     /// Fetches role and cardinalities informations from [GraphLink]. Role can
     /// be empty depending on [GraphLink] usage (such as MLD graph).
     ///

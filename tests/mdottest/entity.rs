@@ -33,7 +33,7 @@ fn add_attr(world: &mut MDotWorld) {
 
 #[when(expr = "the attribute \"{word}\" is deleted from the entity")]
 fn del_attr(world: &mut MDotWorld, attr: String) {
-    todo!("Implement attribute deletion")
+    world.entity.del_attr(attr).unwrap();
 }
 
 #[then(expr = "the entity is named \"{word}\"")]
@@ -51,7 +51,7 @@ fn check_has_attr(world: &mut MDotWorld, attr: String) {
     world.entity.get_attr(attr).unwrap();
 }
 
-#[then(expr = "the entitt doesn't have an attribute named \"{word}\"")]
+#[then(expr = "the entity doesn't have an attribute named \"{word}\"")]
 fn check_not_attr(world: &mut MDotWorld, attr: String) {
     match world.entity.get_attr(attr) {
         Ok(_) => panic!("This should not happen"),
