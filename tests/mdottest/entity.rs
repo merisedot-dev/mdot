@@ -23,6 +23,16 @@ fn ensure_entity_attr(world: &mut MDotWorld, attr: String, attrtype: String) {
         .unwrap();
 }
 
+#[given(expr = "the entity has {int} attributes")]
+fn ensure_attrs(world: &mut MDotWorld, nb: usize) {
+    for i in 0..nb {
+        world
+            .entity
+            .add_attr(format!("at_{}", i), EntityAttr::INTEGER)
+            .unwrap();
+    }
+}
+
 #[when("we add the attribute in the entity")]
 fn add_attr(world: &mut MDotWorld) {
     world

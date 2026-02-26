@@ -8,7 +8,7 @@ use crate::{
 
 #[derive(Clone, Debug, Default)]
 pub struct GraphLink {
-    inner: Entity,
+    pub inner: Entity,
     lks: HashMap<String, (String, u8, u8)>,
 }
 
@@ -21,11 +21,6 @@ impl GraphLink {
             inner: Entity::new(name),
             lks: HashMap::new(),
         }
-    }
-
-    /// Exposes the inner [Entity] pointer for specific operations.
-    pub fn entity(&self) -> &Entity {
-        &self.inner
     }
 
     pub fn get_all_lks(&self) -> HashMap<String, (String, u8, u8)> {

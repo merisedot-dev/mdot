@@ -8,20 +8,21 @@ Feature: Managing individual entities
     Scenario Outline: Attribute type in entity
         Given a new entity named "<name>"
         And a new attribute "<attr>" of type <attrtype>
+        And the entity has <nb> attributes
         When we add the attribute in the entity
-        Then the entity has 1 attributes
+        Then the entity has <nc> attributes
         And the entity has an attribute named "<attr>"
         And the attribute "<attr>" is of type <attrtype>
 
         Examples:
-            |name |attr       |attrtype   |
-            |test |t          |int        |
-            |graou|tt         |bool       |
-            |jade |pier       |varchar(42)|
-            |tiger|eye        |varchar(2) |
-            |billy|truc       |text       |
-            |pommy|testopommes|uuid       |
-            |truc |blep       |char(6)    |
+            |name |attr       |attrtype   |nb|nc|
+            |test |t          |int        |0 |1 |
+            |graou|tt         |bool       |1 |2 |
+            |jade |pier       |varchar(42)|4 |5 |
+            |tiger|eye        |varchar(2) |10|11|
+            |billy|truc       |text       |3 |4 |
+            |pommy|testopommes|uuid       |9 |10|
+            |truc |blep       |char(6)    |20|21|
 
     Scenario Outline: Deleting an attribute
         Given a new entity named "<name>"
