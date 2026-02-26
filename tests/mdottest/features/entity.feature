@@ -20,6 +20,7 @@ Feature: Managing individual entities
             |jade |pier       |varchar(42)|
             |billy|truc       |text       |
             |pommy|testopommes|uuid       |
+            |truc |blep       |char(6)    |
 
     Scenario Outline: Deleting an attribute
         Given a new entity named "<name>"

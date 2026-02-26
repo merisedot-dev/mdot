@@ -952,6 +952,7 @@ dependencies = [
  "gettext-rs",
  "gtk4",
  "libadwaita",
+ "regex",
  "serde",
  "serde_json",
  "tracing",
