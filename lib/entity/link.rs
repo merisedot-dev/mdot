@@ -6,7 +6,7 @@ use crate::{
     errors::{StagError, StagResult},
 };
 
-#[derive(Clone)]
+#[derive(Clone, Debug, Default)]
 pub struct GraphLink {
     inner: Entity,
     lks: HashMap<String, (String, u8, u8)>,

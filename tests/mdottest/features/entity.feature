@@ -24,13 +24,13 @@ Feature: Managing individual entities
     Scenario Outline: Deleting an attribute
         Given a new entity named "<name>"
         And the entity has an attribute "<attr>" of type <attrtype>
-        And we add the attribute in the entity
         When the attribute "<attr>" is deleted from the entity
         Then the entity has 0 attributes
         And the entity doesn't have an attribute named "<attr>"
 
         Examples:
-            |name  |attr     |attrtype|
-            |mew   |id       |int     |
-            |saphir|caillasse|text    |
-            |rubis |graou    |uuid    |
+            |name   |attr     |attrtype|
+            |mew    |id       |int     |
+            |saphir |caillasse|text    |
+            |rubis  |graou    |uuid    |
+            |diamond|truc     |bool    |

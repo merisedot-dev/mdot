@@ -7,6 +7,7 @@ use std::{
 pub type StagResult<T, E = StagError> = StdResult<T, E>;
 
 /// Error coalescence enumeration, meant to be used with the custom result type.
+#[derive(Debug)]
 pub enum StagError {
     // entity-related errors
     EntityAttributeNotFound(String),
@@ -17,6 +18,8 @@ pub enum StagError {
     // graph-related errors
     ExistingEntity(String),
     UnknownEntity(String),
+    // parsing error
+    ParseError,
 }
 
 // Display error definition for easy reading
@@ -44,6 +47,7 @@ impl Display for StagError {
             Self::UnknownEntity(name) => {
                 frm.write_str(format!("Entity {} doesn't exist", name).as_str())
             }
+            Self::ParseError => frm.write_str("parse error"),
         }
     }
 }
