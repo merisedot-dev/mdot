@@ -9,7 +9,11 @@ fn ensure_nb_attrs(world: &mut MDotWorld, nb: usize) {
         world
             .link
             .inner
-            .add_attr(format!("att_{}", i), EntityAttr::INTEGER)
+            .add_attr(
+                format!("att_{}", i),
+                EntityAttr::INTEGER,
+                stag::entity::AttrRole::None,
+            )
             .unwrap();
     }
 }
@@ -25,7 +29,11 @@ fn mk_attr(world: &mut MDotWorld) {
     world
         .link
         .inner
-        .add_attr(world.attr_name.clone(), world.attribute.clone())
+        .add_attr(
+            world.attr_name.clone(),
+            world.attribute.clone(),
+            stag::entity::AttrRole::None,
+        )
         .unwrap();
 }
 
@@ -53,7 +61,7 @@ fn check_nb_entities(world: &mut MDotWorld, nb: usize) {
 fn check_attrtype(world: &mut MDotWorld, attr: String, attrtype: String) {
     let grphlk_attr = EntityAttr::try_from(attrtype).unwrap();
     assert_eq!(
-        world.link.inner.get_attr(attr).unwrap().clone(),
+        world.link.inner.get_attr(attr).unwrap().clone().0,
         grphlk_attr
     );
 }

@@ -22,18 +22,4 @@ Feature: Managing GraphLinks.
             |testopommes|10|graou|text         |11|
             |graou      |1 |bite |char(66)     |2 |
             |lonk       |5 |lid  |uuid         |6 |
-
-    Scenario Outline: Deleting attributes from GraphLink
-        Given a new GraphLink named "<name>"
-        And an attribute named "<attr>" of type <attrtype> in GraphLink
-        When we remove the attribute "<attr>" from the GraphLink
-        Then the GraphLink doesn't have an attribute named "<attr>"
-
-        Examples:
-            |name|attr|attrtype|
-
-    Scenario Outline: Known entities
-        Given a new GraphLink named "<name>"
-
-        Examples:
-            |name|
+            |bobo       |9 |khe  |bool         |10|

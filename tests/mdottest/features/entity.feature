@@ -45,13 +45,17 @@ Feature: Managing individual entities
         Given a new entity named "<name>"
         And the entity has <nb> attributes
         And a new attribute "<attr>" of type <attrtype>
-        And the attribute ha the "<role>" role
+        And the attribute has the "<role>" role
         When we add the attribute in the entity
         Then the entity has an attribute named "<attr>"
         And the attribute "<attr>" is of type <attrtype>
         And the attribute "<attr>" is of role "<role>"
 
         Examples:
-            |name|nb|attr |attrtype   |role|
-            |test|0 |test |uuid       |PK  |
-            |grou|10|graou|varchar(42)|    |
+            |name |nb|attr  |attrtype   |role|
+            |test |0 |test  |uuid       |PK  |
+            |grou |10|graou |varchar(42)|PK  |
+            |boos |5 |tttt  |bool       |PK  |
+            |rubis|4 |pierre|text       |PK  |
+            |rat  |99|caille|int        |PK  |
+            |jade |0 |stel  |char(5)    |PK  |

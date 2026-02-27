@@ -1,8 +1,12 @@
 mod entity;
+mod graph;
 mod link;
 
 use cucumber::World;
-use stag::entity::{Entity, EntityAttr, GraphLink};
+use stag::{
+    entity::{AttrRole, Entity, EntityAttr, GraphLink},
+    graph::Graph,
+};
 
 #[derive(Debug, Default, World)]
 pub struct MDotWorld {
@@ -10,8 +14,11 @@ pub struct MDotWorld {
     entity: Entity,
     attribute: EntityAttr,
     attr_name: String,
+    role: AttrRole,
     // GraphLink testing
     link: GraphLink,
+    // Graph testing
+    graph: Graph,
     // TODO necessary fields for other test suites
 }
 

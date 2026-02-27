@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::{
-    entity::EntityAttr,
+    entity::{AttrRole, EntityAttr},
     errors::{StagError, StagResult},
 };
 
@@ -10,7 +10,7 @@ use crate::{
 #[derive(Clone, Debug, Default)]
 pub struct Entity {
     name: String,
-    attrs: HashMap<String, EntityAttr>,
+    attrs: HashMap<String, (EntityAttr, AttrRole)>,
 }
 
 impl Entity {
@@ -27,7 +27,7 @@ impl Entity {
         self.name.clone()
     }
 
-    pub fn get_all_attrs(&self) -> HashMap<String, EntityAttr> {
+    pub fn get_all_attrs(&self) -> HashMap<String, (EntityAttr, AttrRole)> {
         self.attrs.clone()
     }
 
@@ -35,8 +35,11 @@ impl Entity {
     ///
     /// **Warning**: In case of missing attribute, throws a
     /// [StagError::EntityAttributeNotFound] error.
-    pub fn get_attr(&self, name: impl ToString) -> StagResult<&EntityAttr> {
-        let str_name = name.to_string().to_lowercase();
+    pub fn get_attr(
+        &self,
+        attribute_strname: impl ToString,
+    ) -> StagResult<&(EntityAttr, AttrRole)> {
+        let str_name = attribute_strname.to_string().to_lowercase();
         match self.attrs.get(&str_name) {
             Some(val) => Ok(val),
             None => Err(StagError::EntityAttributeNotFound(str_name)),
@@ -52,12 +55,13 @@ impl Entity {
         &mut self,
         name: impl ToString,
         attribute_typevalue: EntityAttr,
+        role: AttrRole,
     ) -> StagResult<()> {
         let str_name = name.to_string().to_lowercase();
         if self.attrs.contains_key(&str_name) {
             Err(StagError::EntityWrongAttributeOverride(str_name))
         } else {
-            self.attrs.insert(str_name, attribute_typevalue);
+            self.attrs.insert(str_name, (attribute_typevalue, role));
             Ok(())
         }
     }

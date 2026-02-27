@@ -5,7 +5,7 @@ use crate::{
     errors::{StagError, StagResult},
 };
 
-#[derive(Clone, Default)]
+#[derive(Clone, Debug, Default)]
 pub struct Graph {
     entities: HashMap<String, Entity>,
     links: HashMap<String, GraphLink>,
@@ -58,5 +58,13 @@ impl Graph {
             Some(val) => Ok(val),
             None => Err(StagError::UnknownEntity(str_name)),
         }
+    }
+
+    pub fn get_entities(&self) -> HashMap<String, Entity> {
+        self.entities.clone()
+    }
+
+    pub fn get_lks(&self) -> HashMap<String, GraphLink> {
+        self.links.clone()
     }
 }

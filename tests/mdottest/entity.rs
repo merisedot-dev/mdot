@@ -1,5 +1,5 @@
 use cucumber::{given, then, when};
-use stag::entity::{Entity, EntityAttr};
+use stag::entity::{AttrRole, Entity, EntityAttr};
 
 use crate::MDotWorld;
 
@@ -19,7 +19,11 @@ fn mk_attr(world: &mut MDotWorld, attr: String, attrtype: String) {
 fn ensure_entity_attr(world: &mut MDotWorld, attr: String, attrtype: String) {
     world
         .entity
-        .add_attr(attr, EntityAttr::try_from(attrtype).unwrap())
+        .add_attr(
+            attr,
+            EntityAttr::try_from(attrtype).unwrap(),
+            AttrRole::None,
+        )
         .unwrap();
 }
 
@@ -28,16 +32,25 @@ fn ensure_attrs(world: &mut MDotWorld, nb: usize) {
     for i in 0..nb {
         world
             .entity
-            .add_attr(format!("at_{}", i), EntityAttr::INTEGER)
+            .add_attr(format!("at_{}", i), EntityAttr::INTEGER, AttrRole::None)
             .unwrap();
     }
+}
+
+#[given(expr = "the attribute has the \"{word}\" role")]
+fn mk_role(world: &mut MDotWorld, role: String) {
+    world.role = AttrRole::from(role);
 }
 
 #[when("we add the attribute in the entity")]
 fn add_attr(world: &mut MDotWorld) {
     world
         .entity
-        .add_attr(world.attr_name.clone(), world.attribute.clone())
+        .add_attr(
+            world.attr_name.clone(),
+            world.attribute.clone(),
+            world.role.clone(),
+        )
         .unwrap();
 }
 
@@ -72,7 +85,12 @@ fn check_not_attr(world: &mut MDotWorld, attr: String) {
 #[then(expr = "the attribute \"{word}\" is of type {word}")]
 fn check_attr_type(world: &mut MDotWorld, attr: String, attrtype: String) {
     assert_eq!(
-        world.entity.get_attr(attr).unwrap().clone(),
+        world.entity.get_attr(attr).unwrap().clone().0,
         EntityAttr::try_from(attrtype).unwrap()
     )
+}
+
+#[then(expr = "the attribute \"{word}\" is of role \"{word}\"")]
+fn check_role(world: &mut MDotWorld, attr: String, role: String) {
+    assert_eq!(world.entity.get_attr(attr).unwrap().1, AttrRole::from(role))
 }
