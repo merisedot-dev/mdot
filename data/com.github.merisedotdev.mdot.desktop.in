@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=MeriseGTK
+Comment=Database design app
 Exec=mdot
 Terminal=false
 Type=Application

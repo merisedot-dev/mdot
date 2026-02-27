@@ -41,7 +41,7 @@ Feature: Managing individual entities
             |hell   |orne     |varchar(6666)|
             |truc   |muche    |char(1234)   |
 
-    Scenario Outline: Attribute roles 
+    Scenario Outline: Attribute roles
         Given a new entity named "<name>"
         And the entity has <nb> attributes
         And a new attribute "<attr>" of type <attrtype>

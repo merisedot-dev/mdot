@@ -23,3 +23,31 @@ Feature: Managing GraphLinks.
             |graou      |1 |bite |char(66)     |2 |
             |lonk       |5 |lid  |uuid         |6 |
             |bobo       |9 |khe  |bool         |10|
+
+    Scenario Outline: Deleting attributes from GraphLink
+        Given a new GraphLink named "<name>"
+        And the GraphLink has an attribute named "<attr>" of type <attrtype>
+        When we delete the attribute "<attr>" from GraphLink
+        Then the GraphLink doesn't have an attribute named "<attr>"
+
+        Examples:
+            |name    |attr |attrtype  |
+            |graphite|gr   |int       |
+            |brome   |br   |bool      |
+            |alcal   |alk  |uuid      |
+            |book    |paper|text      |
+            |light   |lt   |varchar(4)|
+            |flak    |fl   |char(10)  |
+
+    Scenario: Linking entities
+        Given a new GraphLink named "ltest"
+        And a new entity named "entest"
+        When we add a link on "ltest" to "entest"
+        Then the GraphLink does know "entest"
+
+    Scenario: Unlinking entities
+        Given a new GraphLink named "lutest"
+        And a new entity named "entest"
+        And the entity "entest" is known by "lutest"
+        When we remove the link on "lutest" to "entest"
+        Then the GraphLink does not know "entest"

@@ -1,5 +1,5 @@
 use cucumber::{given, then, when};
-use stag::entity::{EntityAttr, GraphLink};
+use stag::entity::{AttrRole, EntityAttr, GraphLink};
 
 use crate::MDotWorld;
 
@@ -16,6 +16,19 @@ fn ensure_nb_attrs(world: &mut MDotWorld, nb: usize) {
             )
             .unwrap();
     }
+}
+
+#[given(expr = "the GraphLink has an attribute named \"{word}\" of type {word}")]
+fn mk_inner_attr(world: &mut MDotWorld, attr: String, attrtype: String) {
+    world
+        .link
+        .inner
+        .add_attr(
+            attr,
+            EntityAttr::try_from(attrtype).unwrap(),
+            AttrRole::None,
+        )
+        .unwrap();
 }
 
 #[given(expr = "a new GraphLink named \"{word}\"")]
@@ -35,6 +48,22 @@ fn mk_attr(world: &mut MDotWorld) {
             stag::entity::AttrRole::None,
         )
         .unwrap();
+}
+
+#[when(expr = "we delete the attribute \"{word}\" from GraphLink")]
+fn del_attr(world: &mut MDotWorld, attr: String) {
+    world.link.inner.del_attr(attr).unwrap();
+}
+
+#[given(expr = "the entity \"{word}\" is known by \"{word}\"")]
+#[when(expr = "we add a link on \"{word}\" to \"{word}\"")]
+fn add_lk(world: &mut MDotWorld) {
+    world.link.link_to(world.entity.clone()).unwrap();
+}
+
+#[when(expr = "we remove the link on \"{word}\" to \"{word}\"")]
+fn unlink(world: &mut MDotWorld) {
+    world.link.unlink(world.entity.clone()).unwrap();
 }
 
 #[then(expr = "the GraphLink is named \"{word}\"")]
@@ -64,4 +93,25 @@ fn check_attrtype(world: &mut MDotWorld, attr: String, attrtype: String) {
         world.link.inner.get_attr(attr).unwrap().clone().0,
         grphlk_attr
     );
+}
+
+#[then(expr = "the GraphLink doesn't have an attribute named \"{word}\"")]
+fn check_no_attr(world: &mut MDotWorld, attr: String) {
+    match world.link.inner.get_attr(attr) {
+        Ok(_) => panic!("This is not supposed to happen"),
+        Err(_) => { /* this is nice */ }
+    }
+}
+
+#[then(expr = "the GraphLink does know \"{word}\"")]
+fn check_known(world: &mut MDotWorld, entity: String) {
+    world.link.get_lk(entity).unwrap();
+}
+
+#[then(expr = "the GraphLink does not know \"{word}\"")]
+fn check_unknown(world: &mut MDotWorld, entity: String) {
+    match world.link.get_lk(entity) {
+        Ok(_) => panic!("There should not be an entity"),
+        Err(_) => { /* Nothing to see */ }
+    }
 }
