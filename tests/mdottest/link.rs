@@ -41,10 +41,19 @@ fn check_nb_attrs(world: &mut MDotWorld, nb: usize) {
 
 #[then(expr = "the GraphLink has an attribute named \"{word}\"")]
 fn check_attr(world: &mut MDotWorld, attr: String) {
-    todo!()
+    world.link.inner.get_attr(attr).unwrap();
 }
 
 #[then(expr = "the GraphLink has {int} known entities")]
 fn check_nb_entities(world: &mut MDotWorld, nb: usize) {
     assert_eq!(world.link.get_all_lks().len(), nb)
+}
+
+#[then(expr = "the GraphLink attribute \"{word}\" is of type {word}")]
+fn check_attrtype(world: &mut MDotWorld, attr: String, attrtype: String) {
+    let grphlk_attr = EntityAttr::try_from(attrtype).unwrap();
+    assert_eq!(
+        world.link.inner.get_attr(attr).unwrap().clone(),
+        grphlk_attr
+    );
 }
