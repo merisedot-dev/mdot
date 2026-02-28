@@ -1,3 +1,5 @@
+use std::fmt::{Display, Formatter};
+
 use crate::errors::StagError;
 
 // some constants for simplicity
@@ -29,16 +31,18 @@ impl Default for EntityAttr {
     }
 }
 
-impl ToString for EntityAttr {
-    fn to_string(&self) -> String {
-        match self {
+impl Display for EntityAttr {
+    fn fmt(&self, frm: &mut Formatter<'_>) -> std::fmt::Result {
+        let st = match self {
             Self::BOOLEAN => BOOLEAN_NAME.to_string(),
             Self::INTEGER => INT_NAME.to_string(),
             Self::TEXT => TEXT_NAME.to_string(),
             Self::CHAR(n) => format!("{}({})", CHAR_NAME, n),
             Self::VARCHAR(n) => format!("{}({})", VARCHAR_NAME, n),
             Self::UUID => UUID_NAME.to_string(),
-        }
+        };
+        // actual formatting
+        frm.write_str(st.as_str())
     }
 }
 

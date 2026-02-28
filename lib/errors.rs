@@ -19,7 +19,7 @@ pub enum StagError {
     // graph-related errors
     ExistingEntity(String),
     UnknownEntity(String),
-    // parsing error
+    // parsing error and conversion
     ParseError,
 }
 
