@@ -13,6 +13,21 @@ Feature: Handling full graphs
 
     Scenario: Adding links
         Given a new graph
-        And a new GraphLink named "ltest"
-        When we add the GraphLink to our graph
+        And an entity named "ent1" in graph
+        And an entity named "ent2" in graph
+        When we link "ent1" and "ent2" under the name "ltest"
         Then the graph has a GraphLink named "ltest"
+        And the GraphLink "ltest" knows an entity named "ent1"
+        And the GraphLink "ltest" knows an entity named "ent2"
+
+    Scenario: Ternaries
+        Given a new graph
+        And an entity named "ent1" in graph
+        And an entity named "ent2" in graph
+        And an entity named "ent3" in graph
+        When we link "ent1" and "ent2" under the name "ltest"
+        And we add "ent3" to the GraphLink "ltest"
+        Then the graph has a GraphLink named "ltest"
+        And the GraphLink "ltest" knows an entity named "ent1"
+        And the GraphLink "ltest" knows an entity named "ent2"
+        And the GraphLink "ltest" knows an entity named "ent3"

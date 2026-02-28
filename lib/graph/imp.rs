@@ -67,4 +67,67 @@ impl Graph {
     pub fn get_lks(&self) -> HashMap<String, GraphLink> {
         self.links.clone()
     }
+
+    /// Link two distinct entities together in the current [Graph]. As usual,
+    /// all names will be lowercased.
+    ///
+    /// **Warning**: In case of a missing entity, throws a
+    /// [StagError::UnknownEntity] back to caller.
+    pub fn link(
+        &mut self,
+        name: impl ToString,
+        entity1_name: impl ToString,
+        entity2_name: impl ToString,
+    ) -> StagResult<()> {
+        let str_name = name.to_string().to_lowercase();
+        let name1 = entity1_name.to_string().to_lowercase();
+        let name2 = entity2_name.to_string().to_lowercase();
+        // building link
+        if let (Some(entity1), Some(entity2)) =
+            (self.entities.get(&name1), self.entities.get(&name2))
+        {
+            let mut graph_link = GraphLink::new(str_name.clone());
+            graph_link.link_to(entity1.clone())?;
+            graph_link.link_to(entity2.clone())?;
+            self.links.insert(str_name, graph_link);
+            Ok(())
+        } else {
+            Err(StagError::UnknownEntity(format!("{} and {}", name1, name2)))
+        }
+    }
+
+    /// Adds a new [Entity] to an existing [GraphLink] in the current [Graph].
+    ///
+    /// **Warning**: In case of a non-existant [GraphLink] or [Entity], throws a
+    /// [StagError::NonexistantLink] or [StagError::UnknownEntity] respectively.
+    pub fn extra_lk(
+        &mut self,
+        graphlink_name: impl ToString,
+        entity_name: impl ToString,
+    ) -> StagResult<()> {
+        let glk_name = graphlink_name.to_string().to_lowercase();
+        let e_name = entity_name.to_string().to_lowercase();
+        // fetching from graph
+        match (self.links.get_mut(&glk_name), self.entities.get(&e_name)) {
+            (Some(glk), Some(e)) => {
+                glk.link_to(e.clone())?;
+                Ok(())
+            }
+            (_, None) => Err(StagError::UnknownEntity(e_name)),
+            (None, _) => Err(StagError::NonexistantLink(glk_name)),
+        }
+    }
+
+    /// Fetches a [GraphLink] from the current [Graph]. Since the name acts as ID,
+    /// it will be lowercased.
+    ///
+    /// **Warning**: In case of unknown link, throws a
+    /// [StagError::NonexistantLink] error.
+    pub fn get_lk(&self, name: impl ToString) -> StagResult<&GraphLink> {
+        let str_name = name.to_string().to_lowercase();
+        match self.links.get(&str_name) {
+            Some(val) => Ok(val),
+            None => Err(StagError::NonexistantLink(str_name)),
+        }
+    }
 }
