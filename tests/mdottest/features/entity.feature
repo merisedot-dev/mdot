@@ -54,8 +54,14 @@ Feature: Managing individual entities
         Examples:
             |name |nb|attr  |attrtype   |role|
             |test |0 |test  |uuid       |PK  |
+            |tfk  |9 |tfkt  |uuid       |FK  |
             |grou |10|graou |varchar(42)|PK  |
+            |agrou|0 |gr    |varchar(42)|Fk  |
             |boos |5 |tttt  |bool       |PK  |
+            |sob  |5 |ykj   |bool       |FK  |
             |rubis|4 |pierre|text       |PK  |
+            |ruby |10|pir   |text       |FK  |
             |rat  |99|caille|int        |PK  |
+            |mouse|0 |rack  |int        |FK  |
             |jade |0 |stel  |char(5)    |PK  |
+            |spa  |0 |smol  |char(5)    |FK  |

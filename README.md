@@ -1,7 +1,26 @@
-# MDot
+# MeriseDot
 
 ## Installation
 
-### From repository
+### From source
 
-## Open an issue
+Before building, ensure you have the following dependencies installed (how, I don't care, they just need to be installed on your system) :
+
+- [meson]
+- [ninja]
+- [Rust]
+- [GTK4]
+- [libadwaita]
+
+Then, clone this repository. Next, run one of these commands (as of now, directory creation isn't handled, this is still in progress) :
+
+```shell
+just mkProd # if you have the just command installed
+meson setup build --prefix=~./local && meson install -C build
+```
+
+[meson]: https://mesonbuild.com/
+[ninja]: https://ninja-build.org/
+[Rust]: https://rust-lang.org/fr/
+[GTK4]
+[libadwaita]

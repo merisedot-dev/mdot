@@ -1,6 +1,7 @@
 mod entity;
 mod graph;
 mod link;
+mod script;
 
 use cucumber::World;
 use stag::{
