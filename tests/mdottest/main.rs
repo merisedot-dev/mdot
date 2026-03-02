@@ -20,6 +20,7 @@ pub struct MDotWorld {
     link: GraphLink,
     // Graph testing
     graph: Graph,
+    name: String,
     // TODO necessary fields for other test suites
 }
 

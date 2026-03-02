@@ -1,5 +1,8 @@
+mod builder;
+mod overlay;
+
 use crate::{
-    entity::{Entity, EntityAttr},
+    entity::{Entity, EntityAttr, GraphLink},
     errors::StagResult,
 };
 
@@ -14,10 +17,16 @@ pub trait ConversionCore {
     fn check_type(&self, attr: EntityAttr) -> StagResult<EntityAttr>;
 
     /// Gets an SQL-compliant header for the built script.
-    fn header(&self, name: impl ToString) -> String;
+    fn header(&self, name: String) -> String;
 
-    /// Turns a given [Entity] into an SQL-compliant script snippet.
+    /// Turns a given [Entity] into an SQL-compliant script snippet. In case of
+    /// anything going wrong, throws a [crate::errors::StagError::ParseError].
     fn entity(&self, entity: Entity) -> StagResult<String>;
+
+    /// Turns a given [GraphLink] into an SQL-compliant script snippet. In case of
+    /// anything going wrong, throws a [crate::errors::StagError::ParseError].
+    fn link(&self, link: GraphLink) -> StagResult<String>;
 }
 
 // re-exports
+pub use builder::*;
