@@ -7,10 +7,16 @@ use crate::{
 
 /// Base entity definition. It will be used both for standalone entities and for
 /// various GraphLinks in MCD and MLD graphs.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Eq)]
 pub struct Entity {
     name: String,
     attrs: HashMap<String, (EntityAttr, AttrRole)>,
+}
+
+impl PartialEq for Entity {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
 }
 
 impl Entity {

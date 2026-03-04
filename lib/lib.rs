@@ -3,6 +3,7 @@
 //! unified under a single type (please refer to [errors] for more details).
 
 pub mod constants;
+pub mod constraint;
 pub mod entity;
 pub mod errors;
 pub mod graph;

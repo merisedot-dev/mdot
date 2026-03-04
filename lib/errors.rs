@@ -4,6 +4,8 @@ use std::{
     result::Result as StdResult,
 };
 
+use crate::entity::Entity;
+
 /// Custom result type to encapsulate everything that happens in here.
 pub type StagResult<T, E = StagError> = StdResult<T, E>;
 
@@ -21,6 +23,8 @@ pub enum StagError {
     UnknownEntity(String),
     // parsing error and conversion
     ParseError,
+    ConstraintNotSupported,
+    IdenticalEntities(Entity),
 }
 
 // Display error definition for easy reading
@@ -49,6 +53,8 @@ impl Display for StagError {
                 frm.write_str(format!("Entity {} doesn't exist", name).as_str())
             }
             Self::ParseError => frm.write_str("parse error"),
+            Self::ConstraintNotSupported => frm.write_str("invalid constraint"),
+            Self::IdenticalEntities(ent) => frm.write_str(format!("").as_str()),
         }
     }
 }
