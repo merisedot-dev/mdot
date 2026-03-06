@@ -1,8 +1,9 @@
 mod builder;
+mod cores;
 mod overlay;
 
 use crate::{
-    constraint::Constraint,
+    constraint::SQLConstraint,
     entity::{Entity, EntityAttr, GraphLink},
     errors::StagResult,
 };
@@ -28,10 +29,13 @@ pub trait ConversionCore {
     /// anything going wrong, throws a [crate::errors::StagError::ParseError].
     fn link(&self, link: GraphLink) -> StagResult<String>;
 
-    /// Tries to convert the given [Constraint] into an SQL-compliant script
+    /// Tries to convert the given [SQLConstraint] into an SQL-compliant script
     /// snippet. In case of the attribute not being convertible, throws a
     /// [crate::errors::StagError::ConstraintNotSupported] error.
-    fn constraint(&self, cstr: Constraint) -> StagResult<String>;
+    fn constraint(
+        &self,
+        sql_constraint: Box<dyn SQLConstraint + Send + Sync>,
+    ) -> StagResult<String>;
 }
 
 // re-exports

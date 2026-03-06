@@ -54,7 +54,9 @@ impl Display for StagError {
             }
             Self::ParseError => frm.write_str("parse error"),
             Self::ConstraintNotSupported => frm.write_str("invalid constraint"),
-            Self::IdenticalEntities(ent) => frm.write_str(format!("").as_str()),
+            Self::IdenticalEntities(ent) => {
+                frm.write_str(format!("Duplicate entity {}", ent.name()).as_str())
+            }
         }
     }
 }

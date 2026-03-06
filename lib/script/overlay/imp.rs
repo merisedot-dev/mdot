@@ -1,11 +1,11 @@
-use crate::graph::Graph;
+use crate::{constraint::SQLConstraint, graph::Graph};
 
 /// Overlay built to capture [Constraint] information from any database graph.
 /// This is not meant to add specific constraints, but to capture the more
 /// common ones.
 pub struct GraphOverlay {
     graph: Graph,
-    constraints: Vec<String>,
+    constraints: Vec<Box<dyn SQLConstraint + Send + Sync>>,
 }
 
 impl GraphOverlay {
