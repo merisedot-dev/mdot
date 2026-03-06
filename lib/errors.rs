@@ -24,6 +24,7 @@ pub enum StagError {
     // parsing error and conversion
     ParseError,
     ConstraintNotSupported,
+    EntityAttrNotSupported,
     IdenticalEntities(Entity),
 }
 
@@ -53,6 +54,7 @@ impl Display for StagError {
                 frm.write_str(format!("Entity {} doesn't exist", name).as_str())
             }
             Self::ParseError => frm.write_str("parse error"),
+            Self::EntityAttrNotSupported => frm.write_str("Invalid type"),
             Self::ConstraintNotSupported => frm.write_str("invalid constraint"),
             Self::IdenticalEntities(ent) => {
                 frm.write_str(format!("Duplicate entity {}", ent.name()).as_str())
