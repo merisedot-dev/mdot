@@ -1,7 +1,7 @@
 use crate::{
     constants::{MK_DB, MK_ENTITY},
-    constraint::ESQLConstraint,
-    entity::{Entity, EntityAttr, GraphLink},
+    constraint::{ESQLConstraint, SQLConverter},
+    entity::{AttrRole, Entity, EntityAttr, GraphLink},
     errors::{StagError, StagResult},
     script::ConversionCore,
 };
@@ -24,12 +24,30 @@ impl ConversionCore for MySQLCore {
     }
 
     fn entity(&self, entity: Entity) -> StagResult<String> {
-        Ok(format!("{} {} (\n\n);", MK_ENTITY, entity.name()))
+        Ok(format!(
+            "{} {} (\n{}\n);",
+            MK_ENTITY,
+            entity.name(),
+            entity
+                .get_all_attrs()
+                .iter()
+                .map(|(name, (atype, role))| format!(
+                    "{} {}{}",
+                    name,
+                    atype,
+                    match role {
+                        AttrRole::PK => " primary key not null",
+                        _ => "", // nothing to do
+                    }
+                ))
+                .collect::<Vec<String>>()
+                .join(",\n")
+        ))
     }
 
     fn constraint(&self, cstr: ESQLConstraint) -> StagResult<String> {
         match cstr {
-            // TODO fetch converter for supported constraints
+            ESQLConstraint::ForeignKey(cstr) => self.convert(cstr),
             _ => Err(StagError::ConstraintNotSupported),
         }
     }

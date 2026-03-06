@@ -1,5 +1,7 @@
+mod mysql;
+
 use crate::{
-    constraint::SQLConstraint,
+    constraint::{ESQLConstraint, SQLConstraint},
     entity::Entity,
     errors::{StagError, StagResult},
 };
@@ -48,5 +50,11 @@ impl SQLConstraint for ForeignKeyConstraint {
 
     fn target_attr(&self) -> String {
         self.target_attr.clone()
+    }
+}
+
+impl Into<ESQLConstraint> for ForeignKeyConstraint {
+    fn into(self) -> ESQLConstraint {
+        ESQLConstraint::ForeignKey(self)
     }
 }

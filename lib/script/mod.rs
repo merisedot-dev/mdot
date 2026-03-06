@@ -37,3 +37,4 @@ pub trait ConversionCore {
 
 // re-exports
 pub use builder::*;
+pub use cores::*;

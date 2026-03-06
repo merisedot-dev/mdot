@@ -12,4 +12,5 @@ pub trait SQLConstraint {
 }
 
 // re-exports
+pub use convert::*;
 pub use imp::*;

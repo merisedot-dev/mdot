@@ -37,7 +37,7 @@ impl Entity {
         self.attrs.clone()
     }
 
-    /// Fetches attribute value from [Entity].
+    /// Fetches attribute value from [Entity], as well as its role (PK, FK...).
     ///
     /// **Warning**: In case of missing attribute, throws a
     /// [StagError::EntityAttributeNotFound] error.
@@ -49,6 +49,24 @@ impl Entity {
         match self.attrs.get(&str_name) {
             Some(val) => Ok(val),
             None => Err(StagError::EntityAttributeNotFound(str_name)),
+        }
+    }
+
+    /// Fetches the primary key of the current [Entity]. In case of multiple
+    /// primary keys, just returns the first one found.
+    ///
+    /// **Warning**: If there is no primary key in the entity, throws a
+    /// [StagError::NoPK] error back to caller.
+    pub fn get_pk(&self) -> StagResult<String> {
+        match self.get_all_attrs().iter().find_map(|(name, (_, role))| {
+            if role.clone() == AttrRole::PK {
+                Some(name)
+            } else {
+                None
+            }
+        }) {
+            Some(name) => Ok(name.clone()),
+            None => Err(StagError::NoPK),
         }
     }
 

@@ -15,6 +15,7 @@ pub enum StagError {
     // entity-related errors
     EntityAttributeNotFound(String),
     EntityWrongAttributeOverride(String),
+    NoPK,
     // graphlink-related errors
     NonexistantLink(String),
     UnauthorizedLinkOverride,
@@ -39,6 +40,7 @@ impl Display for StagError {
             Self::EntityWrongAttributeOverride(name) => {
                 frm.write_str(format!("Can't change attribute {}", name).as_str())
             }
+            Self::NoPK => frm.write_str("No Primary Key"),
             // graphlink errors
             Self::NonexistantLink(name) => {
                 frm.write_str(format!("Nonexistant link {}", name).as_str())
