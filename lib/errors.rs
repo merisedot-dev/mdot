@@ -19,6 +19,7 @@ pub enum StagError {
     // graphlink-related errors
     NonexistantLink(String),
     UnauthorizedLinkOverride,
+    // TODO add constraint aberrations
     // graph-related errors
     ExistingEntity(String),
     UnknownEntity(String),

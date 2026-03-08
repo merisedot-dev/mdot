@@ -2,7 +2,7 @@ use crate::{
     constants::{MK_DB, MK_ENTITY},
     constraint::{ESQLConstraint, SQLConverter},
     entity::{AttrRole, Entity, EntityAttr, GraphLink},
-    errors::{StagError, StagResult},
+    errors::StagResult,
     script::ConversionCore,
 };
 
@@ -48,7 +48,7 @@ impl ConversionCore for MySQLCore {
     fn constraint(&self, cstr: ESQLConstraint) -> StagResult<String> {
         match cstr {
             ESQLConstraint::ForeignKey(cstr) => self.convert(cstr),
-            _ => Err(StagError::ConstraintNotSupported),
+            ESQLConstraint::Unique(cstr) => self.convert(cstr),
         }
     }
 }

@@ -6,6 +6,7 @@ use crate::{
     errors::{StagError, StagResult},
 };
 
+#[derive(Clone)]
 pub struct ForeignKeyConstraint {
     name: String,
     entity: Entity,
@@ -37,6 +38,10 @@ impl ForeignKeyConstraint {
     pub fn reference(&self) -> Entity {
         self.reference.clone()
     }
+
+    pub fn target_attr(&self) -> String {
+        self.target_attr.clone()
+    }
 }
 
 impl SQLConstraint for ForeignKeyConstraint {
@@ -46,10 +51,6 @@ impl SQLConstraint for ForeignKeyConstraint {
 
     fn entity(&self) -> Entity {
         self.entity.clone()
-    }
-
-    fn target_attr(&self) -> String {
-        self.target_attr.clone()
     }
 }
 

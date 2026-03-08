@@ -8,7 +8,6 @@ use crate::entity::Entity;
 pub trait SQLConstraint {
     fn name(&self) -> String;
     fn entity(&self) -> Entity;
-    fn target_attr(&self) -> String;
 }
 
 // re-exports
