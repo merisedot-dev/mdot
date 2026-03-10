@@ -1,4 +1,7 @@
-use crate::{constraint::ESQLConstraint, errors::StagResult, graph::Graph};
+use crate::{
+    constraint::ESQLConstraint, errors::StagResult, graph::Graph,
+    script::overlay::keys::Association,
+};
 
 /// Overlay built to capture [Constraint] information from any database graph.
 /// This is not meant to add specific constraints, but to capture the more
@@ -24,18 +27,21 @@ impl GraphOverlay {
         self.constraints.clone()
     }
 
-    /// Reduces graph to a set of a minimal [Graph] and a set of [ESQLConstraint].
-    /// This should be called prior to any conversion into an SQL script.
     pub fn check(&mut self) -> StagResult<()> {
+        self.to_mld()
+    }
+
+    /// Turns the inner [Graph] into an MLD graph. This will remove now useless
+    /// GraphLink and edit any existing Entity to slot in foreign keys where
+    /// needed (notably for one2one and one2many associations).
+    ///
+    /// **Warning**: In case of wrongful conversion to MLD, throws a
+    /// [StagError::ParseError] back to caller.
+    fn to_mld(&mut self) -> StagResult<()> {
         let temp_graph = self.graph.clone(); // graph snapshot
-        for (_, lk) in temp_graph.get_lks() {
-            let lk_size = lk.get_all_lks().len();
-            // checking situation
-            if lk_size >= 3 {
-                // TODO
-            } else if lk_size == 2 {
-                // TODO
-            }
+        for (name, lk) in temp_graph.get_lks() {
+            let assos = Association::from(lk.clone());
+            // TODO
         }
         Ok(())
     }

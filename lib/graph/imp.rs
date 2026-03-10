@@ -47,6 +47,19 @@ impl Graph {
         Ok(())
     }
 
+    /// Removes a given [GraphLink] from the current [Graph]. Since the name acts
+    /// as ID, it will be lowercased.
+    ///
+    /// **Warning**: In case of missing [GraphLink], throws a
+    /// [StagError::NonexistantLink] error back to caller.
+    pub fn del_lk(&mut self, name: impl ToString) -> StagResult<()> {
+        let str_name = name.to_string().to_lowercase();
+        match self.links.remove(&str_name) {
+            Some(_) => Ok(()),
+            None => Err(StagError::NonexistantLink(str_name)),
+        }
+    }
+
     /// Fetches relevant [Entity] from the current [Graph]. This also exposes
     /// the pointer to ensure further modifications can be made to it.
     ///
