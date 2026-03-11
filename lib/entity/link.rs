@@ -2,14 +2,14 @@ use std::collections::HashMap;
 
 use crate::{
     constants::DEFAULT_CARDINALITY,
-    entity::Entity,
+    entity::{Cardinality, Entity},
     errors::{StagError, StagResult},
 };
 
 #[derive(Clone, Debug, Default)]
 pub struct GraphLink {
     pub inner: Entity,
-    lks: HashMap<String, (String, u8, u8)>,
+    lks: HashMap<String, (String, Cardinality, Cardinality)>,
 }
 
 impl GraphLink {
@@ -23,7 +23,7 @@ impl GraphLink {
         }
     }
 
-    pub fn get_all_lks(&self) -> HashMap<String, (String, u8, u8)> {
+    pub fn get_lks(&self) -> HashMap<String, (String, Cardinality, Cardinality)> {
         self.lks.clone()
     }
 
@@ -32,7 +32,10 @@ impl GraphLink {
     ///
     /// **Warning**: In case of a nonexistant link, it will throw a
     /// [StagError::NonexistantLink] error.
-    pub fn get_lk(&self, name: impl ToString) -> StagResult<&(String, u8, u8)> {
+    pub fn get_entity_link(
+        &self,
+        name: impl ToString,
+    ) -> StagResult<&(String, Cardinality, Cardinality)> {
         let str_name = name.to_string().to_lowercase();
         match self.lks.get(&str_name) {
             Some(val) => Ok(val),
@@ -64,7 +67,8 @@ impl GraphLink {
     /// [StagError::NonexistantLink] error.
     pub fn set_role(&mut self, e: Entity, r: impl ToString) -> StagResult<()> {
         if let Some((_, min, max)) = self.lks.get(&e.name()) {
-            self.lks.insert(e.name(), (r.to_string(), *min, *max));
+            self.lks
+                .insert(e.name(), (r.to_string(), min.clone(), max.clone()));
             Ok(())
         } else {
             Err(StagError::NonexistantLink(e.name()))
@@ -76,9 +80,10 @@ impl GraphLink {
     ///
     /// **Warning**: In case of an unknown entity, throws a
     /// [StagError::NonexistantLink] error.
-    pub fn set_cardinality(&mut self, e: Entity, n: u8, m: u8) -> StagResult<()> {
+    pub fn set_cardinality(&mut self, e: Entity, n: i8, m: i8) -> StagResult<()> {
         if let Some((role, _, _)) = self.lks.get(&e.name()) {
-            self.lks.insert(e.name(), (role.clone(), n, m));
+            self.lks
+                .insert(e.name(), (role.clone(), n.into(), m.into()));
             Ok(())
         } else {
             Err(StagError::NonexistantLink(e.name()))

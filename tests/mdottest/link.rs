@@ -83,7 +83,7 @@ fn check_attr(world: &mut MDotWorld, attr: String) {
 
 #[then(expr = "the GraphLink has {int} known entities")]
 fn check_nb_entities(world: &mut MDotWorld, nb: usize) {
-    assert_eq!(world.link.get_all_lks().len(), nb)
+    assert_eq!(world.link.get_lks().len(), nb)
 }
 
 #[then(expr = "the GraphLink attribute \"{word}\" is of type {word}")]
@@ -105,12 +105,12 @@ fn check_no_attr(world: &mut MDotWorld, attr: String) {
 
 #[then(expr = "the GraphLink does know \"{word}\"")]
 fn check_known(world: &mut MDotWorld, entity: String) {
-    world.link.get_lk(entity).unwrap();
+    world.link.get_entity_link(entity).unwrap();
 }
 
 #[then(expr = "the GraphLink does not know \"{word}\"")]
 fn check_unknown(world: &mut MDotWorld, entity: String) {
-    match world.link.get_lk(entity) {
+    match world.link.get_entity_link(entity) {
         Ok(_) => panic!("There should not be an entity"),
         Err(_) => { /* Nothing to see */ }
     }

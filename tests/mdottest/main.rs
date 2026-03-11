@@ -3,9 +3,11 @@ mod graph;
 mod link;
 mod script;
 
+use std::collections::HashMap;
+
 use cucumber::World;
 use stag::{
-    entity::{AttrRole, Entity, EntityAttr, GraphLink},
+    entity::{AttrRole, Cardinality, Entity, EntityAttr, GraphLink},
     graph::Graph,
 };
 
@@ -21,6 +23,7 @@ pub struct MDotWorld {
     // Graph testing
     graph: Graph,
     name: String,
+    cards: HashMap<String, (Cardinality, Cardinality)>,
     // TODO necessary fields for other test suites
 }
 

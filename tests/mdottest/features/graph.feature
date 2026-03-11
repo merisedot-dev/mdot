@@ -20,6 +20,21 @@ Feature: Handling full graphs
         And the GraphLink "ltest" knows an entity named "ent1"
         And the GraphLink "ltest" knows an entity named "ent2"
 
+    Scenario Outline: Cardinalities
+        Given a new graph
+        And there are 2 entities in graph
+        And the cardinalities on entity 1 will be <n1>,<m1>
+        And the cardinalities on entity 2 will be <n2>,<m2>
+        When we link entities 1 and 2 together
+        Then the graph has a GraphLink named "ctest"
+        And the GraphLink "ctest" knows the entity 1
+        And the cardinality for entity 1 is (<n1>,<m1>)
+        And the same is true for entity 2
+
+        Examples:
+            |n1|m1|n2|m2|
+            |0 |n |1 |n |
+
     Scenario: Ternaries
         Given a new graph
         And an entity named "ent1" in graph

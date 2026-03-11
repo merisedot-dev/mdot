@@ -1,4 +1,4 @@
-use crate::entity::GraphLink;
+use crate::entity::{Cardinality, GraphLink};
 
 /// Utility enumeration made to encapsulate how Merise associations work (and
 /// therefore be translated to SQL links).
@@ -15,14 +15,14 @@ pub enum Association {
 
 impl From<GraphLink> for Association {
     fn from(value: GraphLink) -> Self {
-        let v_size = value.get_all_lks().len();
+        let v_size = value.get_lks().len();
         if v_size == 2 {
             let v_lks = value
-                .get_all_lks()
+                .get_lks()
                 .values()
                 .into_iter()
                 .map(|i| i.clone())
-                .collect::<Vec<(String, u8, u8)>>();
+                .collect::<Vec<(String, Cardinality, Cardinality)>>();
             // TODO define cards value
             todo!()
         } else {

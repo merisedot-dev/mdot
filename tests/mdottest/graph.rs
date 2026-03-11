@@ -1,11 +1,28 @@
 use cucumber::{given, then, when};
-use stag::graph::Graph;
+use stag::{entity::Cardinality, graph::Graph};
 
 use crate::MDotWorld;
 
 #[given(expr = "an entity named \"{word}\" in graph")]
 fn ensure_entity(world: &mut MDotWorld, name: String) {
     world.graph.mk_entity(name).unwrap();
+}
+
+#[given(expr = "the cardinalities on entity {int} will be {int},{word}")]
+fn ensure_card(world: &mut MDotWorld, name: usize, n: i8, m: String) {
+    world
+        .cards
+        .insert(
+            format!("{}", name),
+            (
+                Cardinality::from(n),
+                Cardinality::from(match m.as_str().parse::<i8>() {
+                    Ok(val) => val,
+                    Err(_) => -1,
+                }),
+            ),
+        )
+        .unwrap();
 }
 
 #[given("a new graph")]
@@ -26,7 +43,7 @@ fn mk_link(world: &mut MDotWorld, e1: String, e2: String, lk: String) {
 
 #[when(expr = "we add \"{word}\" to the GraphLink \"{word}\"")]
 fn ternary(world: &mut MDotWorld, entity: String, glk: String) {
-    world.graph.extra_lk(glk,entity).unwrap();
+    world.graph.extra_lk(glk, entity).unwrap();
 }
 
 #[then(expr = "the graph has {int} entities")]
@@ -51,5 +68,10 @@ fn check_link(world: &mut MDotWorld, name: String) {
 
 #[then(expr = "the GraphLink \"{word}\" knows an entity named \"{word}\"")]
 fn check_linked(world: &mut MDotWorld, lk: String, ent: String) {
-    world.graph.get_lk(lk).unwrap().get_lk(ent).unwrap();
+    world
+        .graph
+        .get_lk(lk)
+        .unwrap()
+        .get_entity_link(ent)
+        .unwrap();
 }
