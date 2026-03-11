@@ -9,20 +9,15 @@ fn ensure_entity(world: &mut MDotWorld, name: String) {
 }
 
 #[given(expr = "the cardinalities on entity {int} will be {int},{word}")]
-fn ensure_card(world: &mut MDotWorld, name: usize, n: i8, m: String) {
-    world
-        .cards
-        .insert(
-            format!("{}", name),
-            (
-                Cardinality::from(n),
-                Cardinality::from(match m.as_str().parse::<i8>() {
-                    Ok(val) => val,
-                    Err(_) => -1,
-                }),
-            ),
-        )
-        .unwrap();
+fn ensure_card(world: &mut MDotWorld, _name: usize, n: i8, m: String) {
+    world.cards.push((
+        Cardinality::from(n),
+        Cardinality::from(if m == "n" {
+            -1
+        } else {
+            m.as_str().parse::<i8>().unwrap()
+        }),
+    ));
 }
 
 #[given("a new graph")]
@@ -44,6 +39,36 @@ fn mk_link(world: &mut MDotWorld, e1: String, e2: String, lk: String) {
 #[when(expr = "we add \"{word}\" to the GraphLink \"{word}\"")]
 fn ternary(world: &mut MDotWorld, entity: String, glk: String) {
     world.graph.extra_lk(glk, entity).unwrap();
+}
+
+#[when(expr = "we link entities {int} and {int} together")]
+fn mk_speclink(world: &mut MDotWorld, e1: usize, e2: usize) {
+    world
+        .graph
+        .link("ctest", format!("e{}", e1), format!("e{}", e2))
+        .unwrap();
+    // setting cardinalities on 1
+    world
+        .graph
+        .edt_link("ctest")
+        .unwrap()
+        .set_cardinality(
+            "e1",
+            world.cards[e1 - 1].0.clone(),
+            world.cards[e1 - 1].1.clone(),
+        )
+        .unwrap();
+    // setting cardinalities on 2
+    world
+        .graph
+        .edt_link("ctest")
+        .unwrap()
+        .set_cardinality(
+            "e2",
+            world.cards[e2 - 1].0.clone(),
+            world.cards[e2 - 1].1.clone(),
+        )
+        .unwrap();
 }
 
 #[then(expr = "the graph has {int} entities")]
@@ -74,4 +99,25 @@ fn check_linked(world: &mut MDotWorld, lk: String, ent: String) {
         .unwrap()
         .get_entity_link(ent)
         .unwrap();
+}
+
+#[then(expr = "the cardinality for entity {int} is {int},{word}")]
+fn check_card(world: &mut MDotWorld, name: usize, n: i8, m: String) {
+    match world
+        .graph
+        .get_lk("ctest")
+        .unwrap()
+        .get_entity_link(format!("e{}", name))
+    {
+        Ok((_, cn, cm)) => assert!(
+            cn.clone() == Cardinality::from(n)
+                && cm.clone()
+                    == Cardinality::from(if m == "n" {
+                        -1
+                    } else {
+                        m.as_str().parse::<i8>().unwrap()
+                    })
+        ),
+        _ => panic!("There should be a GraphLink here"),
+    }
 }

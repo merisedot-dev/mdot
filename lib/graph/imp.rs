@@ -73,6 +73,19 @@ impl Graph {
         }
     }
 
+    /// Fetches a [GraphLink] for edition in the current [Graph]. Do not use this
+    /// if you only intend on looking in the [GraphLink].
+    ///
+    /// **Warning**: In case of missing [GraphLink], throws a
+    /// [StagError::NonexistantLink] error back at the caller.
+    pub fn edt_link(&mut self, lk: impl ToString) -> StagResult<&mut GraphLink> {
+        let str_name = lk.to_string().to_lowercase();
+        match self.links.get_mut(&str_name) {
+            Some(val) => Ok(val),
+            None => Err(StagError::NonexistantLink(str_name)),
+        }
+    }
+
     pub fn get_entities(&self) -> HashMap<String, Entity> {
         self.entities.clone()
     }

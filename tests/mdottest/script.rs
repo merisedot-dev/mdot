@@ -5,7 +5,7 @@ use crate::MDotWorld;
 
 #[given(expr = "there are {int} entities in graph")]
 fn ensure_nb_entities(world: &mut MDotWorld, nb: usize) {
-    for i in 0..nb {
+    for i in 1..nb + 1 {
         world.graph.mk_entity(format!("e{}", i)).unwrap();
     }
 }
@@ -13,8 +13,8 @@ fn ensure_nb_entities(world: &mut MDotWorld, nb: usize) {
 #[given(expr = "there are {int} links in graph")]
 fn random_lks(world: &mut MDotWorld, nb: usize) {
     let mut rng = rand::rng();
-    let mut nums: Vec<usize> = (0..world.graph.get_entities().len()).collect();
-    for i in 0..nb {
+    let mut nums: Vec<usize> = (1..world.graph.get_entities().len() + 1).collect();
+    for i in 1..nb + 1 {
         nums.shuffle(&mut rng);
         world
             .graph

@@ -80,13 +80,18 @@ impl GraphLink {
     ///
     /// **Warning**: In case of an unknown entity, throws a
     /// [StagError::NonexistantLink] error.
-    pub fn set_cardinality(&mut self, e: Entity, n: i8, m: i8) -> StagResult<()> {
-        if let Some((role, _, _)) = self.lks.get(&e.name()) {
-            self.lks
-                .insert(e.name(), (role.clone(), n.into(), m.into()));
+    pub fn set_cardinality(
+        &mut self,
+        e: impl ToString,
+        n: Cardinality,
+        m: Cardinality,
+    ) -> StagResult<()> {
+        let str_name = e.to_string().to_lowercase();
+        if let Some((role, _, _)) = self.lks.get(&str_name) {
+            self.lks.insert(str_name, (role.clone(), n, m));
             Ok(())
         } else {
-            Err(StagError::NonexistantLink(e.name()))
+            Err(StagError::NonexistantLink(str_name))
         }
     }
 
