@@ -1,5 +1,5 @@
 use cucumber::{given, then, when};
-use stag::{entity::Cardinality, graph::Graph};
+use stag::{entity::Cardi, graph::Graph};
 
 use crate::MDotWorld;
 
@@ -11,8 +11,8 @@ fn ensure_entity(world: &mut MDotWorld, name: String) {
 #[given(expr = "the cardinalities on entity {int} will be {int},{word}")]
 fn ensure_card(world: &mut MDotWorld, _name: usize, n: i8, m: String) {
     world.cards.push((
-        Cardinality::from(n),
-        Cardinality::from(if m == "n" {
+        Cardi::from(n),
+        Cardi::from(if m == "n" {
             -1
         } else {
             m.as_str().parse::<i8>().unwrap()
@@ -110,9 +110,9 @@ fn check_card(world: &mut MDotWorld, name: usize, n: i8, m: String) {
         .get_entity_link(format!("e{}", name))
     {
         Ok((_, cn, cm)) => assert!(
-            cn.clone() == Cardinality::from(n)
+            cn.clone() == Cardi::from(n)
                 && cm.clone()
-                    == Cardinality::from(if m == "n" {
+                    == Cardi::from(if m == "n" {
                         -1
                     } else {
                         m.as_str().parse::<i8>().unwrap()

@@ -1,8 +1,8 @@
-use crate::entity::Cardinality;
+use crate::entity::Cardi;
 
 // cardinality constants
-pub const DEFAULT_CARDINALITY: (String, Cardinality, Cardinality) =
-    (String::new(), Cardinality::ZERO, Cardinality::MANY);
+pub const DEFAULT_CARDINALITY: (String, Cardi, Cardi) =
+    (String::new(), Cardi::ZERO, Cardi::MANY);
 
 // script snippets
 pub const MK_DB: &'static str = "create database";

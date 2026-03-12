@@ -1,4 +1,7 @@
-use crate::entity::{Cardinality, GraphLink};
+use crate::{
+    entity::{Cardi, GraphLink},
+    errors::StagError,
+};
 
 /// Utility enumeration made to encapsulate how Merise associations work (and
 /// therefore be translated to SQL links).
@@ -13,20 +16,39 @@ pub enum Association {
     NONE,
 }
 
-impl From<GraphLink> for Association {
-    fn from(value: GraphLink) -> Self {
-        let v_size = value.get_lks().len();
-        if v_size == 2 {
-            let v_lks = value
-                .get_lks()
-                .values()
-                .into_iter()
-                .map(|i| i.clone())
-                .collect::<Vec<(String, Cardinality, Cardinality)>>();
-            // TODO define cards value
-            todo!()
+impl Association {
+    fn concat(lk: GraphLink) -> Vec<(String, Cardi, Cardi)> {
+        lk.get_lks()
+            .iter()
+            .map(|(k, (_, n, m))| (k.clone(), n.clone(), m.clone()))
+            .collect()
+    }
+}
+
+impl TryFrom<GraphLink> for Association {
+    type Error = StagError;
+
+    fn try_from(value: GraphLink) -> Result<Self, Self::Error> {
+        let v_lks = Self::concat(value); // prefetch
+        if v_lks.len() == 2 {
+            // define cards value
+            match (v_lks[0].clone(), v_lks[1].clone()) {
+                // many2many situations
+                ((_, _, Cardi::MANY), (_, _, Cardi::MANY)) => Ok(Self::MANY2MANY),
+                // one2many situations
+                ((name_entity1, _, Cardi::ANY(_)), (_, _, Cardi::MANY)) => {
+                    Ok(Self::ONE2MANY(name_entity1))
+                }
+                ((_, _, Cardi::MANY), (name_entity2, _, Cardi::ANY(_))) => {
+                    Ok(Self::ONE2MANY(name_entity2))
+                }
+                // one2one situations
+                ((_, _, Cardi::ANY(_)), (_, _, Cardi::ANY(_))) => todo!(),
+                // aberrations situations
+                _ => Err(StagError::ParseError),
+            }
         } else {
-            Self::NONE // failsafe value
+            Err(StagError::ParseError)
         }
     }
 }

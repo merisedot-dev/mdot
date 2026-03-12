@@ -2,14 +2,14 @@ use std::collections::HashMap;
 
 use crate::{
     constants::DEFAULT_CARDINALITY,
-    entity::{Cardinality, Entity},
+    entity::{Cardi, Entity},
     errors::{StagError, StagResult},
 };
 
 #[derive(Clone, Debug, Default)]
 pub struct GraphLink {
     pub inner: Entity,
-    lks: HashMap<String, (String, Cardinality, Cardinality)>,
+    lks: HashMap<String, (String, Cardi, Cardi)>,
 }
 
 impl GraphLink {
@@ -23,7 +23,7 @@ impl GraphLink {
         }
     }
 
-    pub fn get_lks(&self) -> HashMap<String, (String, Cardinality, Cardinality)> {
+    pub fn get_lks(&self) -> HashMap<String, (String, Cardi, Cardi)> {
         self.lks.clone()
     }
 
@@ -35,7 +35,7 @@ impl GraphLink {
     pub fn get_entity_link(
         &self,
         name: impl ToString,
-    ) -> StagResult<&(String, Cardinality, Cardinality)> {
+    ) -> StagResult<&(String, Cardi, Cardi)> {
         let str_name = name.to_string().to_lowercase();
         match self.lks.get(&str_name) {
             Some(val) => Ok(val),
@@ -83,8 +83,8 @@ impl GraphLink {
     pub fn set_cardinality(
         &mut self,
         e: impl ToString,
-        n: Cardinality,
-        m: Cardinality,
+        n: Cardi,
+        m: Cardi,
     ) -> StagResult<()> {
         let str_name = e.to_string().to_lowercase();
         if let Some((role, _, _)) = self.lks.get(&str_name) {

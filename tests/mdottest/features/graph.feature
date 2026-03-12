@@ -38,6 +38,7 @@ Feature: Handling full graphs
             |0 |n |1 |n |
             |1 |n |0 |n |
             |0 |1 |0 |n |
+            |1 |1 |1 |1 |
 
     Scenario: Ternaries
         Given a new graph

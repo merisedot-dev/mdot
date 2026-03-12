@@ -40,7 +40,7 @@ impl GraphOverlay {
     fn to_mld(&mut self) -> StagResult<()> {
         let temp_graph = self.graph.clone(); // graph snapshot
         for (name, lk) in temp_graph.get_lks() {
-            let assos = Association::from(lk.clone());
+            let assos = Association::try_from(lk.clone())?;
             // TODO
         }
         Ok(())

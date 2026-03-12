@@ -1,19 +1,19 @@
 use std::fmt::{Display, Formatter};
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub enum Cardinality {
+pub enum Cardi {
     ANY(i8), // any defined number of linked elements
     ZERO,    // the foreign key is nullable
     MANY,    // undeterminate number of linked elements
 }
 
-impl Default for Cardinality {
+impl Default for Cardi {
     fn default() -> Self {
         Self::ZERO
     }
 }
 
-impl From<i8> for Cardinality {
+impl From<i8> for Cardi {
     fn from(value: i8) -> Self {
         if value == 0 {
             Self::ZERO
@@ -25,7 +25,7 @@ impl From<i8> for Cardinality {
     }
 }
 
-impl Display for Cardinality {
+impl Display for Cardi {
     fn fmt(&self, frm: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::ANY(val) => frm.write_str(format!("{}", val).as_str()),

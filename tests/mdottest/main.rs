@@ -5,7 +5,7 @@ mod script;
 
 use cucumber::World;
 use stag::{
-    entity::{AttrRole, Cardinality, Entity, EntityAttr, GraphLink},
+    entity::{AttrRole, Cardi, Entity, EntityAttr, GraphLink},
     graph::Graph,
 };
 
@@ -21,7 +21,7 @@ pub struct MDotWorld {
     // Graph testing
     graph: Graph,
     name: String,
-    cards: Vec<(Cardinality, Cardinality)>,
+    cards: Vec<(Cardi, Cardi)>,
     // TODO necessary fields for other test suites
 }
 
