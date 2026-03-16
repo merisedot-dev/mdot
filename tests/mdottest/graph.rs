@@ -1,7 +1,7 @@
 use cucumber::{given, then, when};
-use stag::{entity::Cardi, graph::Graph};
+use stag::{entity::Cardi, graph::Graph, script::keys::Association};
 
-use crate::MDotWorld;
+use crate::{MDotWorld, utils::str2assoc};
 
 #[given(expr = "an entity named \"{word}\" in graph")]
 fn ensure_entity(world: &mut MDotWorld, name: String) {
@@ -71,6 +71,17 @@ fn mk_speclink(world: &mut MDotWorld, e1: usize, e2: usize) {
         .unwrap();
 }
 
+#[when(expr = "we extract the association info from \"{word}\"")]
+fn extract_assoc(world: &mut MDotWorld, name: String) {
+    world.assoc = world
+        .graph
+        .get_lk(name)
+        .unwrap()
+        .clone()
+        .try_into()
+        .unwrap();
+}
+
 #[then(expr = "the graph has {int} entities")]
 fn check_nb_entities(world: &mut MDotWorld, nb: usize) {
     assert_eq!(world.graph.get_entities().len(), nb)
@@ -119,5 +130,15 @@ fn check_card(world: &mut MDotWorld, name: usize, n: i8, m: String) {
                     })
         ),
         _ => panic!("There should be a GraphLink here"),
+    }
+}
+
+#[then(expr = "the association is of type {word}")]
+fn check_assoc(world: &mut MDotWorld, asc: String) {
+    match (world.assoc.clone(), str2assoc(asc)) {
+        (Association::MANY2MANY, Association::MANY2MANY)
+        | (Association::ONE2MANY(_), Association::ONE2MANY(_))
+        | (Association::ONE2ONE(_), Association::ONE2ONE(_)) => { /* Nothing */ }
+        (_, _) => panic!("This is not a match"),
     }
 }

@@ -2,11 +2,13 @@ mod entity;
 mod graph;
 mod link;
 mod script;
+pub(crate) mod utils;
 
 use cucumber::World;
 use stag::{
     entity::{AttrRole, Cardi, Entity, EntityAttr, GraphLink},
     graph::Graph,
+    script::keys::Association,
 };
 
 #[derive(Debug, Default, World)]
@@ -22,7 +24,7 @@ pub struct MDotWorld {
     graph: Graph,
     name: String,
     cards: Vec<(Cardi, Cardi)>,
-    // TODO necessary fields for other test suites
+    assoc: Association,
 }
 
 fn main() {

@@ -5,7 +5,7 @@ use crate::{
 
 /// Utility enumeration made to encapsulate how Merise associations work (and
 /// therefore be translated to SQL links).
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub enum Association {
     // Two-sided associations
     ONE2ONE(String),
@@ -14,6 +14,12 @@ pub enum Association {
     // TODO ternaries (and more entities)
     // utility
     NONE,
+}
+
+impl Default for Association {
+    fn default() -> Self {
+        Self::NONE
+    }
 }
 
 impl Association {

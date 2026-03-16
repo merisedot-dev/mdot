@@ -51,3 +51,24 @@ Feature: Handling full graphs
         And the GraphLink "ltest" knows an entity named "ent1"
         And the GraphLink "ltest" knows an entity named "ent2"
         And the GraphLink "ltest" knows an entity named "ent3"
+
+    Scenario Outline: Association coercion
+        Given a new graph
+        And there are 2 entities in graph
+        And the cardinalities on entity 1 will be <n1>,<m1>
+        And the cardinalities on entity 2 will be <n2>,<m2>
+        When we link entities 1 and 2 together
+        And we extract the association info from "ctest"
+        Then the association is of type <status>
+
+        Examples:
+            |n1|m1|n2|m2|status  |
+            |0 |1 |0 |n |one2many|
+            |1 |1 |0 |n |one2many|
+            |0 |1 |1 |n |one2many|
+            |0 |n |0 |1 |one2many|
+            |0 |n |1 |1 |one2many|
+            |1 |n |0 |1 |one2many|
+            |0 |1 |0 |1 |one2one |
+            |1 |1 |0 |1 |one2one |
+            |0 |1 |1 |1 |one2one |
