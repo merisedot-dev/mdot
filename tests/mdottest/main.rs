@@ -27,6 +27,10 @@ pub struct MDotWorld {
     assoc: Association,
 }
 
-fn main() {
-    futures::executor::block_on(MDotWorld::run("tests/mdottest/features"));
+#[tokio::main]
+async fn main() {
+    MDotWorld::cucumber()
+        .init_tracing()
+        .run("tests/mdottest/features")
+        .await;
 }
