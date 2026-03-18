@@ -19,7 +19,7 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        # main build
+        # built packages and windows cross-compilation
         packages.default = pkgs.callPackage ./default.nix { };
 
         # devshell for ease of use

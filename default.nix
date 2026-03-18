@@ -38,6 +38,4 @@ stdenv.mkDerivation (finalAttrs: {
     gnome-desktop
     desktop-file-utils
   ];
-
-  # FIXME post-build
 })
