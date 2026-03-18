@@ -2,7 +2,6 @@ mod entity;
 mod graph;
 mod link;
 mod script;
-pub(crate) mod utils;
 
 use cucumber::World;
 use stag::{
@@ -20,6 +19,9 @@ pub struct MDotWorld {
     role: AttrRole,
     // GraphLink testing
     link: GraphLink,
+    key: String,
+    nlb1: bool,
+    nlb2: bool,
     // Graph testing
     graph: Graph,
     name: String,

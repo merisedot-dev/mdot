@@ -39,8 +39,8 @@ impl GraphOverlay {
     /// [StagError::ParseError] back to caller.
     fn to_mld(&mut self) -> StagResult<()> {
         let temp_graph = self.graph.clone(); // graph snapshot
-        for (name, lk) in temp_graph.get_lks() {
-            let assos = Association::try_from(lk.clone())?;
+        for (_name, lk) in temp_graph.get_lks() {
+            let _assos = Association::try_from(lk.clone())?;
             // TODO
         }
         Ok(())

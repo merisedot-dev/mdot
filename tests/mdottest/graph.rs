@@ -1,7 +1,7 @@
 use cucumber::{given, then, when};
 use stag::{entity::Cardi, graph::Graph, script::keys::Association};
 
-use crate::{MDotWorld, utils::str2assoc};
+use crate::MDotWorld;
 
 #[given(expr = "an entity named \"{word}\" in graph")]
 fn ensure_entity(world: &mut MDotWorld, name: String) {
@@ -133,12 +133,50 @@ fn check_card(world: &mut MDotWorld, name: usize, n: i8, m: String) {
     }
 }
 
-#[then(expr = "the association is of type {word}")]
-fn check_assoc(world: &mut MDotWorld, asc: String) {
-    match (world.assoc.clone(), str2assoc(asc)) {
-        (Association::MANY2MANY, Association::MANY2MANY)
-        | (Association::ONE2MANY(_), Association::ONE2MANY(_))
-        | (Association::ONE2ONE(_), Association::ONE2ONE(_)) => { /* Nothing */ }
-        (_, _) => panic!("This is not a match"),
+#[then("the association is a one2many association")]
+fn check_one2many(world: &mut MDotWorld) {
+    match world.assoc.clone() {
+        Association::ONE2MANY(name, nlb) => {
+            world.key = name;
+            world.nlb1 = nlb;
+        }
+        _ => panic!("association mismatch"),
     }
+}
+
+#[then("the association is a one2one association")]
+fn check_one2one(world: &mut MDotWorld) {
+    match world.assoc.clone() {
+        Association::ONE2ONE(nlb1, nlb2) => {
+            world.nlb1 = nlb1;
+            world.nlb2 = nlb2;
+        }
+        _ => panic!("association mismatch"),
+    }
+}
+
+#[then(expr = "the one2many key is on {int} and is nullable [{word}]")]
+fn check_o2m_nullable(world: &mut MDotWorld, ent: usize, bl: String) {
+    assert_eq!(world.key, format!("e{}", ent));
+    assert_eq!(
+        world.nlb1,
+        match bl.as_str() {
+            "true" => true,
+            _ => false,
+        }
+    );
+}
+
+#[then(expr = "the key on {int} is nullable [{word}]")]
+fn check_nullable(world: &mut MDotWorld, ent: usize, bl: String) {
+    if ent == 1 {
+        assert_eq!(
+            world.nlb1,
+            match bl.as_str() {
+                "true" => true,
+                _ => false,
+            }
+        );
+    }
+    todo!()
 }
