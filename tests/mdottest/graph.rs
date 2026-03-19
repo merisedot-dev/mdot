@@ -139,6 +139,16 @@ fn check_one2one(world: &mut MDotWorld) {
     }
 }
 
+#[then("the association is a many2many association")]
+fn check_many2many(world: &mut MDotWorld) {
+    match world.assoc.clone() {
+        Association::MANY2MANY(name) => {
+            world.key = name;
+        }
+        _ => panic!("association mismatch"),
+    }
+}
+
 #[then(expr = "the one2many key is on {int} and is nullable [{word}]")]
 fn check_o2m_nullable(world: &mut MDotWorld, ent: usize, bl: MyBool) {
     assert_eq!(world.key, format!("e{}", ent));
@@ -153,4 +163,9 @@ fn check_cardis1(world: &mut MDotWorld, status: MyBool) {
 #[then(expr = "the key on 2 is nullable [{word}]")]
 fn check_cardis2(world: &mut MDotWorld, status: MyBool) {
     assert_eq!(world.nlb2, status.into())
+}
+
+#[then(expr = "the intermediate's entity name is \"{word}\"")]
+fn check_intermediate(world: &mut MDotWorld, name: String) {
+    assert_eq!(world.key, name)
 }

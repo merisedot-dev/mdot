@@ -36,7 +36,9 @@ impl TryFrom<GraphLink> for Association {
             // define cards value
             match (v_lks[0].clone(), v_lks[1].clone()) {
                 // many2many situations
-                ((_, _, Cardi::MANY), (_, _, Cardi::MANY)) => todo!(),
+                ((name_1, _, Cardi::MANY), (name_2, _, Cardi::MANY)) => {
+                    Ok(Self::MANY2MANY(format!("lk_{}_{}", name_1, name_2)))
+                }
                 // one2many situations
                 ((ent_name, cardinality, Cardi::ANY(_)), (_, _, Cardi::MANY)) => {
                     Ok(Self::ONE2MANY(
