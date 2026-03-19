@@ -15,6 +15,7 @@ harness = false
 adw = { version = "0.8.1", package = "libadwaita", features = ["v1_8"] }
 gettext-rs = "0.7.7"
 gtk = { version = "0.10.3", package = "gtk4", features = ["v4_20"] }
+indexmap = "2.13.0"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
 tracing = "0.1.44"

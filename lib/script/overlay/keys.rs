@@ -20,13 +20,10 @@ pub enum Association {
 
 impl Association {
     fn concat(lk: GraphLink) -> Vec<(String, Cardi, Cardi)> {
-        let mut val = lk
-            .get_lks()
+        lk.get_lks()
             .iter()
             .map(|(k, (_, n, m))| (k.clone(), n.clone(), m.clone()))
-            .collect::<Vec<(String, Cardi, Cardi)>>();
-        val.sort_by(|(na, _, _), (nb, _, _)| na.cmp(nb)); // do NOT remove
-        val.clone()
+            .collect()
     }
 }
 

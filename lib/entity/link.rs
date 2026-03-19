@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use indexmap::IndexMap;
 
 use crate::{
     constants::DEFAULT_CARDINALITY,
@@ -9,7 +9,7 @@ use crate::{
 #[derive(Clone, Debug, Default)]
 pub struct GraphLink {
     pub inner: Entity,
-    lks: HashMap<String, (String, Cardi, Cardi)>,
+    lks: IndexMap<String, (String, Cardi, Cardi)>,
 }
 
 impl GraphLink {
@@ -19,11 +19,11 @@ impl GraphLink {
     pub fn new(name: impl ToString) -> Self {
         Self {
             inner: Entity::new(name),
-            lks: HashMap::new(),
+            lks: IndexMap::new(),
         }
     }
 
-    pub fn get_lks(&self) -> HashMap<String, (String, Cardi, Cardi)> {
+    pub fn get_lks(&self) -> IndexMap<String, (String, Cardi, Cardi)> {
         self.lks.clone()
     }
 
@@ -32,10 +32,7 @@ impl GraphLink {
     ///
     /// **Warning**: In case of a nonexistant link, it will throw a
     /// [StagError::NonexistantLink] error.
-    pub fn get_entity_link(
-        &self,
-        name: impl ToString,
-    ) -> StagResult<&(String, Cardi, Cardi)> {
+    pub fn get_entity_link(&self, name: impl ToString) -> StagResult<&(String, Cardi, Cardi)> {
         let str_name = name.to_string().to_lowercase();
         match self.lks.get(&str_name) {
             Some(val) => Ok(val),
@@ -80,12 +77,7 @@ impl GraphLink {
     ///
     /// **Warning**: In case of an unknown entity, throws a
     /// [StagError::NonexistantLink] error.
-    pub fn set_cardinality(
-        &mut self,
-        e: impl ToString,
-        n: Cardi,
-        m: Cardi,
-    ) -> StagResult<()> {
+    pub fn set_cardinality(&mut self, e: impl ToString, n: Cardi, m: Cardi) -> StagResult<()> {
         let str_name = e.to_string().to_lowercase();
         if let Some((role, _, _)) = self.lks.get(&str_name) {
             self.lks.insert(str_name, (role.clone(), n, m));
@@ -103,7 +95,7 @@ impl GraphLink {
     pub fn unlink(&mut self, entity: Entity) -> StagResult<()> {
         let str_name = entity.name();
         if self.lks.contains_key(&str_name) {
-            self.lks.remove(&str_name);
+            self.lks.shift_remove(&str_name);
             Ok(())
         } else {
             Err(StagError::NonexistantLink(str_name))
