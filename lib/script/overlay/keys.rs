@@ -40,17 +40,6 @@ impl TryFrom<GraphLink> for Association {
         if v_lks.len() == 2 {
             // define cards value
             match (v_lks[0].clone(), v_lks[1].clone()) {
-                // many2many situations
-                ((_, m, Cardi::MANY), (_, n, Cardi::MANY)) => Ok(Self::MANY2MANY(
-                    match m {
-                        Cardi::ANY(_) => false,
-                        _ => false,
-                    },
-                    match n {
-                        Cardi::ANY(_) => false,
-                        _ => false,
-                    },
-                )),
                 // one2many situations
                 ((ent_name, cardinality, Cardi::ANY(_)), (_, _, Cardi::MANY)) => {
                     Ok(Self::ONE2MANY(
@@ -71,12 +60,19 @@ impl TryFrom<GraphLink> for Association {
                     ))
                 }
                 // one2one situations
-                ((_, m, Cardi::ANY(_)), (_, n, Cardi::ANY(_))) => match (m, n) {
-                    (Cardi::ZERO, Cardi::ANY(_)) => Ok(Self::ONE2ONE(true, false)),
-                    (Cardi::ANY(_), Cardi::ZERO) => Ok(Self::ONE2ONE(false, true)),
-                    (Cardi::ZERO, Cardi::ZERO) => Ok(Self::ONE2ONE(true, true)),
-                    (_, _) => Err(StagError::ParseError),
-                },
+                (
+                    (_, min_cardinality_ent1, Cardi::ANY(_)),
+                    (_, min_cardinality_ent2, Cardi::ANY(_)),
+                ) => Ok(Self::ONE2ONE(
+                    match min_cardinality_ent1 {
+                        Cardi::ZERO => true,
+                        _ => false,
+                    },
+                    match min_cardinality_ent2 {
+                        Cardi::ZERO => true,
+                        _ => false,
+                    },
+                )),
                 // aberrations situations
                 _ => Err(StagError::ParseError),
             }

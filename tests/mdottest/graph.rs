@@ -177,6 +177,13 @@ fn check_nullable(world: &mut MDotWorld, ent: usize, bl: String) {
                 _ => false,
             }
         );
+    } else {
+        assert_eq!(
+            world.nlb2,
+            match bl.as_str() {
+                "true" => true,
+                _ => false,
+            }
+        )
     }
-    todo!()
 }
