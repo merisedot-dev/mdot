@@ -6,7 +6,7 @@ use crate::{
 /// Utility enumeration made to encapsulate how Merise associations work (and
 /// therefore be translated to SQL links). When considering booleans in there,
 /// `true` only means it's nullable.
-#[derive(Debug, Clone)]
+#[derive(Clone, Debug, Default)]
 pub enum Association {
     // Two-sided associations
     ONE2ONE(bool, bool),
@@ -14,21 +14,19 @@ pub enum Association {
     MANY2MANY(String),
     // TODO ternaries (and more entities)
     // utility
+    #[default]
     NONE,
-}
-
-impl Default for Association {
-    fn default() -> Self {
-        Self::NONE
-    }
 }
 
 impl Association {
     fn concat(lk: GraphLink) -> Vec<(String, Cardi, Cardi)> {
-        lk.get_lks()
+        let mut val = lk
+            .get_lks()
             .iter()
             .map(|(k, (_, n, m))| (k.clone(), n.clone(), m.clone()))
-            .collect()
+            .collect::<Vec<(String, Cardi, Cardi)>>();
+        val.sort_by(|(na, _, _), (nb, _, _)| na.cmp(nb)); // do NOT remove
+        val.clone()
     }
 }
 
@@ -40,6 +38,8 @@ impl TryFrom<GraphLink> for Association {
         if v_lks.len() == 2 {
             // define cards value
             match (v_lks[0].clone(), v_lks[1].clone()) {
+                // many2many situations
+                ((_, _, Cardi::MANY), (_, _, Cardi::MANY)) => todo!(),
                 // one2many situations
                 ((ent_name, cardinality, Cardi::ANY(_)), (_, _, Cardi::MANY)) => {
                     Ok(Self::ONE2MANY(

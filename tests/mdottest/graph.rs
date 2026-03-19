@@ -134,7 +134,6 @@ fn check_one2one(world: &mut MDotWorld) {
         Association::ONE2ONE(nlb1, nlb2) => {
             world.nlb1 = nlb1;
             world.nlb2 = nlb2;
-            tracing::info!("{} {}", nlb1, nlb2); // debug utility
         }
         _ => panic!("association mismatch"),
     }
@@ -149,4 +148,9 @@ fn check_o2m_nullable(world: &mut MDotWorld, ent: usize, bl: MyBool) {
 #[then(expr = "the key on 1 is nullable [{word}]")]
 fn check_cardis1(world: &mut MDotWorld, status: MyBool) {
     assert_eq!(world.nlb1, status.into())
+}
+
+#[then(expr = "the key on 2 is nullable [{word}]")]
+fn check_cardis2(world: &mut MDotWorld, status: MyBool) {
+    assert_eq!(world.nlb2, status.into())
 }
