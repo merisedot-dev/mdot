@@ -11,7 +11,7 @@ pub enum Association {
     // Two-sided associations
     ONE2ONE(bool, bool),
     ONE2MANY(String, bool),
-    MANY2MANY(bool, bool),
+    MANY2MANY(String),
     // TODO ternaries (and more entities)
     // utility
     NONE,

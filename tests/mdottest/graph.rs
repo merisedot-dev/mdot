@@ -1,23 +1,24 @@
 use cucumber::{given, then, when};
 use stag::{entity::Cardi, graph::Graph, script::keys::Association};
 
-use crate::MDotWorld;
+use crate::{
+    MDotWorld,
+    utils::{MyBool, str2i8},
+};
 
 #[given(expr = "an entity named \"{word}\" in graph")]
 fn ensure_entity(world: &mut MDotWorld, name: String) {
     world.graph.mk_entity(name).unwrap();
 }
 
-#[given(expr = "the cardinalities on entity {int} will be {int},{word}")]
-fn ensure_card(world: &mut MDotWorld, _name: usize, n: i8, m: String) {
-    world.cards.push((
-        Cardi::from(n),
-        Cardi::from(if m == "n" {
-            -1
-        } else {
-            m.as_str().parse::<i8>().unwrap()
-        }),
-    ));
+#[given(expr = "the cardinalities on entity 1 will be {int},{word}")]
+fn ensure_card1(world: &mut MDotWorld, min: i8, max: String) {
+    world.cardis1 = (Cardi::from(min), Cardi::from(str2i8(max)));
+}
+
+#[given(expr = "the cardinalities on entity 2 will be {int},{word}")]
+fn ensure_card2(world: &mut MDotWorld, min: i8, max: String) {
+    world.cardis2 = (Cardi::from(min), Cardi::from(str2i8(max)));
 }
 
 #[given("a new graph")]
@@ -41,45 +42,28 @@ fn ternary(world: &mut MDotWorld, entity: String, glk: String) {
     world.graph.extra_lk(glk, entity).unwrap();
 }
 
-#[when(expr = "we link entities {int} and {int} together")]
-fn mk_speclink(world: &mut MDotWorld, e1: usize, e2: usize) {
-    world
-        .graph
-        .link("ctest", format!("e{}", e1), format!("e{}", e2))
-        .unwrap();
-    // setting cardinalities on 1
+#[when("we link entities 1 and 2 together")]
+fn mk_link_bis(world: &mut MDotWorld) {
+    world.graph.link("ctest", "e1", "e2").unwrap();
+    // tweak cardinalities on e1
     world
         .graph
         .edt_link("ctest")
         .unwrap()
-        .set_cardinality(
-            "e1",
-            world.cards[e1 - 1].0.clone(),
-            world.cards[e1 - 1].1.clone(),
-        )
+        .set_cardinality("e1", world.cardis1.clone().0, world.cardis1.clone().1)
         .unwrap();
-    // setting cardinalities on 2
+    // tweak cardinalities on e2
     world
         .graph
         .edt_link("ctest")
         .unwrap()
-        .set_cardinality(
-            "e2",
-            world.cards[e2 - 1].0.clone(),
-            world.cards[e2 - 1].1.clone(),
-        )
+        .set_cardinality("e2", world.cardis2.clone().0, world.cardis2.clone().1)
         .unwrap();
 }
 
 #[when(expr = "we extract the association info from \"{word}\"")]
 fn extract_assoc(world: &mut MDotWorld, name: String) {
-    world.assoc = world
-        .graph
-        .get_lk(name)
-        .unwrap()
-        .clone()
-        .try_into()
-        .unwrap();
+    world.assoc = Association::try_from(world.graph.get_lk(name).unwrap().clone()).unwrap();
 }
 
 #[then(expr = "the graph has {int} entities")]
@@ -150,40 +134,19 @@ fn check_one2one(world: &mut MDotWorld) {
         Association::ONE2ONE(nlb1, nlb2) => {
             world.nlb1 = nlb1;
             world.nlb2 = nlb2;
+            tracing::info!("{} {}", nlb1, nlb2); // debug utility
         }
         _ => panic!("association mismatch"),
     }
 }
 
 #[then(expr = "the one2many key is on {int} and is nullable [{word}]")]
-fn check_o2m_nullable(world: &mut MDotWorld, ent: usize, bl: String) {
+fn check_o2m_nullable(world: &mut MDotWorld, ent: usize, bl: MyBool) {
     assert_eq!(world.key, format!("e{}", ent));
-    assert_eq!(
-        world.nlb1,
-        match bl.as_str() {
-            "true" => true,
-            _ => false,
-        }
-    );
+    assert_eq!(world.nlb1, bl.into());
 }
 
-#[then(expr = "the key on {int} is nullable [{word}]")]
-fn check_nullable(world: &mut MDotWorld, ent: usize, bl: String) {
-    if ent == 1 {
-        assert_eq!(
-            world.nlb1,
-            match bl.as_str() {
-                "true" => true,
-                _ => false,
-            }
-        );
-    } else {
-        assert_eq!(
-            world.nlb2,
-            match bl.as_str() {
-                "true" => true,
-                _ => false,
-            }
-        )
-    }
+#[then(expr = "the key on 1 is nullable [{word}]")]
+fn check_cardis1(world: &mut MDotWorld, status: MyBool) {
+    assert_eq!(world.nlb1, status.into())
 }

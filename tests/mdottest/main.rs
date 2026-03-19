@@ -2,6 +2,7 @@ mod entity;
 mod graph;
 mod link;
 mod script;
+pub(crate) mod utils;
 
 use cucumber::World;
 use stag::{
@@ -25,8 +26,10 @@ pub struct MDotWorld {
     // Graph testing
     graph: Graph,
     name: String,
-    cards: Vec<(Cardi, Cardi)>,
     assoc: Association,
+    // cardinality testing utilities
+    cardis1: (Cardi, Cardi),
+    cardis2: (Cardi, Cardi),
 }
 
 #[tokio::main]

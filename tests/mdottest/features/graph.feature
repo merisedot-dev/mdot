@@ -85,3 +85,20 @@ Feature: Handling full graphs
             |0 |1 |0 |1 |true |true |
             |1 |1 |0 |1 |false|true |
             |0 |1 |1 |1 |true |false|
+
+    Scenario Outline: many2many coercion
+        Given a new graph
+        And there are 2 entities in graph
+        And the cardinalities on entity 1 will be <n1>,<m1>
+        And the cardinalities on entity 2 will be <n2>,<m2>
+        When we link entities 1 and 2 together
+        And we extract the association info from "ctest"
+        Then the association is a many2many association
+        And the intermediate's entity name is "lk_e1_e2"
+
+        Examples:
+            |n1|m1|n2|m2|
+            |0 |n |0 |n |
+            |1 |n |0 |n |
+            |0 |n |1 |n |
+            |1 |n |1 |n |
