@@ -12,7 +12,8 @@ pub enum Association {
     ONE2ONE(bool, bool),
     ONE2MANY(String, bool),
     MANY2MANY(String),
-    // TODO ternaries (and more entities)
+    // ternaries (and more entities)
+    TERNARY(String),
     // utility
     #[default]
     NONE,
@@ -75,8 +76,18 @@ impl TryFrom<GraphLink> for Association {
                 // aberrations situations
                 _ => Err(StagError::ParseError),
             }
+        } else if v_lks.len() >= 3 {
+            Ok(Self::TERNARY(format!(
+                "lk_{}",
+                v_lks
+                    .iter()
+                    .map(|(name, _, _)| name.clone())
+                    .collect::<Vec<String>>()
+                    .join("_")
+            )))
         } else {
-            todo!()
+            // aberration failsafe
+            Err(StagError::ParseError)
         }
     }
 }

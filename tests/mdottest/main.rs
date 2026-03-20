@@ -30,6 +30,7 @@ pub struct MDotWorld {
     // cardinality testing utilities
     cardis1: (Cardi, Cardi),
     cardis2: (Cardi, Cardi),
+    cardis3: (Cardi, Cardi),
 }
 
 #[tokio::main]

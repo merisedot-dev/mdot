@@ -102,3 +102,28 @@ Feature: Handling full graphs
             |1 |n |0 |n |
             |0 |n |1 |n |
             |1 |n |1 |n |
+
+    Scenario Outline: Ternaries coercion
+        Given a new graph
+        And there are 3 entities in graph
+        And the cardinalities on entity 1 will be <n1>,<m1>
+        And the cardinalities on entity 2 will be <n2>,<m2>
+        And the cardinalities on entity 3 will be <n3>,<m3>
+        When we link entities 1, 2 and 3 together
+        And we extract the association info from "ctest"
+        Then the association is a ternary association
+        And the intermediate's entity name is "lk_e1_e2_e3"
+
+        Examples:
+            |n1|m1|n2|m2|n3|m3|
+            |0 |n |0 |n |0 |n |
+            |1 |n |0 |n |0 |n |
+            |0 |n |1 |n |0 |n |
+            |0 |n |0 |n |1 |n |
+            |1 |n |1 |n |0 |n |
+            |1 |n |0 |n |1 |n |
+            |0 |n |1 |n |1 |n |
+            |0 |1 |0 |1 |0 |1 |
+            |1 |1 |0 |1 |0 |1 |
+            |0 |1 |1 |1 |0 |1 |
+            |0 |1 |0 |1 |1 |1 |

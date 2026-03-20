@@ -21,6 +21,11 @@ fn ensure_card2(world: &mut MDotWorld, min: i8, max: String) {
     world.cardis2 = (Cardi::from(min), Cardi::from(str2i8(max)));
 }
 
+#[given(expr = "the cardinalities on entity 3 will be {int},{word}")]
+fn ensure_card3(world: &mut MDotWorld, min: i8, max: String) {
+    world.cardis3 = (Cardi::from(min), Cardi::from(str2i8(max)));
+}
+
 #[given("a new graph")]
 #[when("we build a new graph")]
 fn mk_graph(world: &mut MDotWorld) {
@@ -58,6 +63,25 @@ fn mk_link_bis(world: &mut MDotWorld) {
         .edt_link("ctest")
         .unwrap()
         .set_cardinality("e2", world.cardis2.clone().0, world.cardis2.clone().1)
+        .unwrap();
+}
+
+#[when("we link entities 1, 2 and 3 together")]
+fn mk_ternary_link(world: &mut MDotWorld) {
+    mk_link_bis(world);
+    let graph = world.graph.clone();
+    // adding third entity
+    world
+        .graph
+        .edt_link("ctest")
+        .unwrap()
+        .link_to(graph.get_entity("e3").unwrap().clone())
+        .unwrap();
+    world
+        .graph
+        .edt_link("ctest")
+        .unwrap()
+        .set_cardinality("e3", world.cardis3.clone().0, world.cardis3.clone().1)
         .unwrap();
 }
 
@@ -143,6 +167,16 @@ fn check_one2one(world: &mut MDotWorld) {
 fn check_many2many(world: &mut MDotWorld) {
     match world.assoc.clone() {
         Association::MANY2MANY(name) => {
+            world.key = name;
+        }
+        _ => panic!("association mismatch"),
+    }
+}
+
+#[then("the association is a ternary association")]
+fn check_ternary(world: &mut MDotWorld) {
+    match world.assoc.clone() {
+        Association::TERNARY(name) => {
             world.key = name;
         }
         _ => panic!("association mismatch"),
