@@ -127,3 +127,19 @@ Feature: Handling full graphs
             |1 |1 |0 |1 |0 |1 |
             |0 |1 |1 |1 |0 |1 |
             |0 |1 |0 |1 |1 |1 |
+            |0 |n |0 |1 |0 |1 |
+            |0 |1 |0 |n |0 |1 |
+            |0 |1 |0 |1 |0 |n |
+
+    Scenario Outline: Ternaries and beyond
+        Given a new graph
+        And there are <nb> entities in graph
+        When each entity is linked to "tertest" with random cardinalities
+        And we extract the association info from "tertest"
+        Then the association is a ternary association
+        And the intermediate's entity name follows "lk_[e1]_[e2]"
+
+        Examples:
+            |nb|
+            |4 |
+            |10|

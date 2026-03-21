@@ -1,4 +1,5 @@
 use cucumber::{given, then, when};
+use rand::Rng;
 use stag::{entity::Cardi, graph::Graph, script::keys::Association};
 
 use crate::{
@@ -83,6 +84,43 @@ fn mk_ternary_link(world: &mut MDotWorld) {
         .unwrap()
         .set_cardinality("e3", world.cardis3.clone().0, world.cardis3.clone().1)
         .unwrap();
+}
+
+#[when(expr = "each entity is linked to \"{word}\" with random cardinalities")]
+fn mk_beyond_link(world: &mut MDotWorld, name: String) {
+    world.graph.link(name.clone(), "e1", "e2").unwrap();
+    // fetches basic utilities
+    let graph = world.graph.clone();
+    let lk = graph.get_lk(name.clone()).unwrap();
+    let mut rng = rand::rng();
+    // add missing links
+    for i in 1..graph.get_entities().len() {
+        if let Err(_) = lk.get_entity_link(format!("e{}", i)) {
+            world
+                .graph
+                .edt_link(name.clone())
+                .unwrap()
+                .link_to(graph.get_entity(format!("e{}", i)).unwrap().clone())
+                .unwrap();
+        }
+        // tweak cardinalities on linked entity
+        world
+            .graph
+            .edt_link(name.clone())
+            .unwrap()
+            .set_cardinality(
+                format!("e{}", i),
+                match rng.next_u32().rem_euclid(2) {
+                    0 => Cardi::ZERO,
+                    _ => Cardi::ANY(1),
+                },
+                match rng.next_u32().rem_euclid(2) {
+                    0 => Cardi::ANY(1),
+                    _ => Cardi::MANY,
+                },
+            )
+            .unwrap();
+    }
 }
 
 #[when(expr = "we extract the association info from \"{word}\"")]
@@ -202,4 +240,13 @@ fn check_cardis2(world: &mut MDotWorld, status: MyBool) {
 #[then(expr = "the intermediate's entity name is \"{word}\"")]
 fn check_intermediate(world: &mut MDotWorld, name: String) {
     assert_eq!(world.key, name)
+}
+
+#[then("the intermediate's entity name follows \"lk_[e1]_[e2]\"")]
+fn check_name_pattern(world: &mut MDotWorld) {
+    let check = world.key.split("_").collect::<Vec<&str>>();
+    assert_eq!(check[0], "lk"); // root check
+    for i in 1..check.len() {
+        assert_eq!(check[i], format!("e{}", i))
+    }
 }
