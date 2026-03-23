@@ -14,6 +14,7 @@ Feature: Writing down SQL scripts.
     Scenario Outline: Only entities
         Given a new graph
         And there are <nbe> entities in graph
+        And each entity has a primary key
         When we convert the graph using the <kernel> conversion core
         Then the resulting script looks like `assets/oe/<name>.sql`
 
@@ -24,17 +25,21 @@ Feature: Writing down SQL scripts.
     Scenario Outline: Entities and links
         Given a new graph
         And there are <nbe> entities in graph
-        And there are <nbl> links in graph
+        And each entity has a primary key
+        And ent<n1>'s cardinalities are <m1>,<M1>
+        And ent<n2>'s cardinalities are <m2>,<M2>
         When we convert the graph using the <kernel> conversion core
         Then the resulting script looks like `assets/el/<name>.sql`
 
         Examples:
-            |nbe|nbl|name  |kernel|
-            |4  |1  |msql01|MySql |
+            |nbe|n1|m1|M1|n2|m2|M2|name  |kernel|
+            |4  |1 |0 |n |2 |0 |n |msql01|MySql |
+            |3  |1 |1 |1 |3 |0 |n |msql02|MySql |
 
     Scenario Outline: Full database
         Given a new graph
         And there are 5 entities in graph
+        And each entity has a primary key
         And the entity 1 is linked with 3 via l1
         And the entity 1 is linked with 4 via l1
         And the entity 2 is linked with 4 via l2

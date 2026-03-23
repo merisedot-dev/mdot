@@ -25,7 +25,6 @@ pub struct MDotWorld {
     nlb2: bool,
     // Graph testing
     graph: Graph,
-    name: String,
     assoc: Association,
     // cardinality testing utilities
     cardis1: (Cardi, Cardi),

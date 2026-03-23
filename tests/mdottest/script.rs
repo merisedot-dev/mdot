@@ -1,5 +1,4 @@
 use cucumber::given;
-use rand::seq::SliceRandom;
 
 use crate::MDotWorld;
 
@@ -10,36 +9,7 @@ fn ensure_nb_entities(world: &mut MDotWorld, nb: usize) {
     }
 }
 
-#[given(expr = "there are {int} links in graph")]
-fn random_lks(world: &mut MDotWorld, nb: usize) {
-    let mut rng = rand::rng();
-    let mut nums: Vec<usize> = (1..world.graph.get_entities().len() + 1).collect();
-    for i in 1..nb + 1 {
-        nums.shuffle(&mut rng);
-        world
-            .graph
-            .link(
-                format!("lk{}", i),
-                format!("e{}", nums[0]),
-                format!("e{}", nums[1]),
-            )
-            .unwrap();
-    }
-}
-
-#[given(expr = "the entity {int} is linked with {int} via {word}")]
-fn mk_lk(world: &mut MDotWorld, e1: usize, e2: usize, lk: String) {
-    let graph = world.graph.clone();
-    match graph.get_lk(lk.clone()) {
-        Ok(_) => world.graph.extra_lk(lk, format!("e{}", e2)).unwrap(),
-        _ => world
-            .graph
-            .link(lk, format!("e{}", e1), format!("e{}", e2))
-            .unwrap(),
-    }
-}
-
-#[given(expr = "we want to name the database \"{word}\"")]
-fn mk_name(world: &mut MDotWorld, name: String) {
-    world.name = name;
+#[given("each entity has a primary key")]
+fn ensure_pk(world: &mut MDotWorld) {
+    let _graph = world.graph.clone();
 }
