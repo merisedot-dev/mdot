@@ -1,5 +1,8 @@
 use crate::{
-    constraint::ESQLConstraint, errors::StagResult, graph::Graph,
+    constraint::{ESQLConstraint, foreign::FKConstraint},
+    entity::AttrRole,
+    errors::StagResult,
+    graph::Graph,
     script::overlay::keys::Association,
 };
 
@@ -39,9 +42,27 @@ impl GraphOverlay {
     /// [StagError::ParseError] back to caller.
     fn to_mld(&mut self) -> StagResult<()> {
         let temp_graph = self.graph.clone(); // graph snapshot
-        for (_name, lk) in temp_graph.get_lks() {
-            let _assos = Association::try_from(lk.clone())?;
-            // TODO
+        for (lk_name, lk) in temp_graph.get_lks() {
+            match Association::try_from(lk.clone())? {
+                Association::ONE2MANY(name, nlb) => {
+                    let ent = self.graph.edt_entity(&name)?;
+                    // prefetches
+                    let o_name = lk.other(&name)?;
+                    let t_ent = temp_graph.get_ent(&name)?;
+                    let (attr, _, _) = t_ent.get_attr(t_ent.get_pk()?)?.clone();
+                    // add missing key
+                    ent.add_attr(&o_name, attr.clone(), AttrRole::FK, Some(nlb))?;
+                    self.constraints
+                        .push(ESQLConstraint::ForeignKey(FKConstraint::new(
+                            format!("lk_{}_{}", name, o_name),
+                            o_name,
+                            ent.clone(),
+                            t_ent.clone(),
+                        )?));
+                    self.graph.del_lk(lk_name)?;
+                }
+                _ => todo!(),
+            }
         }
         Ok(())
     }

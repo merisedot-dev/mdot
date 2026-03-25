@@ -7,14 +7,14 @@ use crate::{
 };
 
 #[derive(Clone)]
-pub struct ForeignKeyConstraint {
+pub struct FKConstraint {
     name: String,
     entity: Entity,
     target_attr: String,
     reference: Entity,
 }
 
-impl ForeignKeyConstraint {
+impl FKConstraint {
     /// Builds a new [ForeignKeyConstraint] that makes sense. In case both
     /// [Entity] are the same one, throws a [StagError::IdenticalEntities] error.
     pub fn new(
@@ -44,7 +44,7 @@ impl ForeignKeyConstraint {
     }
 }
 
-impl SQLConstraint for ForeignKeyConstraint {
+impl SQLConstraint for FKConstraint {
     fn name(&self) -> String {
         self.name.clone()
     }
@@ -54,7 +54,7 @@ impl SQLConstraint for ForeignKeyConstraint {
     }
 }
 
-impl Into<ESQLConstraint> for ForeignKeyConstraint {
+impl Into<ESQLConstraint> for FKConstraint {
     fn into(self) -> ESQLConstraint {
         ESQLConstraint::ForeignKey(self)
     }

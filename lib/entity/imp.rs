@@ -10,7 +10,7 @@ use crate::{
 #[derive(Clone, Debug, Default, Eq)]
 pub struct Entity {
     name: String,
-    attrs: HashMap<String, (EntityAttr, AttrRole)>,
+    attrs: HashMap<String, (EntityAttr, AttrRole, bool)>,
 }
 
 impl PartialEq for Entity {
@@ -33,7 +33,7 @@ impl Entity {
         self.name.clone()
     }
 
-    pub fn get_all_attrs(&self) -> HashMap<String, (EntityAttr, AttrRole)> {
+    pub fn get_all_attrs(&self) -> HashMap<String, (EntityAttr, AttrRole, bool)> {
         self.attrs.clone()
     }
 
@@ -44,7 +44,7 @@ impl Entity {
     pub fn get_attr(
         &self,
         attribute_strname: impl ToString,
-    ) -> StagResult<&(EntityAttr, AttrRole)> {
+    ) -> StagResult<&(EntityAttr, AttrRole, bool)> {
         let str_name = attribute_strname.to_string().to_lowercase();
         match self.attrs.get(&str_name) {
             Some(val) => Ok(val),
@@ -58,13 +58,16 @@ impl Entity {
     /// **Warning**: If there is no primary key in the entity, throws a
     /// [StagError::NoPK] error back to caller.
     pub fn get_pk(&self) -> StagResult<String> {
-        match self.get_all_attrs().iter().find_map(|(name, (_, role))| {
-            if role.clone() == AttrRole::PK {
-                Some(name)
-            } else {
-                None
-            }
-        }) {
+        match self
+            .get_all_attrs()
+            .iter()
+            .find_map(|(name, (_, role, _))| {
+                if role.clone() == AttrRole::PK {
+                    Some(name)
+                } else {
+                    None
+                }
+            }) {
             Some(name) => Ok(name.clone()),
             None => Err(StagError::NoPK),
         }
@@ -80,12 +83,16 @@ impl Entity {
         name: impl ToString,
         attribute_typevalue: EntityAttr,
         role: AttrRole,
+        nullable: Option<bool>,
     ) -> StagResult<()> {
         let str_name = name.to_string().to_lowercase();
         if self.attrs.contains_key(&str_name) {
             Err(StagError::EntityWrongAttributeOverride(str_name))
         } else {
-            self.attrs.insert(str_name, (attribute_typevalue, role));
+            self.attrs.insert(
+                str_name,
+                (attribute_typevalue, role, nullable.unwrap_or(true)),
+            );
             Ok(())
         }
     }

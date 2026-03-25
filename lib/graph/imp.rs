@@ -18,14 +18,14 @@ impl Graph {
     ///
     /// **Warning**: In case of already exixting [Entity], throws a
     /// [StagError::ExistingEntity] error.
-    pub fn mk_entity(&mut self, name: impl ToString) -> StagResult<&Entity> {
+    pub fn mk_entity(&mut self, name: impl ToString) -> StagResult<()> {
         let str_name = name.to_string().to_lowercase();
         if self.entities.contains_key(&str_name) {
             Err(StagError::ExistingEntity(str_name))
         } else {
             self.entities
                 .insert(str_name.clone(), Entity::new(str_name.clone()));
-            Ok(self.entities.get(&str_name).unwrap())
+            Ok(())
         }
     }
 
@@ -60,14 +60,25 @@ impl Graph {
         }
     }
 
-    /// Fetches relevant [Entity] from the current [Graph]. This also exposes
-    /// the pointer to ensure further modifications can be made to it.
+    /// Fetches relevant [Entity] from the current [Graph].
     ///
     /// **Warning**: In case of the [Entity] not being in graph, throws a
     /// [StagError::UnknownEntity] error.
-    pub fn get_entity(&self, name: impl ToString) -> StagResult<&Entity> {
+    pub fn get_ent(&self, name: impl ToString) -> StagResult<&Entity> {
         let str_name = name.to_string().to_lowercase();
         match self.entities.get(&str_name) {
+            Some(val) => Ok(val),
+            None => Err(StagError::UnknownEntity(str_name)),
+        }
+    }
+
+    /// Fetches relevant [Entity] from the current [Graph], in mutable form.
+    ///
+    /// **Warning**: In case of the [Entity] not being in graph, throws a
+    /// [StagError::UnknownEntity] error.
+    pub fn edt_entity(&mut self, name: impl ToString) -> StagResult<&mut Entity> {
+        let str_name = name.to_string().to_lowercase();
+        match self.entities.get_mut(&str_name) {
             Some(val) => Ok(val),
             None => Err(StagError::UnknownEntity(str_name)),
         }

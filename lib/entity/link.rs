@@ -40,6 +40,26 @@ impl GraphLink {
         }
     }
 
+    /// Fetches the other part of a 2-part [GraphLink]. In case of the link
+    /// being a ternary (or beyond), just returns the first other part.
+    ///
+    /// **Warning**: In case of a unique part being in the [GraphLink],
+    /// throws a [StagError::UniLink] error.
+    pub fn other(&self, name: impl ToString) -> StagResult<String> {
+        let str_name = name.to_string().to_lowercase();
+        match self
+            .lks
+            .iter()
+            .filter(|(n, _)| n.to_string() != str_name)
+            .map(|(n, _)| n.to_string())
+            .collect::<Vec<String>>()
+            .first()
+        {
+            Some(val) => Ok(val.to_string()),
+            None => Err(StagError::UniLink(str_name)),
+        }
+    }
+
     /// Adds a new link to the current [GraphLink]. Cardinalities and role are set
     /// to default value at first, please call the [GraphLink::set_role] and
     /// [GraphLink::set_cardinality] methods to change said values.

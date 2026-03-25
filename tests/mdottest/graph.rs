@@ -76,7 +76,7 @@ fn mk_ternary_link(world: &mut MDotWorld) {
         .graph
         .edt_link("ctest")
         .unwrap()
-        .link_to(graph.get_entity("e3").unwrap().clone())
+        .link_to(graph.get_ent("e3").unwrap().clone())
         .unwrap();
     world
         .graph
@@ -100,7 +100,7 @@ fn mk_beyond_link(world: &mut MDotWorld, name: String) {
                 .graph
                 .edt_link(name.clone())
                 .unwrap()
-                .link_to(graph.get_entity(format!("e{}", i)).unwrap().clone())
+                .link_to(graph.get_ent(format!("e{}", i)).unwrap().clone())
                 .unwrap();
         }
         // tweak cardinalities on linked entity
@@ -140,7 +140,7 @@ fn check_nb_links(world: &mut MDotWorld, nb: usize) {
 
 #[then(expr = "the graph has an entity named \"{word}\"")]
 fn check_entity(world: &mut MDotWorld, entity: String) {
-    world.graph.get_entity(entity).unwrap();
+    world.graph.get_ent(entity).unwrap();
 }
 
 #[then(expr = "the graph has a GraphLink named \"{word}\"")]

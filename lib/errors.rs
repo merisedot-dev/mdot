@@ -19,6 +19,7 @@ pub enum StagError {
     // graphlink-related errors
     NonexistantLink(String),
     UnauthorizedLinkOverride,
+    UniLink(String),
     // TODO add constraint aberrations
     // graph-related errors
     ExistingEntity(String),
@@ -48,6 +49,9 @@ impl Display for StagError {
             }
             Self::UnauthorizedLinkOverride => {
                 frm.write_str("Unauthorized graph link value override")
+            }
+            Self::UniLink(name) => {
+                frm.write_str(format!("Expected {}'s second part", name).as_str())
             }
             // graph errors
             Self::ExistingEntity(name) => {
