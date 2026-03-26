@@ -1,16 +1,11 @@
 use std::fmt::{Display, Formatter};
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub enum Cardi {
     ANY(i8), // any defined number of linked elements
-    ZERO,    // the foreign key is nullable
+    #[default]
+    ZERO, // the foreign key is nullable
     MANY,    // undeterminate number of linked elements
-}
-
-impl Default for Cardi {
-    fn default() -> Self {
-        Self::ZERO
-    }
 }
 
 impl From<i8> for Cardi {

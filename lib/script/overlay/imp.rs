@@ -1,7 +1,7 @@
 use crate::{
     constraint::{ESQLConstraint, foreign::FKConstraint},
-    entity::AttrRole,
-    errors::StagResult,
+    entity::{AttrRole, Cardi},
+    errors::{StagError, StagResult},
     graph::Graph,
     script::overlay::keys::Association,
 };
@@ -45,11 +45,11 @@ impl GraphOverlay {
         for (lk_name, lk) in temp_graph.get_lks() {
             match Association::try_from(lk.clone())? {
                 Association::ONE2MANY(name, nlb) => {
-                    let ent = self.graph.edt_entity(&name)?;
+                    let ent = self.graph.edt_ent(&name)?;
                     // prefetches
                     let o_name = lk.other(&name)?;
-                    let t_ent = temp_graph.get_ent(&name)?;
-                    let (attr, _, _) = t_ent.get_attr(t_ent.get_pk()?)?.clone();
+                    let o_ent = temp_graph.get_ent(&o_name)?;
+                    let (attr, _, _) = o_ent.get_attr(o_ent.get_pk()?)?;
                     // add missing key
                     ent.add_attr(&o_name, attr.clone(), AttrRole::FK, Some(nlb))?;
                     self.constraints
@@ -57,11 +57,30 @@ impl GraphOverlay {
                             format!("lk_{}_{}", name, o_name),
                             o_name,
                             ent.clone(),
-                            t_ent.clone(),
+                            o_ent.clone(),
                         )?));
                     self.graph.del_lk(lk_name)?;
                 }
-                _ => todo!(),
+                Association::MANY2MANY(name) | Association::TERNARY(name) => {
+                    self.graph.mk_entity(&name)?;
+                    let ent = self.graph.edt_ent(&name)?;
+                    // add all required foreign keys
+                    for (o_name, val) in lk.get_lks() {
+                        let o_ent = temp_graph.get_ent(&o_name)?;
+                        let o_attrs = o_ent.get_attr(o_ent.get_pk()?)?;
+                        ent.add_attr(
+                            &o_name,
+                            o_attrs.clone().0,
+                            o_attrs.clone().1,
+                            Some(val.1 == Cardi::ZERO),
+                        )?;
+                    }
+                    // add extra attributes
+                    for (name, (attr, rl, nlb)) in lk.inner.get_all_attrs() {
+                        ent.add_attr(name, attr.clone(), rl.clone(), Some(nlb))?;
+                    }
+                }
+                _ => return Err(StagError::ParseError),
             }
         }
         Ok(())

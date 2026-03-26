@@ -23,6 +23,7 @@ fn ensure_entity_attr(world: &mut MDotWorld, attr: String, attrtype: String) {
             attr,
             EntityAttr::try_from(attrtype).unwrap(),
             AttrRole::None,
+            None,
         )
         .unwrap();
 }
@@ -32,7 +33,12 @@ fn ensure_attrs(world: &mut MDotWorld, nb: usize) {
     for i in 0..nb {
         world
             .entity
-            .add_attr(format!("at_{}", i), EntityAttr::INTEGER, AttrRole::None)
+            .add_attr(
+                format!("at_{}", i),
+                EntityAttr::INTEGER,
+                AttrRole::None,
+                None,
+            )
             .unwrap();
     }
 }
@@ -50,6 +56,7 @@ fn add_attr(world: &mut MDotWorld) {
             world.attr_name.clone(),
             world.attribute.clone(),
             world.role.clone(),
+            None,
         )
         .unwrap();
 }

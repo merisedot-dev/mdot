@@ -76,7 +76,7 @@ impl Graph {
     ///
     /// **Warning**: In case of the [Entity] not being in graph, throws a
     /// [StagError::UnknownEntity] error.
-    pub fn edt_entity(&mut self, name: impl ToString) -> StagResult<&mut Entity> {
+    pub fn edt_ent(&mut self, name: impl ToString) -> StagResult<&mut Entity> {
         let str_name = name.to_string().to_lowercase();
         match self.entities.get_mut(&str_name) {
             Some(val) => Ok(val),

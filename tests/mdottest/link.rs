@@ -13,6 +13,7 @@ fn ensure_nb_attrs(world: &mut MDotWorld, nb: usize) {
                 format!("att_{}", i),
                 EntityAttr::INTEGER,
                 stag::entity::AttrRole::None,
+                None,
             )
             .unwrap();
     }
@@ -27,6 +28,7 @@ fn mk_inner_attr(world: &mut MDotWorld, attr: String, attrtype: String) {
             attr,
             EntityAttr::try_from(attrtype).unwrap(),
             AttrRole::None,
+            None,
         )
         .unwrap();
 }
@@ -46,6 +48,7 @@ fn mk_attr(world: &mut MDotWorld) {
             world.attr_name.clone(),
             world.attribute.clone(),
             stag::entity::AttrRole::None,
+            None,
         )
         .unwrap();
 }

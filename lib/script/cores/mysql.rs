@@ -31,13 +31,16 @@ impl ConversionCore for MySQLCore {
             entity
                 .get_all_attrs()
                 .iter()
-                .map(|(name, (atype, role))| format!(
+                .map(|(name, (atype, role, nlb))| format!(
                     "{} {}{}",
                     name,
                     atype,
                     match role {
                         AttrRole::PK => " primary key not null",
-                        _ => "", // nothing to do
+                        _ => match nlb {
+                            false => " not null",
+                            true => "", // nothing here
+                        },
                     }
                 ))
                 .collect::<Vec<String>>()
