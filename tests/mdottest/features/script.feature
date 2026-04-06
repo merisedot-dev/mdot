@@ -26,6 +26,7 @@ Feature: Writing down SQL scripts.
         Given a new graph
         And there are <nbe> entities in graph
         And each entity has a primary key
+        And entities <n1> and <n2> are linked via "l1"
         And ent<n1>'s cardinalities are <m1>,<M1>
         And ent<n2>'s cardinalities are <m2>,<M2>
         When we convert the graph using the <kernel> conversion core
@@ -40,9 +41,9 @@ Feature: Writing down SQL scripts.
         Given a new graph
         And there are 5 entities in graph
         And each entity has a primary key
-        And the entity 1 is linked with 3 via l1
-        And the entity 1 is linked with 4 via l1
-        And the entity 2 is linked with 4 via l2
+        And the entity 1 is linked with 3 via "l1"
+        And the entity 1 is linked with 4 via "l1"
+        And the entity 2 is linked with 4 via "l2"
         And we want to name the database "<name>"
         When we convert the graph using the <kernel> conversion core
         Then the resulting script looks like `assets/db/<name>.sql`

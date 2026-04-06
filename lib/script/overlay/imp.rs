@@ -79,6 +79,7 @@ impl GraphOverlay {
                     for (name, (attr, rl, nlb)) in lk.inner.get_all_attrs() {
                         ent.add_attr(name, attr.clone(), rl.clone(), Some(nlb))?;
                     }
+                    // TODO check if a primary key is needed
                 }
                 _ => return Err(StagError::ParseError),
             }

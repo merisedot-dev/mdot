@@ -30,6 +30,10 @@ pub struct MDotWorld {
     cardis1: (Cardi, Cardi),
     cardis2: (Cardi, Cardi),
     cardis3: (Cardi, Cardi),
+    // database testing
+    name: String,
+    lk_name: String,
+    script: String,
 }
 
 #[tokio::main]

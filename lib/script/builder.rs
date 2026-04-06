@@ -44,8 +44,8 @@ impl ScriptBuilder {
 
     /// Turns the given [GraphOverlay] into a functional SQL script, ready to be
     /// written in a file.
-    pub fn convert(&self, graph: GraphOverlay) -> String {
-        format!(
+    pub fn convert(&self, graph: GraphOverlay) -> StagResult<String> {
+        Ok(format!(
             "{}\n\n{}\n\n{}\n\n{}",
             self.conversion_core.header(self.name.clone()),
             // entity conversion
@@ -72,6 +72,6 @@ impl ScriptBuilder {
                 .map(|i| i.as_ref().unwrap().clone())
                 .collect::<Vec<String>>()
                 .join("\n\n")
-        )
+        ))
     }
 }
