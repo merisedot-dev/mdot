@@ -9,6 +9,7 @@ use crate::{
 /// Overlay built to capture [Constraint] information from any database graph.
 /// This is not meant to add specific constraints, but to capture the more
 /// common ones.
+#[derive(Clone)]
 pub struct GraphOverlay {
     graph: Graph,
     constraints: Vec<ESQLConstraint>,

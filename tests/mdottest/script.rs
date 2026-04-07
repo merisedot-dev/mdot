@@ -1,10 +1,15 @@
+use std::{fs::{File, read}, io::Read};
+
 use cucumber::{given, then, when};
 use stag::{
     entity::Cardi,
     script::{MySQLCore, ScriptBuilder, imp::GraphOverlay},
 };
 
-use crate::{MDotWorld, utils::str2i8};
+use crate::{
+    MDotWorld,
+    utils::{parseu8, str2i8},
+};
 
 #[given(expr = "there are {int} entities in graph")]
 fn ensure_nb_entities(world: &mut MDotWorld, nb: usize) {
@@ -48,6 +53,11 @@ fn convert(world: &mut MDotWorld) {
 }
 
 #[then(expr = "the resulting script looks like `{word}`")]
-fn check_script(world: &mut MDotWorld, path: String) {
-    todo!()
+async fn check_script(world: &mut MDotWorld, path: String) {
+    let mut file = File::open(format!("tests/mdottest/{}", path)).unwrap();
+    // read script contents
+    let mut contents: Vec<u8> = vec![];
+    file.read_to_end(&mut contents).unwrap();
+    // assertion
+    assert_eq!(world.script, parseu8(contents));
 }

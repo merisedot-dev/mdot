@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use crate::{
+    constants::FOOTER,
     errors::StagResult,
     script::{ConversionCore, overlay::imp::GraphOverlay},
 };
@@ -45,33 +46,14 @@ impl ScriptBuilder {
     /// Turns the given [GraphOverlay] into a functional SQL script, ready to be
     /// written in a file.
     pub fn convert(&self, graph: GraphOverlay) -> StagResult<String> {
+        let mut ggraph = graph.clone();
+        ggraph.check()?;
+        tracing::info!("blep");
         Ok(format!(
-            "{}\n\n{}\n\n{}\n\n{}",
+            "{}\n\n{}",
             self.conversion_core.header(self.name.clone()),
-            // entity conversion
-            self.turn(graph.graph().get_entities(), |(_, ent)| self
-                .conversion_core
-                .entity(ent.clone()))
-                .join("\n\n"),
-            // graphlink conversion
-            self.turn(graph.graph().get_lks(), |(_, lk)| self
-                .conversion_core
-                .link(lk.clone()))
-                .join("\n\n"),
-            // constraints conversion
-            graph
-                .constraints()
-                .iter()
-                .map(|cstr| self.conversion_core.constraint(cstr.clone()))
-                .collect::<Vec<StagResult<String>>>()
-                .iter()
-                .filter(|i| match i {
-                    Ok(_) => true,
-                    Err(_) => false,
-                })
-                .map(|i| i.as_ref().unwrap().clone())
-                .collect::<Vec<String>>()
-                .join("\n\n")
+            // paperwork
+            FOOTER
         ))
     }
 }
