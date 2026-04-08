@@ -2,7 +2,11 @@ use std::str::FromStr;
 
 /// Utility function to supplement [tokio::fs::File] reading.
 pub fn parseu8(src: Vec<u8>) -> String {
-    String::from_utf8(src).unwrap().trim_end().to_string().replace("    ", "\t")
+    String::from_utf8(src)
+        .unwrap()
+        .trim_end() // the last <CR> isn't interesting
+        .to_string()
+        .replace("    ", "\t")
 }
 
 /// Utiltiy function to avoid writing that match multiple times.

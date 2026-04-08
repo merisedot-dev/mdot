@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use indexmap::IndexMap;
 
 use crate::{
     entity::{Entity, GraphLink},
@@ -7,8 +7,8 @@ use crate::{
 
 #[derive(Clone, Debug, Default)]
 pub struct Graph {
-    entities: HashMap<String, Entity>,
-    links: HashMap<String, GraphLink>,
+    entities: IndexMap<String, Entity>,
+    links: IndexMap<String, GraphLink>,
 }
 
 impl Graph {
@@ -40,7 +40,7 @@ impl Graph {
         if !self.entities.contains_key(&str_name) {
             return Err(StagError::UnknownEntity(str_name));
         }
-        let entity = self.entities.remove(&str_name).unwrap(); // we just checked
+        let entity = self.entities.shift_remove(&str_name).unwrap(); // we just checked
         for (_, lk) in self.links.iter_mut() {
             let _ = lk.unlink(entity.clone()); // the error isn't important here
         }
@@ -54,7 +54,7 @@ impl Graph {
     /// [StagError::NonexistantLink] error back to caller.
     pub fn del_lk(&mut self, name: impl ToString) -> StagResult<()> {
         let str_name = name.to_string().to_lowercase();
-        match self.links.remove(&str_name) {
+        match self.links.shift_remove(&str_name) {
             Some(_) => Ok(()),
             None => Err(StagError::NonexistantLink(str_name)),
         }
@@ -97,11 +97,11 @@ impl Graph {
         }
     }
 
-    pub fn get_entities(&self) -> HashMap<String, Entity> {
+    pub fn get_entities(&self) -> IndexMap<String, Entity> {
         self.entities.clone()
     }
 
-    pub fn get_lks(&self) -> HashMap<String, GraphLink> {
+    pub fn get_lks(&self) -> IndexMap<String, GraphLink> {
         self.links.clone()
     }
 

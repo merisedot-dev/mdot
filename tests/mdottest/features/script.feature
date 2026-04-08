@@ -15,6 +15,7 @@ Feature: Writing down SQL scripts.
         Given a new graph
         And there are <nbe> entities in graph
         And each entity has a primary key
+        And we want to name the database "<name>"
         When we convert the graph using the <kernel> conversion core
         Then the resulting script looks like `assets/oe/<name>.sql`
 
@@ -29,6 +30,7 @@ Feature: Writing down SQL scripts.
         And entities <n1> and <n2> are linked via "l1"
         And ent<n1>'s cardinalities are <m1>,<M1>
         And ent<n2>'s cardinalities are <m2>,<M2>
+        And we want to name the database "<name>"
         When we convert the graph using the <kernel> conversion core
         Then the resulting script looks like `assets/el/<name>.sql`
 

@@ -11,7 +11,7 @@ use crate::{
 impl SQLConverter<FKConstraint> for MySQLCore {
     fn convert(&self, item: FKConstraint) -> StagResult<String> {
         Ok(format!(
-            "{} {}\n\t{} {}\n\tforeign key({}) references {}.{};",
+            "{} {} {} {}\n\tforeign key({})\n\treferences {}.{};",
             EDT_ENTITY,
             item.entity().name(),
             MK_CSTR,

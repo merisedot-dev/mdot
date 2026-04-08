@@ -30,19 +30,19 @@ create table if not exist l2 (
     e4 int not null
 );
 
-alter table l1 add constraint lk_l1_e3
+alter table l1 add constraint fk_lk_l1_e3
     foreign key(e3)
     references e3.e3_id;
 
-alter table l1 add constraint lk_l1_e4
+alter table l1 add constraint fk_lk_l1_e4
     foreign key(e4)
     references e4.e4_id;
 
-alter table l2 add constraint lk_l2_e2
+alter table l2 add constraint fk_lk_l2_e2
     foreign key(e2)
     references e2.e2_id;
 
-alter table l2 add constraint lk_l2_e4
+alter table l2 add constraint fk_lk_l2_e4
     foreign key(e4)
     references e4.e4_id;
 

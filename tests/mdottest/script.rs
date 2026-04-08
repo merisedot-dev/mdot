@@ -1,8 +1,8 @@
-use std::{fs::{File, read}, io::Read};
+use std::{fs::File, io::Read};
 
 use cucumber::{given, then, when};
 use stag::{
-    entity::Cardi,
+    entity::{AttrRole, Cardi, EntityAttr},
     script::{MySQLCore, ScriptBuilder, imp::GraphOverlay},
 };
 
@@ -20,7 +20,20 @@ fn ensure_nb_entities(world: &mut MDotWorld, nb: usize) {
 
 #[given("each entity has a primary key")]
 fn ensure_pk(world: &mut MDotWorld) {
-    let _graph = world.graph.clone();
+    let graph = world.graph.clone();
+    for (_, ent) in graph.get_entities() {
+        world
+            .graph
+            .edt_ent(ent.name())
+            .unwrap()
+            .add_attr(
+                format!("{}_id", ent.name()),
+                EntityAttr::INTEGER,
+                AttrRole::PK,
+                None,
+            )
+            .unwrap();
+    }
 }
 
 #[given(expr = "we want to name the database \"{word}\"")]

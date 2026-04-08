@@ -16,16 +16,16 @@ create table if not exists e4 (
     e4_id int primary key not null
 );
 
-create table if not exists ltest (
-    e1 int,
-    e2 int
+create table if not exists lk_e1_e2 (
+    e1 int not null,
+    e2 int not null
 );
 
-alter table ltest add constraint lk_ltest_e1
+alter table lk_e1_e2 add constraint fk_lk_e1_e2_e1
     foreign key(e1)
     references e1.e1_id;
 
-alter table ltest add constraint lk_ltest_e2
+alter table lk_e1_e2 add constraint fk_lk_e1_e2_e2
     foreign key(e2)
     references e2.e2_id;
 

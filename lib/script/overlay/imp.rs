@@ -1,6 +1,6 @@
 use crate::{
     constraint::{ESQLConstraint, foreign::FKConstraint},
-    entity::{AttrRole, Cardi},
+    entity::AttrRole,
     errors::{StagError, StagResult},
     graph::Graph,
     script::overlay::keys::Association,
@@ -45,6 +45,7 @@ impl GraphOverlay {
         let temp_graph = self.graph.clone(); // graph snapshot
         for (lk_name, lk) in temp_graph.get_lks() {
             match Association::try_from(lk.clone())? {
+                // the x,1~0,n situation type
                 Association::ONE2MANY(name, nlb) => {
                     let ent = self.graph.edt_ent(&name)?;
                     // prefetches
@@ -55,7 +56,7 @@ impl GraphOverlay {
                     ent.add_attr(&o_name, attr.clone(), AttrRole::FK, Some(nlb))?;
                     self.constraints
                         .push(ESQLConstraint::ForeignKey(FKConstraint::new(
-                            format!("lk_{}_{}", name, o_name),
+                            format!("fk_lk_{}_{}", name, o_name),
                             o_name,
                             ent.clone(),
                             o_ent.clone(),
@@ -66,15 +67,23 @@ impl GraphOverlay {
                     self.graph.mk_entity(&name)?;
                     let ent = self.graph.edt_ent(&name)?;
                     // add all required foreign keys
-                    for (o_name, val) in lk.get_lks() {
+                    for (o_name, _) in lk.get_lks() {
                         let o_ent = temp_graph.get_ent(&o_name)?;
                         let o_attrs = o_ent.get_attr(o_ent.get_pk()?)?;
                         ent.add_attr(
                             &o_name,
                             o_attrs.clone().0,
-                            o_attrs.clone().1,
-                            Some(val.1 == Cardi::ZERO),
+                            AttrRole::FK, // forced foreign key
+                            Some(false),  // no nullables here
                         )?;
+                        // TODO add constraints
+                        self.constraints
+                            .push(ESQLConstraint::ForeignKey(FKConstraint::new(
+                                format!("fk_{}_{}", name, o_name),
+                                o_name.clone(),
+                                ent.clone(),
+                                o_ent.clone(),
+                            )?));
                     }
                     // add extra attributes
                     for (name, (attr, rl, nlb)) in lk.inner.get_all_attrs() {

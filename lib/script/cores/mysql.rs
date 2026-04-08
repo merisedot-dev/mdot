@@ -25,7 +25,7 @@ impl ConversionCore for MySQLCore {
 
     fn entity(&self, entity: Entity) -> StagResult<String> {
         Ok(format!(
-            "{} {} (\n{}\n);",
+            "{} {} (\n\t{}\n);",
             MK_ENTITY,
             entity.name(),
             entity
@@ -44,7 +44,7 @@ impl ConversionCore for MySQLCore {
                     }
                 ))
                 .collect::<Vec<String>>()
-                .join(",\n")
+                .join(",\n\t")
         ))
     }
 

@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use indexmap::IndexMap;
 
 use crate::{
     entity::{AttrRole, EntityAttr},
@@ -10,7 +10,7 @@ use crate::{
 #[derive(Clone, Debug, Default, Eq)]
 pub struct Entity {
     name: String,
-    attrs: HashMap<String, (EntityAttr, AttrRole, bool)>,
+    attrs: IndexMap<String, (EntityAttr, AttrRole, bool)>,
 }
 
 impl PartialEq for Entity {
@@ -25,7 +25,7 @@ impl Entity {
     pub fn new(name: impl ToString) -> Self {
         Self {
             name: name.to_string().to_lowercase(),
-            attrs: HashMap::new(),
+            attrs: IndexMap::new(),
         }
     }
 
@@ -33,7 +33,7 @@ impl Entity {
         self.name.clone()
     }
 
-    pub fn get_all_attrs(&self) -> HashMap<String, (EntityAttr, AttrRole, bool)> {
+    pub fn get_all_attrs(&self) -> IndexMap<String, (EntityAttr, AttrRole, bool)> {
         self.attrs.clone()
     }
 
@@ -103,7 +103,7 @@ impl Entity {
     /// [StagError::EntityAttributeNotFound] error.
     pub fn del_attr(&mut self, name: impl ToString) -> StagResult<()> {
         let str_name = name.to_string().to_lowercase();
-        match self.attrs.remove(&str_name) {
+        match self.attrs.shift_remove(&str_name) {
             Some(_) => Ok(()),
             None => Err(StagError::EntityAttributeNotFound(str_name)),
         }
