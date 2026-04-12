@@ -63,6 +63,56 @@ impl GraphOverlay {
                         )?));
                     self.graph.del_lk(lk_name)?;
                 }
+                // one2one situations
+                Association::ONE2ONE(nl_a, nl_b) => {
+                    if let (false, false) = (nl_a, nl_b) {
+                        // still need to have one nullable
+                        return Err(StagError::ParseError);
+                    } else {
+                        // regular situation
+                        let n1 = lk.get_lks().keys()[0].clone();
+                        let n2 = lk.get_lks().keys()[1].clone();
+                        // add missing keys (first entity)
+                        self.graph.edt_ent(&n1)?.add_attr(
+                            &n2,
+                            temp_graph
+                                .get_ent(&n2)?
+                                .get_attr(temp_graph.get_ent(&n2)?.get_pk()?)?
+                                .0
+                                .clone(),
+                            AttrRole::FK,
+                            Some(nl_a),
+                        )?;
+                        // add missing keys (second entity)
+                        self.graph.edt_ent(&n2)?.add_attr(
+                            &n1,
+                            temp_graph
+                                .get_ent(&n1)?
+                                .get_attr(temp_graph.get_ent(&n1)?.get_pk()?)?
+                                .0
+                                .clone(),
+                            AttrRole::FK,
+                            Some(nl_b),
+                        )?;
+                        // constraint on entity A
+                        self.constraints
+                            .push(ESQLConstraint::ForeignKey(FKConstraint::new(
+                                format!("fk_{}_{}", n1, n2),
+                                n2.clone(),
+                                temp_graph.get_ent(&n1)?.clone(),
+                                temp_graph.get_ent(&n2)?.clone(),
+                            )?));
+                        // constraint on entity B
+                        self.constraints
+                            .push(ESQLConstraint::ForeignKey(FKConstraint::new(
+                                format!("fk_{}_{}", n2, n1),
+                                n1.clone(),
+                                temp_graph.get_ent(&n2)?.clone(),
+                                temp_graph.get_ent(&n1)?.clone(),
+                            )?));
+                    }
+                }
+                // more than one on a side
                 Association::MANY2MANY(name) | Association::TERNARY(name) => {
                     self.graph.mk_entity(&name)?;
                     let ent = self.graph.edt_ent(&name)?;
@@ -76,7 +126,7 @@ impl GraphOverlay {
                             AttrRole::FK, // forced foreign key
                             Some(false),  // no nullables here
                         )?;
-                        // TODO add constraints
+                        // add constraints
                         self.constraints
                             .push(ESQLConstraint::ForeignKey(FKConstraint::new(
                                 format!("fk_{}_{}", name, o_name),

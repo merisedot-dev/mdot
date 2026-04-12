@@ -91,7 +91,14 @@ impl Entity {
         } else {
             self.attrs.insert(
                 str_name,
-                (attribute_typevalue, role, nullable.unwrap_or(true)),
+                (
+                    attribute_typevalue,
+                    role,
+                    match nullable {
+                        Some(val) => val,
+                        None => true,
+                    },
+                ),
             );
             Ok(())
         }

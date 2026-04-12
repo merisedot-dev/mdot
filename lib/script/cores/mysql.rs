@@ -39,7 +39,7 @@ impl ConversionCore for MySQLCore {
                         AttrRole::PK => " primary key not null",
                         _ => match nlb {
                             false => " not null",
-                            true => "", // nothing here
+                            true => "", // nothing to do here
                         },
                     }
                 ))

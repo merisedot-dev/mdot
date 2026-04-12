@@ -43,9 +43,18 @@ Feature: Writing down SQL scripts.
         Given a new graph
         And there are 5 entities in graph
         And each entity has a primary key
-        And the entity 1 is linked with 3 via "l1"
-        And the entity 1 is linked with 4 via "l1"
-        And the entity 2 is linked with 4 via "l2"
+        And entities 1 and 3 are linked via "l1"
+        And ent1's cardinalities are 0,n
+        And ent3's cardinalities are 0,n
+        And entities 1 and 4 are linked via "l1"
+        And ent1's cardinalities are 0,n
+        And ent4's cardinalities are 0,n
+        And entities 2 and 4 are linked via "l2"
+        And ent2's cardinalities are 0,n
+        And ent4's cardinalities are 0,n
+        And entities 3 and 5 are linked via "l3"
+        And ent3's cardinalities are 1,1
+        And ent5's cardinalities are 0,1
         And we want to name the database "<name>"
         When we convert the graph using the <kernel> conversion core
         Then the resulting script looks like `assets/db/<name>.sql`
