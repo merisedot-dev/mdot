@@ -22,29 +22,29 @@ create table if not exists e5 (
     e3 int
 );
 
-create table if not exists l1 (
-    e3 int not null,
+create table if not exists lk_e1_e4 (
+    e1 int not null,
     e4 int not null
 );
 
-create table if not exists l2 (
+create table if not exists lk_e2_e4 (
     e2 int not null,
     e4 int not null
 );
 
-alter table l1 add constraint fk_lk_l1_e3
-    foreign key(e3)
-    references e3.e3_id;
+alter table lk_e1_e4 add constraint fk_lk_e1_e4_e1
+    foreign key(e1)
+    references e1.e1_id;
 
-alter table l1 add constraint fk_lk_l1_e4
+alter table lk_e1_e4 add constraint fk_lk_e1_e4_e4
     foreign key(e4)
     references e4.e4_id;
 
-alter table l2 add constraint fk_lk_l2_e2
+alter table lk_e2_e4 add constraint fk_lk_e2_e4_e2
     foreign key(e2)
     references e2.e2_id;
 
-alter table l2 add constraint fk_lk_l2_e4
+alter table lk_e2_e4 add constraint fk_lk_e2_e4_e4
     foreign key(e4)
     references e4.e4_id;
 
