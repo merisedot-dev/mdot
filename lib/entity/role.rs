@@ -1,8 +1,10 @@
+use serde::{Deserialize, Serialize};
+
 // string constants
 const PK_NAME: &'static str = "PK";
 const FK_NAME: &'static str = "FK";
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum AttrRole {
     PK,
     FK,

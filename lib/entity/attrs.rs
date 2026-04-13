@@ -1,5 +1,7 @@
 use std::fmt::{Display, Formatter};
 
+use serde::{Deserialize, Serialize};
+
 use crate::errors::StagError;
 
 // some constants for simplicity
@@ -12,7 +14,7 @@ const CHAR_NAME: &'static str = "char";
 
 /// Enumeration for every possible attribute type available to an SGBD.
 /// Each conversion core should exclude the ones it does not want.
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum EntityAttr {
     BOOLEAN,
     // numbers

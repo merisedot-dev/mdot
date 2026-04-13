@@ -1,4 +1,5 @@
 use indexmap::IndexMap;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     entity::{AttrRole, EntityAttr},
@@ -7,7 +8,7 @@ use crate::{
 
 /// Base entity definition. It will be used both for standalone entities and for
 /// various GraphLinks in MCD and MLD graphs.
-#[derive(Clone, Debug, Default, Eq)]
+#[derive(Clone, Debug, Default, Eq, Serialize, Deserialize)]
 pub struct Entity {
     name: String,
     attrs: IndexMap<String, (EntityAttr, AttrRole, bool)>,

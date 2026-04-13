@@ -1,4 +1,5 @@
 use indexmap::IndexMap;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     constants::DEFAULT_CARDINALITY,
@@ -6,7 +7,7 @@ use crate::{
     errors::{StagError, StagResult},
 };
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct GraphLink {
     pub inner: Entity,
     lks: IndexMap<String, (String, Cardi, Cardi)>,

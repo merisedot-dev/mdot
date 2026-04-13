@@ -1,11 +1,12 @@
 use indexmap::IndexMap;
+use serde::{Deserialize, Serialize};
 
 use crate::{
     entity::{Entity, GraphLink},
     errors::{StagError, StagResult},
 };
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Graph {
     entities: IndexMap<String, Entity>,
     links: IndexMap<String, GraphLink>,

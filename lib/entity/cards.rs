@@ -1,6 +1,8 @@
 use std::fmt::{Display, Formatter};
 
-#[derive(Clone, Debug, Default, Eq, PartialEq)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Clone, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
 pub enum Cardi {
     ANY(i8), // any defined number of linked elements
     #[default]

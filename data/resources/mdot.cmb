@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
-<!-- Created with Cambalache 0.96.3 -->
-<cambalache-project version="0.96.0" target_tk="gtk-4.0">
+<!-- Created with Cambalache 1.0 -->
+<cambalache-project version="1.0.0" target_tk="gtk-4.0" depends="libadwaita-1,webkitgtk-6.0">
   <gresources filename="mdot.gresource.xml" sha256="a99ecff7774c03fab6f67201235cc8d75bd00863f195d3c97210a4343e1bb449"/>
   <ui template-class="MDotWindow" filename="window.ui" sha256="3f50ea522bc0f879dbd93468df12c59281386ac8c90f53406d6f36566430092a"/>
 </cambalache-project>
