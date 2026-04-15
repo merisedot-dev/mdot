@@ -20,12 +20,14 @@ pub async fn pickproj_dialog(caller: Window, _: String, _: Option<Variant>) {
             Some(path) => path,
             _ => return, // no use continuing
         };
+
         // set project file information
         caller
             .imp()
             .project
             .borrow()
             .set_path(proj_filepath.clone());
+
         // tweak file picker label
         caller
             .imp()

@@ -15,7 +15,7 @@ use crate::{
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/window.ui")]
 pub struct MDotWindow {
-    // logic-related elements (like app settings)
+    // logic-related elements (like app settings, inner info or menus)
     pub project: RefCell<Project>,
 
     // template macro components

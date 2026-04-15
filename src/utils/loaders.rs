@@ -6,6 +6,8 @@ use gtk::{
 
 use crate::config::{gettext_package, localedir};
 
+/// Loads all translations from the `po` directory. In case of any missing
+/// translation file, it will just die. Non-updated translations may occur.
 pub fn i18n_init() {
     setlocale(LocaleCategory::LcAll, "");
     bindtextdomain(gettext_package(), localedir())
@@ -15,6 +17,8 @@ pub fn i18n_init() {
     textdomain(gettext_package()).expect("Unable to switch to text domain");
 }
 
+/// Loads all CSS style sheets from packaged data. This should not fail, if that
+/// happens, this will crash the whole app as prevention.
 pub fn load_css() {
     // fetch CSS content
     let provider = CssProvider::new();

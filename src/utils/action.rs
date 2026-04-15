@@ -6,10 +6,12 @@ use crate::utils::MDotActable;
 /// here. Please keep in mind that an action may not be suited to be ported over
 /// another subclassed widget that it was made for.
 pub trait MDotAction: MDotActable {
-    /// The action's name. Please keep the ENTIRE name in there.
+    /// The action's name. Please keep the *ENTIRE*name in there.
     fn name(&self) -> &'static str;
 
-    /// activation handler for the action
+    /// activation handler for the [MDotAction]. Each action should remain as
+    /// atomic as possible, error handling should also remain within the action as
+    /// much as possible.
     fn handle_activate(
         &self,
         caller: &Self::InnerCallerType,

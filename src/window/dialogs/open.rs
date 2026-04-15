@@ -2,9 +2,13 @@ use adw::subclass::prelude::ObjectSubclassIsExt;
 use gettextrs::gettext;
 use gtk::{
     FileDialog, FileFilter,
-    gio::{Cancellable, ListStore, prelude::FileExt},
-    glib::Variant,
+    gio::{
+        Cancellable, ListStore,
+        prelude::{FileExt, InputStreamExtManual},
+    },
+    glib::{Priority, Variant},
 };
+use serde_json::from_str;
 use stag::graph::Graph;
 
 use crate::{
@@ -41,18 +45,65 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
             }
         };
 
-        // load project basic info
-        let proj_data = caller.imp().project.borrow_mut();
-        proj_data.set_name(match file.parse_name().split_once(".") {
-            Some((val, _)) => val,
+        // load project basic file info
+        let proj_name = match file.parse_name().split_once(".") {
+            Some((val, _)) => val.to_string(),
             None => {
                 tracing::error!("Project file should have a name");
-                return; // STILL... THE FUCK
+                return; // THE FUCK
             }
-        });
+        };
 
-        // TODO read file contents
-        // TODO find how to write that damn graph
+        // fetch file folder path
+        let proj_path = match file.path() {
+            Some(val) => val,
+            None => {
+                tracing::error!("Project file should have a path...");
+                return; // no use
+            }
+        };
+        // filter from raw path
+        let mut folder_path = proj_path.components();
+        folder_path.next_back();
+
+        // read file contents and turn them into a project graph
+        let buf: Vec<u8> = Vec::new();
+        let graph = match content.read_all_future(buf, Priority::HIGH).await {
+            Ok((val, _, _)) => match String::from_utf8(val) {
+                Ok(val_str) => match from_str::<Graph>(&val_str) {
+                    Ok(graph) => graph,
+                    Err(why) => {
+                        tracing::error!("{:?}", why);
+                        return; // no use
+                    }
+                },
+                Err(why) => {
+                    tracing::error!("{:?}", why);
+                    return; // no use continuing
+                }
+            },
+            Err(why) => {
+                tracing::error!("{:?}", why);
+                return; // no use continuing
+            }
+        };
+
+        // edit project info
+        caller
+            .imp()
+            .project
+            .borrow_mut()
+            .imp()
+            .data
+            .borrow_mut()
+            .graph
+            .replace(graph);
+        caller.imp().project.borrow_mut().set_name(proj_name);
+        caller
+            .imp()
+            .project
+            .borrow_mut()
+            .set_path(folder_path.as_path());
 
         // edit visible stack page
         caller.set_screen(WORKS_SCREEN_NAME);

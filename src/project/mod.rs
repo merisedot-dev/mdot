@@ -39,7 +39,9 @@ impl Project {
     /// sure the [Project] has a valid name and its directory root path isn't
     /// an empty path. Individual indexes should be checked later on.
     pub fn is_valid(&self) -> bool {
-        self.get_name() != "" && self.get_dir_path().to_str().unwrap_or_default() != "" // TODO other checks
+        self.get_name() != "" // a project must have a name
+            && self.get_dir_path().to_str().unwrap_or_default() != ""
+        // TODO other checks
     }
 
     /// Fetches the index file path for the current [Project].
