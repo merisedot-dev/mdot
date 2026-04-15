@@ -8,8 +8,8 @@ use gtk::{
     },
     glib::{Priority, Variant},
 };
-use serde_json::from_str;
-use stag::graph::Graph;
+use serde_json::{Value, de::from_str, from_value};
+use stag::{graph::Graph, script::ExposedCore};
 
 use crate::{
     constants::{PROJ_FILE_EXTENSION, WORKS_SCREEN_NAME},
@@ -68,13 +68,13 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
 
         // read file contents and turn them into a project graph
         let buf: Vec<u8> = Vec::new();
-        let graph = match content.read_all_future(buf, Priority::HIGH).await {
+        let obj = match content.read_all_future(buf, Priority::HIGH).await {
             Ok((val, _, _)) => match String::from_utf8(val) {
-                Ok(val_str) => match from_str::<Graph>(&val_str) {
-                    Ok(graph) => graph,
+                Ok(val_str) => match from_str::<Value>(&val_str) {
+                    Ok(json_val) => json_val,
                     Err(why) => {
                         tracing::error!("{:?}", why);
-                        return; // no use
+                        return;
                     }
                 },
                 Err(why) => {
@@ -88,7 +88,37 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
             }
         };
 
+        // split JSON to extract graph and core
+        let graph = match obj.get("graph") {
+            Some(val) => match from_value::<Graph>(val.clone()) {
+                Ok(graph) => graph,
+                Err(why) => {
+                    tracing::error!("{:?}", why);
+                    return;
+                }
+            },
+            None => return,
+        };
+        let conversion_core = match obj.get("core") {
+            Some(val) => match val {
+                Value::String(val_str) => ExposedCore::from(val_str.clone()),
+                _ => return, // aberration
+            },
+            None => return,
+        };
+
         // edit project info
+        caller
+            .imp()
+            .project
+            .borrow_mut()
+            .set_name(proj_name.clone());
+        caller
+            .imp()
+            .project
+            .borrow_mut()
+            .set_path(folder_path.as_path());
+        // add graph and core
         caller
             .imp()
             .project
@@ -102,12 +132,11 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
             .imp()
             .project
             .borrow_mut()
-            .set_name(proj_name.clone());
-        caller
             .imp()
-            .project
+            .data
             .borrow_mut()
-            .set_path(folder_path.as_path());
+            .core
+            .replace(conversion_core);
 
         // edit visible stack page and display tweaks
         caller.set_screen(WORKS_SCREEN_NAME);

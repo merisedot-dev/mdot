@@ -2,7 +2,7 @@ use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib::property::PropertySet;
 
 use crate::{
-    constants::NEWPROJ_SCREEN_NAME,
+    constants::{APP_NAME, NEWPROJ_SCREEN_NAME},
     project::Project,
     utils::{MDotActable, MDotAction},
     window::Window,
@@ -27,7 +27,12 @@ impl MDotAction for MkProjAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
+        // UI tweaks
         caller.set_screen(NEWPROJ_SCREEN_NAME);
-        caller.imp().project.set(Project::default()); // replacing project with default
+        caller.set_app_title(APP_NAME);
+        caller.set_app_subtitle("");
+
+        // replacing project
+        caller.imp().project.set(Project::default());
     }
 }

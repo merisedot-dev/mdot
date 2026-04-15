@@ -1,7 +1,7 @@
 use std::{fs::File, io::Write, ops::Deref};
 
 use adw::subclass::prelude::ObjectSubclassIsExt;
-use serde_json::ser::to_string;
+use serde_json::{json, to_string};
 use tracing::{error, info};
 
 use crate::{
@@ -29,6 +29,7 @@ impl MDotAction for SaveAction {
         // prefect project info
         let project = caller.imp().project.borrow();
         let graph = project.imp().data.borrow().graph.clone();
+        let core = project.imp().data.borrow().core.clone();
 
         // open file for writing (and delete what was there)
         let mut file = match File::create(project.filepath()) {
@@ -39,21 +40,20 @@ impl MDotAction for SaveAction {
             }
         };
 
-        // write project graph info
+        // write project file out
         match file.write_all(
-            match to_string(graph.borrow().deref()) {
-                Ok(val) => val,
-                Err(why) => {
-                    error!("{:?}", why);
-                    return;
-                }
-            }
+            to_string(&json!({
+                "graph": graph.borrow().deref(),
+                "core": core.borrow().name()
+            }))
+            .unwrap_or_default()
             .as_bytes(),
         ) {
-            Ok(_) => info!("Saved file"),
-            Err(why) => error!("{:?}", why),
-        };
-
-        // TODO display
+            Ok(_) => info!("Saved project file"),
+            Err(why) => {
+                error!("{:?}", why);
+                return;
+            }
+        }
     }
 }

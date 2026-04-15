@@ -8,6 +8,7 @@ use crate::{
 
 /// MySQL-specific conversion core, it outputs elements of a correct MySQL script.
 /// **Note**: It will not bother with any encoding nonsense, just clean SQL.
+#[derive(Clone)]
 pub struct MySQLCore;
 
 impl ConversionCore for MySQLCore {
