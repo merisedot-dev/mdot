@@ -30,10 +30,24 @@ impl Window {
 
 // logic-related methods
 impl Window {
-    /// Setting up window default values. It is meant to be called at launch.
+    /// Setting up window default values. It is meant to be called at launch and
+    /// only at application launch.
     fn set_defaults(&self) {
         // load default app screen
         self.set_screen(NEWPROJ_SCREEN_NAME);
+    }
+
+    /// Changes the displayed window title in the header bar. This should never
+    /// be a blank name for usability reason. If that happens, please revert
+    /// back to [APP_NAME].
+    pub fn set_app_title(&self, name: impl ToString) {
+        self.imp().app_title.set_title(&name.to_string());
+    }
+
+    /// Changes the displayed windo subtitle in the header bar. This can be a
+    /// blank name (unlike [Window::set_app_title]).
+    pub fn set_app_subtitle(&self, name: impl ToString) {
+        self.imp().app_title.set_subtitle(&name.to_string());
     }
 
     /// Change the displayed screen. This may come with logic checks to avoid

@@ -11,6 +11,11 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar">
+            <property name="title-widget">
+              <object class="AdwWindowTitle" id="app_title">
+                <property name="title">MeriseDot</property>
+              </object>
+            </property>
             <child>
               <object class="AdwSplitButton" id="open_btn">
                 <property name="action-name">win.open</property>
@@ -232,7 +237,6 @@
     </property>
     <property name="default-height">800</property>
     <property name="default-width">1400</property>
-    <property name="title">MeriseGTK</property>
   </template>
   <menu id="proj_menu"/>
   <menu id="main_menu">

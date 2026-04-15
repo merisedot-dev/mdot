@@ -1,8 +1,9 @@
 use std::cell::RefCell;
 
-use adw::{SplitButton, subclass::prelude::*};
+use adw::{SplitButton, WindowTitle, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
+    gio::Menu,
     glib::{self, subclass::InitializingObject},
 };
 use tracing::info;
@@ -17,6 +18,8 @@ use crate::{
 pub struct MDotWindow {
     // logic-related elements (like app settings, inner info or menus)
     pub project: RefCell<Project>,
+    #[template_child]
+    pub proj_menu: TemplateChild<Menu>,
 
     // template macro components
     #[template_child]
@@ -33,6 +36,8 @@ pub struct MDotWindow {
     pub undo_btn: TemplateChild<Button>,
     #[template_child]
     pub redo_btn: TemplateChild<Button>,
+    #[template_child]
+    pub app_title: TemplateChild<WindowTitle>,
 
     // newproj form controls
     #[template_child]

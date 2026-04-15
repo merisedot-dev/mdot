@@ -98,14 +98,20 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
             .borrow_mut()
             .graph
             .replace(graph);
-        caller.imp().project.borrow_mut().set_name(proj_name);
+        caller
+            .imp()
+            .project
+            .borrow_mut()
+            .set_name(proj_name.clone());
         caller
             .imp()
             .project
             .borrow_mut()
             .set_path(folder_path.as_path());
 
-        // edit visible stack page
+        // edit visible stack page and display tweaks
         caller.set_screen(WORKS_SCREEN_NAME);
+        caller.set_app_title(&proj_name);
+        caller.set_app_subtitle(proj_path.to_str().unwrap_or_default());
     }
 }
