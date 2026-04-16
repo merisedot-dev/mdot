@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- Created with Cambalache 0.96.3 -->
+<!-- Created with Cambalache 1.0 -->
 <gresources>
   <gresource prefix="/com/github/merisedotdev/mdot">
     <file compressed="true">mdot.css</file>
     <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
+    <file compressed="true">mysql.png</file>
   </gresource>
 </gresources>

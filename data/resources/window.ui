@@ -166,9 +166,26 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="AdwToggleGroup">
                                     <child>
-                                      <object class="GtkButton"/>
+                                      <object class="AdwToggle">
+                                        <property name="child">
+                                          <object class="GtkBox">
+                                            <property name="orientation">vertical</property>
+                                            <child>
+                                              <object class="GtkImage">
+                                                <property name="resource">/com/github/merisedotdev/mdot/mysql.png</property>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="GtkLabel">
+                                                <property name="label">MySQL</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </property>
+                                        <property name="name">MySQL</property>
+                                      </object>
                                     </child>
                                     <layout>
                                       <property name="column">1</property>
@@ -177,6 +194,9 @@
                                   </object>
                                 </child>
                               </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="form_error_lbl"/>
                             </child>
                           </object>
                         </property>
