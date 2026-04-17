@@ -1,5 +1,6 @@
 /* Main CSS module for our app */
 
+/* Core app styling informations */
 :root {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -7,3 +8,6 @@
 /* TODO fetch pages */
 
 /* Specific widgets */
+#form_error_lbl {
+    color: red;
+}

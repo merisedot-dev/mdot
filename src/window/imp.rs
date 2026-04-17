@@ -46,6 +46,8 @@ pub struct MDotWindow {
     pub path_picker: TemplateChild<Button>,
     #[template_child]
     pub path_lbl: TemplateChild<Label>,
+    #[template_child]
+    pub form_error_lbl: TemplateChild<Label>,
 }
 
 // subclassing our window

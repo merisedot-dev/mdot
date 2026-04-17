@@ -41,6 +41,7 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
             Ok(content) => content,
             _ => {
                 // no file info, returning
+                caller.show_form_err(gettext("__FileReadError"));
                 return;
             }
         };
@@ -74,16 +75,19 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
                     Ok(json_val) => json_val,
                     Err(why) => {
                         tracing::error!("{:?}", why);
+                        caller.show_form_err(gettext("__MalformedFile"));
                         return;
                     }
                 },
                 Err(why) => {
                     tracing::error!("{:?}", why);
+                    caller.show_form_err(gettext("__UnreadableFile"));
                     return; // no use continuing
                 }
             },
             Err(why) => {
                 tracing::error!("{:?}", why);
+                caller.show_form_err(gettext("__UnreadableFile"));
                 return; // no use continuing
             }
         };
@@ -94,6 +98,7 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
                 Ok(graph) => graph,
                 Err(why) => {
                     tracing::error!("{:?}", why);
+                    caller.show_form_err(gettext("__UnreadableGraph"));
                     return;
                 }
             },
@@ -104,7 +109,10 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
                 Value::String(val_str) => ExposedCore::from(val_str.clone()),
                 _ => return, // aberration
             },
-            None => return,
+            None => {
+                caller.show_form_err(gettext("__UnreadableCore"));
+                return;
+            }
         };
 
         // edit project info
@@ -139,6 +147,7 @@ pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
             .replace(conversion_core);
 
         // edit visible stack page and display tweaks
+        caller.clear_form();
         caller.set_screen(WORKS_SCREEN_NAME);
         caller.set_app_title(&proj_name);
         caller.set_app_subtitle(proj_path.to_str().unwrap_or_default());

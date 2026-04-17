@@ -58,10 +58,16 @@ impl Window {
             .set_visible_child_name(name.to_string().as_str());
     }
 
+    /// Changes the error label in the project creation form.
+    pub fn show_form_err(&self, txt: impl ToString) {
+        self.imp().form_error_lbl.set_text(&txt.to_string());
+    }
+
     /// Remove all information from the project form screen. This is not
     /// exhaustive and can be extended should new widgets be added to the screen.
     pub fn clear_form(&self) {
         self.imp().path_lbl.set_label(""); // no more path label
         self.imp().proj_name.set_text(""); // no more project name
+        self.imp().form_error_lbl.set_text(""); // no more error
     }
 }

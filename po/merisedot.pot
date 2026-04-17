@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-22 11:59+0100\n"
+"POT-Creation-Date: 2026-04-16 15:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,52 +17,72 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/resources/window.ui:17 data/resources/window.ui:223
+#: data/resources/window.ui:22 data/resources/window.ui:269
 msgid "__Openproject"
 msgstr ""
 
-#: data/resources/window.ui:56 data/resources/window.ui:219
+#: data/resources/window.ui:61 data/resources/window.ui:265
 msgid "__Newproject"
 msgstr ""
 
-#: data/resources/window.ui:68
+#: data/resources/window.ui:73
 msgid "__Projname"
 msgstr ""
 
-#: data/resources/window.ui:78
+#: data/resources/window.ui:83
 msgid "__TargetSGBD"
 msgstr ""
 
-#: data/resources/window.ui:88
+#: data/resources/window.ui:93
 msgid "__Projlocation"
 msgstr ""
 
-#: data/resources/window.ui:146
+#: data/resources/window.ui:151
 msgid "__Cancel"
 msgstr ""
 
-#: data/resources/window.ui:156
+#: data/resources/window.ui:161
 msgid "__Validate"
 msgstr ""
 
-#: data/resources/window.ui:228
+#: data/resources/window.ui:274
 msgid "__Save"
 msgstr ""
 
-#: data/resources/window.ui:232
+#: data/resources/window.ui:278
 msgid "__Close"
 msgstr ""
 
-#: src/window/dialogs/open.rs:20
+#: src/window/dialogs/open.rs:26
 msgid "__MDOTProject"
 msgstr ""
 
-#: src/window/dialogs/open.rs:25
+#: src/window/dialogs/open.rs:31
 msgid "__Selectproject"
 msgstr ""
 
-#: src/window/dialogs/open.rs:27
+#: src/window/dialogs/open.rs:33
 msgid "__Open"
+msgstr ""
+
+#: src/window/dialogs/open.rs:44
+msgid "__FileReadError"
+msgstr ""
+
+#: src/window/dialogs/open.rs:78
+msgid "__MalformedFile"
+msgstr ""
+
+#: src/window/dialogs/open.rs:84 src/window/dialogs/open.rs:90
+msgid "__UnreadableFile"
+msgstr ""
+
+#: src/window/dialogs/open.rs:101
+msgid "__UnreadableGraph"
+msgstr ""
+
+#: src/window/dialogs/open.rs:113
+msgid "__UnreadableCore"
 msgstr ""
 
 #: src/window/dialogs/pick_proj.rs:12
