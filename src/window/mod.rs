@@ -28,6 +28,17 @@ impl Window {
     }
 }
 
+// fetchers and other calculators
+impl Window {
+    /// Fetches the current selected conversion core for script purposes.
+    pub fn get_selected_core(&self) -> String {
+        match self.imp().core_toggle.active_name() {
+            Some(val) => val.to_string(),
+            None => String::new(),
+        }
+    }
+}
+
 // logic-related methods
 impl Window {
     /// Setting up window default values. It is meant to be called at launch and

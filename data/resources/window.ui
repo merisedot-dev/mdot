@@ -166,7 +166,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwToggleGroup">
+                                  <object class="AdwToggleGroup" id="core_toggle">
                                     <child>
                                       <object class="AdwToggle">
                                         <property name="child">

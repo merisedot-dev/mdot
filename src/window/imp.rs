@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 
-use adw::{SplitButton, WindowTitle, subclass::prelude::*};
+use adw::{SplitButton, ToggleGroup, WindowTitle, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
     gio::Menu,
@@ -20,13 +20,11 @@ pub struct MDotWindow {
     pub project: RefCell<Project>,
     #[template_child]
     pub proj_menu: TemplateChild<Menu>,
-
     // template macro components
     #[template_child]
     pub page_stack: TemplateChild<Stack>,
     #[template_child]
     pub graph_drawing: TemplateChild<DrawingArea>,
-
     // header controls
     #[template_child]
     pub menu_btn: TemplateChild<MenuButton>,
@@ -38,7 +36,6 @@ pub struct MDotWindow {
     pub redo_btn: TemplateChild<Button>,
     #[template_child]
     pub app_title: TemplateChild<WindowTitle>,
-
     // newproj form controls
     #[template_child]
     pub proj_name: TemplateChild<Entry>,
@@ -48,6 +45,8 @@ pub struct MDotWindow {
     pub path_lbl: TemplateChild<Label>,
     #[template_child]
     pub form_error_lbl: TemplateChild<Label>,
+    #[template_child]
+    pub core_toggle: TemplateChild<ToggleGroup>,
 }
 
 // subclassing our window

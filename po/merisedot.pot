@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-16 15:11+0200\n"
+"POT-Creation-Date: 2026-04-18 10:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/resources/window.ui:22 data/resources/window.ui:269
+#: data/resources/window.ui:22 data/resources/window.ui:271
 msgid "__Openproject"
 msgstr ""
 
-#: data/resources/window.ui:61 data/resources/window.ui:265
+#: data/resources/window.ui:61 data/resources/window.ui:267
 msgid "__Newproject"
 msgstr ""
 
@@ -45,11 +45,11 @@ msgstr ""
 msgid "__Validate"
 msgstr ""
 
-#: data/resources/window.ui:274
+#: data/resources/window.ui:276
 msgid "__Save"
 msgstr ""
 
-#: data/resources/window.ui:278
+#: data/resources/window.ui:280
 msgid "__Close"
 msgstr ""
 
@@ -91,4 +91,20 @@ msgstr ""
 
 #: src/window/dialogs/pick_proj.rs:13
 msgid "__Choose"
+msgstr ""
+
+#: src/project/error.rs:23
+msgid "__MissingProjName"
+msgstr ""
+
+#: src/project/error.rs:24
+msgid "__MissingProjPath"
+msgstr ""
+
+#: src/project/error.rs:25
+msgid "__MissingProjCore"
+msgstr ""
+
+#: src/project/error.rs:29
+msgid "__UnaccessibleProjPath"
 msgstr ""

@@ -1,11 +1,13 @@
+pub(crate) mod error;
 mod imp;
 
-use std::path::PathBuf;
+use std::{fs::File, ops::Deref, path::PathBuf};
 
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib::{self, Object};
+use stag::script::ExposedCore;
 
-use crate::constants::PROJ_FILE_EXTENSION;
+use crate::{constants::PROJ_FILE_EXTENSION, project::error::ProjectError};
 
 glib::wrapper! {
     pub struct Project(ObjectSubclass<imp::MDotProject>);
@@ -38,10 +40,25 @@ impl Project {
     /// Checks if the current [Project] is in a usable state. This means making
     /// sure the [Project] has a valid name and its directory root path isn't
     /// an empty path. Individual indexes should be checked later on.
-    pub fn is_valid(&self) -> bool {
-        self.get_name() != "" // a project must have a name
-            && self.get_dir_path().to_str().unwrap_or_default() != ""
-        // TODO other checks
+    pub fn is_valid(&self) -> Result<(), ProjectError> {
+        let proj = self.imp().data.borrow();
+        // simple project checks
+        if proj.name == String::new() {
+            return Err(ProjectError::MISSINGNAME);
+        }
+        if proj.path == PathBuf::new() {
+            return Err(ProjectError::MISSINGPATH);
+        }
+        if proj.core.borrow().deref().clone() == ExposedCore::default() {
+            return Err(ProjectError::MISSINGCORE);
+        }
+        // more advanced project checks
+        match File::open(self.filepath()) {
+            Ok(_) => {} // nothing here
+            Err(_) => return Err(ProjectError::UNACCESSIBLEPATH(self.filepath())),
+        }
+        // everything passed
+        Ok(())
     }
 
     /// Fetches the index file path for the current [Project].

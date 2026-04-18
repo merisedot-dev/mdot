@@ -1,6 +1,6 @@
 mod mysql;
 
-#[derive(Clone, Default)]
+#[derive(Clone, Default, Eq, PartialEq)]
 pub enum ExposedCore {
     MySQL(MySQLCore),
     #[default]

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-16 15:11+0200\n"
+"POT-Creation-Date: 2026-04-18 10:59+0200\n"
 "PO-Revision-Date: 2026-02-22 12:01+0100\n"
 "Last-Translator: kheldae <taho.gougeon@gmail.com>\n"
 "Language-Team: \n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: data/resources/window.ui:22 data/resources/window.ui:269
+#: data/resources/window.ui:22 data/resources/window.ui:271
 msgid "__Openproject"
 msgstr "Ouvrir"
 
-#: data/resources/window.ui:61 data/resources/window.ui:265
+#: data/resources/window.ui:61 data/resources/window.ui:267
 msgid "__Newproject"
 msgstr "Nouveau Projet"
 
@@ -46,11 +46,11 @@ msgstr "Annuler"
 msgid "__Validate"
 msgstr "Valider"
 
-#: data/resources/window.ui:274
+#: data/resources/window.ui:276
 msgid "__Save"
 msgstr "Enregistrer"
 
-#: data/resources/window.ui:278
+#: data/resources/window.ui:280
 msgid "__Close"
 msgstr "Fermer"
 
@@ -93,3 +93,19 @@ msgstr "Emplacement"
 #: src/window/dialogs/pick_proj.rs:13
 msgid "__Choose"
 msgstr "Choisir"
+
+#: src/project/error.rs:23
+msgid "__MissingProjName"
+msgstr "Nom du Projet requis"
+
+#: src/project/error.rs:24
+msgid "__MissingProjPath"
+msgstr "Chemin du Projet requis"
+
+#: src/project/error.rs:25
+msgid "__MissingProjCore"
+msgstr "Un coeur de conversion est requis"
+
+#: src/project/error.rs:29
+msgid "__UnaccessibleProjPath"
+msgstr "Chemin inaccessible"
