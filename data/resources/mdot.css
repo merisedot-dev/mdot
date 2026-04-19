@@ -6,6 +6,9 @@
 }
 
 /* TODO fetch pages */
+.form_err {
+    border-color: red;
+}
 
 /* Specific widgets */
 #form_error_lbl {

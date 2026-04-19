@@ -6,7 +6,7 @@ use adw::{Application, subclass::prelude::ObjectSubclassIsExt};
 use gtk::{
     gio::{self},
     glib::{self, Object},
-    prelude::EditableExt,
+    prelude::{EditableExt, WidgetExt},
 };
 
 use crate::constants::NEWPROJ_SCREEN_NAME;
@@ -77,8 +77,13 @@ impl Window {
     /// Remove all information from the project form screen. This is not
     /// exhaustive and can be extended should new widgets be added to the screen.
     pub fn clear_form(&self) {
-        self.imp().path_lbl.set_label(""); // no more path label
-        self.imp().proj_name.set_text(""); // no more project name
-        self.imp().form_error_lbl.set_text(""); // no more error
+        // no more path label
+        self.imp().path_lbl.set_label("");
+        self.imp().path_picker.remove_css_class("form_err");
+        // no more project name
+        self.imp().proj_name.set_text("");
+        self.imp().proj_name.remove_css_class("form_err");
+        // no more error message
+        self.imp().form_error_lbl.set_text("");
     }
 }

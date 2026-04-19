@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
 use adw::subclass::prelude::ObjectSubclassIsExt;
-use gtk::prelude::EditableExt;
+use gtk::prelude::{EditableExt, WidgetExt};
 use stag::script::ExposedCore;
 
 use crate::{
@@ -45,6 +45,18 @@ impl MDotAction for ValidateAction {
         // check project integrity
         if let Err(why) = proj.is_valid() {
             caller.show_form_err(format!("{}", why));
+            // change css classes depending of error type
+            match why {
+                ProjectError::MISSINGNAME => {
+                    caller.imp().proj_name.add_css_class("form_err");
+                }
+                ProjectError::MISSINGCORE => {
+                    caller.imp().core_toggle.add_css_class("form_err");
+                }
+                ProjectError::MISSINGPATH | ProjectError::UNACCESSIBLEPATH(_) => {
+                    caller.imp().path_picker.add_css_class("form_err");
+                }
+            }
         }
     }
 }
