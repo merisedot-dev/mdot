@@ -20,11 +20,13 @@ pub struct MDotWindow {
     pub project: RefCell<Project>,
     #[template_child]
     pub proj_menu: TemplateChild<Menu>,
+
     // template macro components
     #[template_child]
     pub page_stack: TemplateChild<Stack>,
     #[template_child]
     pub graph_drawing: TemplateChild<DrawingArea>,
+
     // header controls
     #[template_child]
     pub menu_btn: TemplateChild<MenuButton>,
@@ -36,6 +38,7 @@ pub struct MDotWindow {
     pub redo_btn: TemplateChild<Button>,
     #[template_child]
     pub app_title: TemplateChild<WindowTitle>,
+
     // newproj form controls
     #[template_child]
     pub proj_name: TemplateChild<Entry>,
@@ -61,9 +64,9 @@ impl ObjectSubclass for MDotWindow {
         klass.bind_template();
         // installing GActions
         for action in mk_actions() {
-            klass.install_action(action.name(), None, move |win, txt, var| {
+            klass.install_action(action.name(), None, move |win, txt, variant| {
                 // do NOT prefetch implementation
-                action.handle_activate(win, txt, var);
+                action.handle_activate(win, txt, variant);
             });
         }
         // install async actions

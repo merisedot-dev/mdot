@@ -5,6 +5,7 @@ use gtk::prelude::{EditableExt, WidgetExt};
 use stag::script::ExposedCore;
 
 use crate::{
+    constants::WORKS_SCREEN_NAME,
     project::error::ProjectError,
     utils::{MDotActable, MDotAction},
     window::Window,
@@ -27,6 +28,7 @@ impl MDotAction for ValidateAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
+        caller.clear_form_css();
         // load data from project (and drop borrow after for safety)
         {
             let proj = caller.imp().project.borrow_mut();
@@ -58,5 +60,9 @@ impl MDotAction for ValidateAction {
                 }
             }
         }
+
+        // launch project
+        caller.clear_form();
+        caller.set_screen(WORKS_SCREEN_NAME);
     }
 }

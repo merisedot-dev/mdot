@@ -52,8 +52,8 @@ impl Project {
         if proj.core.borrow().deref().clone() == ExposedCore::default() {
             return Err(ProjectError::MISSINGCORE);
         }
-        // more advanced project checks
-        match File::open(self.filepath()) {
+        // project file checks
+        match File::create(self.filepath()) {
             Ok(_) => {} // nothing here
             Err(_) => return Err(ProjectError::UNACCESSIBLEPATH(self.filepath())),
         }

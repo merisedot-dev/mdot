@@ -7,7 +7,7 @@
 
 /* TODO fetch pages */
 .form_err {
-    border-color: red;
+    color: red;
 }
 
 /* Specific widgets */
