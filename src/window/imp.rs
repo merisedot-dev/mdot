@@ -65,18 +65,23 @@ impl ObjectSubclass for MDotWindow {
     fn class_init(klass: &mut Self::Class) {
         // Check for any required subtype
         MDotToolbar::ensure_type();
+        info!("Checked for subtemplates");
         // link the template file to our window class
         klass.bind_template();
+        info!("Loaded MDotWindow template");
         // installing GActions
         for action in mk_actions() {
-            klass.install_action(action.name(), None, move |win, txt, variant| {
+            let action_name = action.name();
+            klass.install_action(action_name, None, move |win, txt, variant| {
                 // do NOT prefetch implementation
                 action.handle_activate(win, txt, variant);
             });
+            info!("Loaded action {}", action_name);
         }
         // install async actions
         klass.install_action_async(PICKPROJ_NAME, None, pickproj_dialog);
         klass.install_action_async(OPEN_NAME, None, open_dialog);
+        info!("Loaded dialogs");
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {

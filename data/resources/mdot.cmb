@@ -3,8 +3,8 @@
 <!-- Created with Cambalache 1.0 -->
 <cambalache-project version="1.0.0" target_tk="gtk-4.0" depends="libadwaita-1,webkitgtk-6.0">
   <gresources filename="mdot.gresource.xml" sha256="7949f541da6b6622a5b3e66e61f0d476c876d9e7fdb82f0f1f659a91d6ae0ca1"/>
+  <ui template-class="MDotToolbar" filename="toolbar.ui" sha256="6411871d36322662d9ba237b4dec9073b65d266c8c6c7790521ee2eff36244fe"/>
   <ui template-class="MDotWindow" filename="window.ui" sha256="959d142e4c103bdcaa2ee0b3198f750f92645c575adcdd8f18f9d2de698eeabf">
     <requires>MDotToolbar</requires>
   </ui>
-  <ui template-class="MDotToolbar" filename="toolbar.ui" sha256="d78b0f6ffb05f8ed934557465b1e94cb2185df3704569e470bec989f74a36084"/>
 </cambalache-project>
