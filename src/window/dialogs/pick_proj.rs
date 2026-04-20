@@ -2,11 +2,11 @@ use adw::subclass::prelude::ObjectSubclassIsExt;
 use gettextrs::gettext;
 use gtk::{FileDialog, gio::prelude::FileExt, glib::Variant};
 
-use crate::window::Window;
+use crate::window::MDotWindow;
 
 pub const PICKPROJ_NAME: &'static str = "win.pick_proj";
 
-pub async fn pickproj_dialog(caller: Window, _: String, _: Option<Variant>) {
+pub async fn pickproj_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
     // fetch dialog
     let dialog = FileDialog::builder()
         .title(gettext("__Projectlocation"))

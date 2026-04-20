@@ -12,7 +12,7 @@ use gtk::{
 use crate::constants::NEWPROJ_SCREEN_NAME;
 
 glib::wrapper! {
-    pub struct Window(ObjectSubclass<imp::MDotWindow>)
+    pub struct MDotWindow(ObjectSubclass<imp::MDotWindow>)
         @extends adw::ApplicationWindow, gtk::ApplicationWindow,
                  gtk::Window, gtk::Widget,
         @implements gio::ActionGroup, gio::ActionMap, gtk::Accessible,
@@ -21,7 +21,7 @@ glib::wrapper! {
 }
 
 // Setup methods
-impl Window {
+impl MDotWindow {
     /// custom constructor to ensure we can have a link to our app
     pub fn new(app: &Application) -> Self {
         Object::builder().property("application", app).build()
@@ -29,7 +29,7 @@ impl Window {
 }
 
 // fetchers and other calculators
-impl Window {
+impl MDotWindow {
     /// Fetches the current selected conversion core for script purposes.
     pub fn get_selected_core(&self) -> String {
         match self.imp().core_toggle.active_name() {
@@ -40,7 +40,7 @@ impl Window {
 }
 
 // logic-related methods
-impl Window {
+impl MDotWindow {
     /// Setting up window default values. It is meant to be called at launch and
     /// only at application launch.
     fn set_defaults(&self) {

@@ -1,12 +1,12 @@
 use crate::{
     utils::{MDotActable, MDotAction},
-    window::Window,
+    window::MDotWindow,
 };
 
 pub struct CancelAction;
 
 impl MDotActable for CancelAction {
-    type InnerCallerType = Window;
+    type InnerCallerType = MDotWindow;
 }
 
 impl MDotAction for CancelAction {

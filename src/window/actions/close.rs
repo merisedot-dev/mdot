@@ -1,13 +1,13 @@
 use crate::{
     constants::NEWPROJ_SCREEN_NAME,
     utils::{MDotActable, MDotAction},
-    window::Window,
+    window::MDotWindow,
 };
 
 pub struct CloseAction;
 
 impl MDotActable for CloseAction {
-    type InnerCallerType = Window;
+    type InnerCallerType = MDotWindow;
 }
 
 impl MDotAction for CloseAction {

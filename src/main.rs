@@ -1,6 +1,7 @@
 pub(crate) mod config;
 pub(crate) mod constants;
 pub(crate) mod project;
+pub(crate) mod toolbar;
 pub(crate) mod utils;
 pub(crate) mod window;
 
@@ -19,7 +20,7 @@ use tracing::info;
 use crate::{
     config::*,
     utils::{i18n_init, load_css},
-    window::Window,
+    window::MDotWindow,
 };
 
 fn main() -> glib::ExitCode {
@@ -44,7 +45,7 @@ fn main() -> glib::ExitCode {
     // activation watchdog
     app.connect_activate(|app| {
         info!("activate");
-        let window = Window::new(app);
+        let window = MDotWindow::new(app);
         info!("Loaded main window");
         window.present();
     });

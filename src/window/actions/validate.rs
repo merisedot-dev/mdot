@@ -8,13 +8,13 @@ use crate::{
     constants::WORKS_SCREEN_NAME,
     project::error::ProjectError,
     utils::{MDotActable, MDotAction},
-    window::Window,
+    window::MDotWindow,
 };
 
 pub struct ValidateAction;
 
 impl MDotActable for ValidateAction {
-    type InnerCallerType = Window;
+    type InnerCallerType = MDotWindow;
 }
 
 impl MDotAction for ValidateAction {
@@ -59,6 +59,7 @@ impl MDotAction for ValidateAction {
                     caller.imp().path_picker.add_css_class("form_err");
                 }
             }
+            return; // failsafe
         }
 
         // launch project

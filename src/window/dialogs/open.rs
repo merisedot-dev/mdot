@@ -13,12 +13,12 @@ use stag::{graph::Graph, script::ExposedCore};
 
 use crate::{
     constants::{PROJ_FILE_EXTENSION, WORKS_SCREEN_NAME},
-    window::Window,
+    window::MDotWindow,
 };
 
 pub const OPEN_NAME: &'static str = "win.open";
 
-pub async fn open_dialog(caller: Window, _: String, _: Option<Variant>) {
+pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
     // build filters
     let filters = ListStore::new::<FileFilter>();
     let proj_filter = FileFilter::new();

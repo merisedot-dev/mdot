@@ -215,35 +215,10 @@
                         <property name="child">
                           <object class="GtkPaned">
                             <property name="end-child">
-                              <object class="GtkBox">
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="label">test</property>
-                                  </object>
-                                </child>
-                              </object>
+                              <object class="GtkDrawingArea" id="graph_drawing"/>
                             </property>
                             <property name="start-child">
-                              <object class="GtkPaned">
-                                <property name="end-child">
-                                  <object class="GtkDrawingArea" id="graph_drawing">
-                                    <property name="content-height">800</property>
-                                    <property name="content-width">600</property>
-                                  </object>
-                                </property>
-                                <property name="start-child">
-                                  <object class="GtkPaned">
-                                    <property name="end-child">
-                                      <object class="GtkListBox"/>
-                                    </property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="start-child">
-                                      <object class="GtkListBox"/>
-                                    </property>
-                                  </object>
-                                </property>
-                              </object>
+                              <object class="MDotToolbar" id="toolbar"/>
                             </property>
                           </object>
                         </property>

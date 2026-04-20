@@ -4,12 +4,13 @@ use adw::{SplitButton, ToggleGroup, WindowTitle, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
     gio::Menu,
-    glib::{self, subclass::InitializingObject},
+    glib::{self, subclass::InitializingObject, types::StaticTypeExt},
 };
 use tracing::info;
 
 use crate::{
     project::Project,
+    toolbar::MDotToolbar,
     window::{actions::mk_actions, dialogs::*},
 };
 
@@ -20,6 +21,8 @@ pub struct MDotWindow {
     pub project: RefCell<Project>,
     #[template_child]
     pub proj_menu: TemplateChild<Menu>,
+    #[template_child]
+    pub toolbar: TemplateChild<MDotToolbar>,
 
     // template macro components
     #[template_child]
@@ -56,10 +59,12 @@ pub struct MDotWindow {
 #[glib::object_subclass]
 impl ObjectSubclass for MDotWindow {
     const NAME: &'static str = "MDotWindow";
-    type Type = super::Window;
+    type Type = super::MDotWindow;
     type ParentType = adw::ApplicationWindow;
 
     fn class_init(klass: &mut Self::Class) {
+        // Check for any required subtype
+        MDotToolbar::ensure_type();
         // link the template file to our window class
         klass.bind_template();
         // installing GActions

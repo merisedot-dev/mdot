@@ -5,7 +5,7 @@ use crate::{
     constants::{APP_NAME, NEWPROJ_SCREEN_NAME},
     project::Project,
     utils::{MDotActable, MDotAction},
-    window::Window,
+    window::MDotWindow,
 };
 
 /// win.mkproj GAction fixing struct. As for it and the others, it will just be
@@ -13,7 +13,7 @@ use crate::{
 pub struct MkProjAction;
 
 impl MDotActable for MkProjAction {
-    type InnerCallerType = Window;
+    type InnerCallerType = MDotWindow;
 }
 
 impl MDotAction for MkProjAction {

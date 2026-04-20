@@ -6,13 +6,13 @@ use tracing::{error, info};
 
 use crate::{
     utils::{MDotActable, MDotAction},
-    window::Window,
+    window::MDotWindow,
 };
 
 pub struct SaveAction;
 
 impl MDotActable for SaveAction {
-    type InnerCallerType = Window;
+    type InnerCallerType = MDotWindow;
 }
 
 impl MDotAction for SaveAction {
