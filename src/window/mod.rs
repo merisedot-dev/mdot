@@ -4,12 +4,12 @@ mod imp;
 
 use adw::{Application, subclass::prelude::ObjectSubclassIsExt};
 use gtk::{
-    gio::{self},
+    gio::{self, Settings},
     glib::{self, Object},
     prelude::{EditableExt, WidgetExt},
 };
 
-use crate::constants::NEWPROJ_SCREEN_NAME;
+use crate::{config::app_id, constants::NEWPROJ_SCREEN_NAME};
 
 glib::wrapper! {
     pub struct MDotWindow(ObjectSubclass<imp::MDotWindow>)
@@ -26,6 +26,23 @@ impl MDotWindow {
     pub fn new(app: &Application) -> Self {
         Object::builder().property("application", app).build()
     }
+
+    /// Setting up window default values. It is meant to be called at launch and
+    /// only at application launch.
+    fn set_defaults(&self) {
+        // load default app screen
+        self.set_screen(NEWPROJ_SCREEN_NAME);
+    }
+
+    /// Fetches settings from GSchema and loads it in the application window. If
+    /// it doesn't work, crashes the whole application by precaution.
+    fn set_settings(&self) {
+        let settings = Settings::new(app_id());
+        self.imp()
+            .settings
+            .set(settings)
+            .expect("settings should have been set already");
+    }
 }
 
 // fetchers and other calculators
@@ -41,13 +58,6 @@ impl MDotWindow {
 
 // logic-related methods
 impl MDotWindow {
-    /// Setting up window default values. It is meant to be called at launch and
-    /// only at application launch.
-    fn set_defaults(&self) {
-        // load default app screen
-        self.set_screen(NEWPROJ_SCREEN_NAME);
-    }
-
     /// Changes the displayed window title in the header bar. This should never
     /// be a blank name for usability reason. If that happens, please revert
     /// back to [APP_NAME].

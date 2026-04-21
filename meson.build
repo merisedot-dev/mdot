@@ -31,6 +31,6 @@ subdir('src') # build the damn code
 # Post-Install phase
 gnome.post_install(
   gtk_update_icon_cache: true,
-  glib_compile_schemas: false, # we don't really have settings right now
+  glib_compile_schemas: true,
   update_desktop_database: true,
 )

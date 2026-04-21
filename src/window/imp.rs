@@ -1,9 +1,9 @@
-use std::cell::RefCell;
+use std::cell::{OnceCell, RefCell};
 
 use adw::{SplitButton, ToggleGroup, WindowTitle, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
-    gio::Menu,
+    gio::{Menu, Settings},
     glib::{self, subclass::InitializingObject, types::StaticTypeExt},
 };
 use tracing::info;
@@ -19,6 +19,7 @@ use crate::{
 pub struct MDotWindow {
     // logic-related elements (like app settings, inner info or menus)
     pub project: RefCell<Project>,
+    pub settings: OnceCell<Settings>,
     #[template_child]
     pub proj_menu: TemplateChild<Menu>,
     #[template_child]
@@ -96,8 +97,8 @@ impl ObjectImpl for MDotWindow {
         self.parent_constructed();
         // inner setup
         let obj = self.obj();
-        info!("Loading default values");
         obj.set_defaults();
+        obj.set_settings();
     }
 }
 

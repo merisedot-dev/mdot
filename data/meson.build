@@ -17,6 +17,17 @@ if host_machine.system() == 'linux'
     install_dir: datadir / 'applications',
   )
 
+  # fetch settings for persistance
+  gschema_conf = configuration_data()
+  gschema_conf.set('APP_ID', application_id)
+  configure_file(
+    input: '@0@.gschema.xml.in'.format(base_id),
+    output: '@0@.gschema.xml'.format(application_id),
+    configuration: gschema_conf,
+    install: true,
+    install_dir: datadir / 'glib-2.0' / 'schemas',
+  )
+
   # service configuration
   service_conf = configuration_data()
   service_conf.set('APP_ID', application_id)
