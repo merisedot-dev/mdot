@@ -32,6 +32,7 @@ impl MDotWindow {
     fn set_defaults(&self) {
         // load default app screen
         self.set_screen(NEWPROJ_SCREEN_NAME);
+        // TODO define minima
     }
 
     /// Fetches settings from GSchema and loads it in the application window. If
