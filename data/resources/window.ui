@@ -221,36 +221,73 @@
                                     <property name="label">TODO</property>
                                   </object>
                                 </property>
+                                <property name="shrink-end-child">False</property>
+                                <property name="shrink-start-child">False</property>
                                 <property name="start-child">
                                   <object class="GtkDrawingArea" id="graph_drawing">
-                                    <property name="content-height">600</property>
+                                    <property name="content-height">800</property>
                                     <property name="content-width">800</property>
                                   </object>
                                 </property>
                               </object>
                             </property>
+                            <property name="shrink-end-child">False</property>
+                            <property name="shrink-start-child">False</property>
                             <property name="start-child">
                               <object class="GtkBox">
                                 <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">__EntityButtons</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkGrid">
-                                    <child>
-                                      <object class="GtkButton" id="new_ent_btn">
-                                        <property name="action-name">win.new_entity</property>
-                                        <property name="icon-name">list-add-symbolic</property>
-                                        <layout>
-                                          <property name="column">0</property>
-                                          <property name="row">0</property>
-                                        </layout>
+                                  <object class="GtkPaned">
+                                    <property name="end-child">
+                                      <object class="GtkBox">
+                                        <property name="orientation">vertical</property>
+                                        <child>
+                                          <object class="GtkLabel">
+                                            <property name="label" translatable="yes">__EntityTools</property>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkGrid">
+                                            <child>
+                                              <object class="GtkButton" id="new_ent_btn">
+                                                <property name="action-name">win.new_entity</property>
+                                                <property name="icon-name">list-add-symbolic</property>
+                                                <layout>
+                                                  <property name="column">0</property>
+                                                  <property name="row">0</property>
+                                                </layout>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="GtkButton" id="del_ent_btn">
+                                                <property name="action-name">win.del_entiy</property>
+                                                <property name="icon-name">list-remove-symbolic</property>
+                                                <layout>
+                                                  <property name="column">1</property>
+                                                  <property name="row">0</property>
+                                                </layout>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkSeparator"/>
+                                        </child>
                                       </object>
-                                    </child>
+                                    </property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="shrink-end-child">False</property>
+                                    <property name="shrink-start-child">False</property>
+                                    <property name="start-child">
+                                      <object class="GtkLabel">
+                                        <property name="label">TODO</property>
+                                      </object>
+                                    </property>
                                   </object>
                                 </child>
+                                <style>
+                                  <class name="toolbar"/>
+                                </style>
                               </object>
                             </property>
                           </object>

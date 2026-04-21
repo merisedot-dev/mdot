@@ -1,9 +1,9 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gettextrs::gettext;
 use gtk::{
-    FileDialog, FileFilter,
+    FileDialog,
     gio::{
-        Cancellable, ListStore,
+        Cancellable,
         prelude::{FileExt, InputStreamExtManual},
     },
     glib::{Priority, Variant},
@@ -13,24 +13,16 @@ use stag::{graph::Graph, script::ExposedCore};
 use tracing::info;
 
 use crate::{
-    constants::{PROJ_FILE_EXTENSION, WORKS_SCREEN_NAME},
+    constants::WORKS_SCREEN_NAME,
     window::MDotWindow,
 };
 
 pub const OPEN_NAME: &'static str = "win.open";
 
 pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
-    // build filters
-    let filters = ListStore::new::<FileFilter>();
-    let proj_filter = FileFilter::new();
-    proj_filter.add_suffix(format!("*.{}", PROJ_FILE_EXTENSION).as_str());
-    proj_filter.set_name(Some(gettext("__MDOTProject").as_str()));
-    filters.append(&proj_filter);
-
     // build dialog
     let dialog = FileDialog::builder()
         .title(gettext("__Selectproject"))
-        .filters(&filters)
         .accept_label(gettext("__Open"))
         .modal(true)
         .build();

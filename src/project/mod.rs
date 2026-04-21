@@ -1,7 +1,7 @@
 pub(crate) mod error;
 mod imp;
 
-use std::{fs::File, ops::Deref, path::PathBuf};
+use std::{ops::Deref, path::PathBuf};
 
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib::{self, Object};
@@ -51,11 +51,6 @@ impl Project {
         }
         if proj.core.borrow().deref().clone() == ExposedCore::default() {
             return Err(ProjectError::MISSINGCORE);
-        }
-        // project file checks
-        match File::create(self.filepath()) {
-            Ok(_) => {} // nothing here
-            Err(_) => return Err(ProjectError::UNACCESSIBLEPATH(self.filepath())),
         }
         // everything passed
         Ok(())
