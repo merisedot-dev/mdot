@@ -3,6 +3,7 @@ use std::path::PathBuf;
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::prelude::{EditableExt, WidgetExt};
 use stag::script::ExposedCore;
+use tracing::{error, info};
 
 use crate::{
     constants::WORKS_SCREEN_NAME,
@@ -46,6 +47,7 @@ impl MDotAction for ValidateAction {
         let proj = caller.imp().project.borrow();
         // check project integrity
         if let Err(why) = proj.is_valid() {
+            error!("Failed project creation : {:?}", why);
             caller.show_form_err(format!("{}", why));
             // change css classes depending of error type
             match why {
@@ -65,5 +67,6 @@ impl MDotAction for ValidateAction {
         // launch project
         caller.clear_form();
         caller.set_screen(WORKS_SCREEN_NAME);
+        info!("Successfully created project {}", proj.get_name());
     }
 }

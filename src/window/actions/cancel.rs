@@ -22,5 +22,6 @@ impl MDotAction for CancelAction {
     ) {
         // erase information from form widgets
         caller.clear_form();
+        tracing::info!("Cancelled project creation");
     }
 }

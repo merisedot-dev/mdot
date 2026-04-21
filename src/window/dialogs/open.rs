@@ -10,6 +10,7 @@ use gtk::{
 };
 use serde_json::{Value, de::from_str, from_value};
 use stag::{graph::Graph, script::ExposedCore};
+use tracing::info;
 
 use crate::{
     constants::{PROJ_FILE_EXTENSION, WORKS_SCREEN_NAME},
@@ -33,9 +34,11 @@ pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
         .accept_label(gettext("__Open"))
         .modal(true)
         .build();
+    info!("Searching for project file...");
 
     // call upon file dialog
     if let Ok(file) = dialog.open_future(Some(&caller)).await {
+        info!("Picked project file");
         // fetch informations from project file
         let content = match file.read(Cancellable::NONE) {
             Ok(content) => content,

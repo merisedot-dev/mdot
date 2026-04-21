@@ -28,6 +28,7 @@ impl MDotAction for MkProjAction {
         _: Option<&gtk::glib::Variant>,
     ) {
         // UI tweaks
+        caller.clear_form();
         caller.set_screen(NEWPROJ_SCREEN_NAME);
         caller.set_app_title(APP_NAME);
         caller.set_app_subtitle("");

@@ -1,6 +1,7 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gettextrs::gettext;
 use gtk::{FileDialog, gio::prelude::FileExt, glib::Variant};
+use tracing::info;
 
 use crate::window::MDotWindow;
 
@@ -27,11 +28,13 @@ pub async fn pickproj_dialog(caller: MDotWindow, _: String, _: Option<Variant>) 
             .project
             .borrow()
             .set_path(proj_filepath.clone());
+        info!("Fetched project folder");
 
         // tweak file picker label
         caller
             .imp()
             .path_lbl
             .set_text(proj_filepath.to_str().unwrap_or_default());
+        info!("Set temp project folder path");
     }
 }

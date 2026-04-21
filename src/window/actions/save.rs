@@ -39,6 +39,7 @@ impl MDotAction for SaveAction {
                 return; // no use continuing
             }
         };
+        info!("Loaded project file");
 
         // write project file out
         match file.write_all(
