@@ -249,7 +249,7 @@
                                         <child>
                                           <object class="GtkGrid">
                                             <child>
-                                              <object class="GtkButton" id="new_ent_btn">
+                                              <object class="GtkButton" id="new_entity_btn">
                                                 <property name="action-name">win.new_entity</property>
                                                 <property name="icon-name">list-add-symbolic</property>
                                                 <layout>
@@ -259,7 +259,7 @@
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkButton" id="del_ent_btn">
+                                              <object class="GtkButton" id="del_entity_btn">
                                                 <property name="action-name">win.del_entiy</property>
                                                 <property name="icon-name">list-remove-symbolic</property>
                                                 <layout>
@@ -273,15 +273,42 @@
                                         <child>
                                           <object class="GtkSeparator"/>
                                         </child>
+                                        <child>
+                                          <object class="GtkLabel">
+                                            <property name="label" translatable="yes">__GraphLinktools</property>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkGrid">
+                                            <child>
+                                              <object class="GtkButton" id="new_graphlink_btn">
+                                                <property name="action-name">win.draw_graphlink</property>
+                                                <property name="icon-name">list-add-symbolic</property>
+                                                <layout>
+                                                  <property name="column">0</property>
+                                                  <property name="row">0</property>
+                                                </layout>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="GtkButton" id="del_graphlink_btn">
+                                                <property name="action-name">win.del_graphlink</property>
+                                                <property name="icon-name">list-remove-symbolic</property>
+                                                <layout>
+                                                  <property name="column">1</property>
+                                                  <property name="row">0</property>
+                                                </layout>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
                                       </object>
                                     </property>
                                     <property name="orientation">vertical</property>
                                     <property name="shrink-end-child">False</property>
                                     <property name="shrink-start-child">False</property>
                                     <property name="start-child">
-                                      <object class="GtkLabel">
-                                        <property name="label">TODO</property>
-                                      </object>
+                                      <object class="MDotGraphTree" id="graph_tree"/>
                                     </property>
                                   </object>
                                 </child>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 1.0 -->
+<interface>
+  <!-- interface-name mdot_panel.ui -->
+  <requires lib="gtk" version="4.0"/>
+  <template class="MDotGraphTree" parent="GtkBox">
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="child">
+          <object class="GtkListView">
+            <property name="orientation">vertical</property>
+          </object>
+        </property>
+      </object>
+    </child>
+  </template>
+</interface>

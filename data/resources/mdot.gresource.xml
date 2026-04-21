@@ -2,8 +2,9 @@
 <!-- Created with Cambalache 1.0 -->
 <gresources>
   <gresource prefix="/com/github/merisedotdev/mdot/">
-    <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">mdot_window.ui</file>
     <file compressed="true">mdot.css</file>
     <file compressed="true">mysql.png</file>
+    <file compressed="true" preprocess="xml-stripblanks">mdot_tree.ui</file>
   </gresource>
 </gresources>
