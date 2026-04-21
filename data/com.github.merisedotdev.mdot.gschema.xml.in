@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schemalist>
     <schema id="@APP_ID@" path="/com/github/merisedotdev/mdot/">
-        <key name="projects" type="ai">
+        <key name="projects" type="a(ss)">
             <default>[]</default>
             <summary>Stores the previously visited projects</summary>
         </key>
