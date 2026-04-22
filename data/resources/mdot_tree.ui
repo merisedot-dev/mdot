@@ -8,6 +8,11 @@
       <object class="GtkScrolledWindow">
         <property name="child">
           <object class="GtkListView">
+            <property name="factory">
+              <object class="GtkBuilderListItemFactory">
+                <property name="resource">/com/github/merisedotdev/mdot/mdot_treeitem.ui</property>
+              </object>
+            </property>
             <property name="orientation">vertical</property>
           </object>
         </property>
