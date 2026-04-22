@@ -7,9 +7,8 @@ use tracing::{error, info};
 
 use crate::{
     constants::WORKS_SCREEN_NAME,
-    project::error::ProjectError,
     utils::{MDotActable, MDotAction},
-    window::MDotWindow,
+    window::{MDotWindow, project::error::ProjectError},
 };
 
 pub struct ValidateAction;

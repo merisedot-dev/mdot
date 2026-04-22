@@ -1,6 +1,7 @@
 mod actions;
 mod dialogs;
 mod imp;
+pub(crate) mod project;
 
 use adw::{Application, subclass::prelude::ObjectSubclassIsExt};
 use gtk::{

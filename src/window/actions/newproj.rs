@@ -3,9 +3,8 @@ use gtk::glib::property::PropertySet;
 
 use crate::{
     constants::{APP_NAME, NEWPROJ_SCREEN_NAME},
-    project::Project,
     utils::{MDotActable, MDotAction},
-    window::MDotWindow,
+    window::{MDotWindow, project::Project},
 };
 
 /// win.mkproj GAction fixing struct. As for it and the others, it will just be

@@ -7,7 +7,7 @@ use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib::{self, Object};
 use stag::script::ExposedCore;
 
-use crate::{constants::PROJ_FILE_EXTENSION, project::error::ProjectError};
+use crate::{constants::PROJ_FILE_EXTENSION, window::project::error::ProjectError};
 
 glib::wrapper! {
     pub struct Project(ObjectSubclass<imp::MDotProject>);

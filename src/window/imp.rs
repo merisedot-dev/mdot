@@ -10,8 +10,7 @@ use tracing::info;
 
 use crate::{
     mdtree::MDotGraphTree,
-    project::Project,
-    window::{actions::mk_actions, dialogs::*},
+    window::{actions::mk_actions, dialogs::*, project::Project},
 };
 
 #[derive(CompositeTemplate, Default)]
