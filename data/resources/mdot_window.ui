@@ -307,9 +307,6 @@
                                     <property name="orientation">vertical</property>
                                     <property name="shrink-end-child">False</property>
                                     <property name="shrink-start-child">False</property>
-                                    <property name="start-child">
-                                      <object class="MDotGraphTree" id="graph_tree"/>
-                                    </property>
                                   </object>
                                 </child>
                                 <style>

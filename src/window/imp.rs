@@ -4,14 +4,11 @@ use adw::{SplitButton, ToggleGroup, WindowTitle, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
     gio::{Menu, Settings},
-    glib::{self, subclass::InitializingObject, types::StaticTypeExt},
+    glib::{self, subclass::InitializingObject},
 };
 use tracing::info;
 
-use crate::{
-    mdtree::MDotGraphTree,
-    window::{actions::mk_actions, dialogs::*, project::Project},
-};
+use crate::window::{actions::mk_actions, dialogs::*, project::Project};
 
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_window.ui")]
@@ -21,8 +18,6 @@ pub struct MDotWindow {
     pub settings: OnceCell<Settings>,
     #[template_child]
     pub proj_menu: TemplateChild<Menu>,
-    #[template_child]
-    pub graph_tree: TemplateChild<MDotGraphTree>,
 
     // template macro components
     #[template_child]
@@ -74,7 +69,6 @@ impl ObjectSubclass for MDotWindow {
 
     fn class_init(klass: &mut Self::Class) {
         // Check for any required subtype
-        MDotGraphTree::ensure_type();
         info!("Checked for subtemplates");
         // link the template file to our window class
         klass.bind_template();

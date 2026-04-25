@@ -1,6 +1,5 @@
 pub(crate) mod config;
 pub(crate) mod constants;
-pub(crate) mod mdtree;
 pub(crate) mod utils;
 pub(crate) mod window;
 

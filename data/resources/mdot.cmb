@@ -2,10 +2,6 @@
 <!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
 <!-- Created with Cambalache 1.0 -->
 <cambalache-project version="1.0.0" target_tk="gtk-4.0" depends="libadwaita-1,webkitgtk-6.0">
-  <gresources filename="mdot.gresource.xml" sha256="21cccb86ed095af0fd611915d411a691e3381356537b80830a30df1db0dfaa45"/>
-  <ui template-class="MDotGraphTree" filename="mdot_tree.ui" sha256="00f624430361e01a778d6dec2c647e4a1a898eab10c5479f0fce694d38f04f23"/>
-  <ui template-class="MDotWindow" filename="mdot_window.ui" sha256="fe07b0990964bbb2e565a08b1caf64e95d50db35ef59ff2f19ccd011c9cc5fb9">
-    <requires>MDotGraphTree</requires>
-  </ui>
-  <ui template-class="MDotTreeItem" filename="mdot_treeitem.ui" sha256="43106baeae2aad0cc3bc4ec88c46c60d5b830507f1791e92f92d48958853fa28"/>
+  <gresources filename="mdot.gresource.xml" sha256="c97d8a7642922f1b9903fe3de4f3461e0d7f9ebf0b34414aecc46d557df1e1bb"/>
+  <ui template-class="MDotWindow" filename="mdot_window.ui" sha256="546257abc49ef7e40f6ebda2cf5022527337084877f2b16c4cf31bb702b343b0"/>
 </cambalache-project>
