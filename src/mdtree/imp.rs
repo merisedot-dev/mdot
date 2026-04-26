@@ -1,5 +1,5 @@
 use gtk::{
-    CompositeTemplate,
+    CompositeTemplate, ListView,
     glib::{self, subclass::InitializingObject},
     subclass::prelude::*,
 };
@@ -7,7 +7,10 @@ use tracing::info;
 
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_tree.ui")]
-pub struct MDotGraphTree {}
+pub struct MDotGraphTree {
+    #[template_child]
+    pub elems_list: TemplateChild<ListView>,
+}
 
 #[glib::object_subclass]
 impl ObjectSubclass for MDotGraphTree {

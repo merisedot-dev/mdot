@@ -6,6 +6,6 @@
     <file compressed="true">mdot.css</file>
     <file compressed="true">mysql.png</file>
     <file compressed="true" preprocess="xml-stripblanks">mdot_tree.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks">mdot_treeitem.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">mdot_listitem.ui</file>
   </gresource>
 </gresources>
