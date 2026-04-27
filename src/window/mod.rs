@@ -10,7 +10,7 @@ use gtk::{
     prelude::{EditableExt, WidgetExt},
 };
 
-use crate::{config::app_id, constants::NEWPROJ_SCREEN_NAME};
+use crate::{constants::NEWPROJ_SCREEN_NAME, utils::app_id};
 
 glib::wrapper! {
     pub struct MDotWindow(ObjectSubclass<imp::MDotWindow>)

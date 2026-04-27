@@ -1,4 +1,5 @@
 mod action;
+mod config;
 mod loaders;
 
 /// Root trait for anything that can act upon a custom GTK component.
@@ -10,4 +11,5 @@ pub trait MDotActable {
 
 // re-exports
 pub(crate) use action::*;
+pub(crate) use config::*;
 pub(crate) use loaders::*;

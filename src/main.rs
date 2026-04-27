@@ -1,4 +1,3 @@
-pub(crate) mod config;
 pub(crate) mod constants;
 pub(crate) mod mdtree;
 pub(crate) mod utils;
@@ -17,8 +16,7 @@ use gtk::{
 use tracing::info;
 
 use crate::{
-    config::*,
-    utils::{i18n_init, load_css},
+    utils::{app_id, i18n_init, load_css, resources_file},
     window::MDotWindow,
 };
 

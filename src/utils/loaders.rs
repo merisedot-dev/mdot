@@ -4,7 +4,7 @@ use gtk::{
     style_context_add_provider_for_display,
 };
 
-use crate::config::{gettext_package, localedir};
+use crate::utils::{gettext_package, localedir};
 
 /// Loads all translations from the `po` directory. In case of any missing
 /// translation file, it will just die. Non-updated translations may occur.
