@@ -1,15 +1,17 @@
 use gtk::{
-    CompositeTemplate, ListView,
-    glib::{self, subclass::InitializingObject},
+    CompositeTemplate, ListBox,
+    glib::{self, subclass::InitializingObject, types::StaticTypeExt},
     subclass::prelude::*,
 };
 use tracing::info;
+
+use crate::mdtree::graphrow::MDotGraphRow;
 
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_tree.ui")]
 pub struct MDotGraphTree {
     #[template_child]
-    pub elems_list: TemplateChild<ListView>,
+    pub elems_list: TemplateChild<ListBox>,
 }
 
 #[glib::object_subclass]
@@ -19,6 +21,9 @@ impl ObjectSubclass for MDotGraphTree {
     type ParentType = gtk::Box;
 
     fn class_init(klass: &mut Self::Class) {
+        // check extra templates
+        MDotGraphRow::ensure_type();
+        info!("Fetched extra templates for MDotGraphTree");
         // link the tmplate file to this class
         klass.bind_template();
         info!("Loaded MDotGraphTree template");
