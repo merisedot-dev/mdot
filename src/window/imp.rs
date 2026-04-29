@@ -10,6 +10,7 @@ use tracing::info;
 
 use crate::{
     mdtree::MDotGraphTree,
+    panel::MDotPanel,
     window::{actions::mk_actions, dialogs::*, project::Project},
 };
 
@@ -29,6 +30,8 @@ pub struct MDotWindow {
     pub page_stack: TemplateChild<Stack>,
     #[template_child]
     pub graph_drawing: TemplateChild<DrawingArea>,
+    #[template_child]
+    pub edition_panel: TemplateChild<MDotPanel>,
 
     // header controls
     #[template_child]
@@ -75,6 +78,7 @@ impl ObjectSubclass for MDotWindow {
     fn class_init(klass: &mut Self::Class) {
         // Check for any required subtype
         MDotGraphTree::ensure_type();
+        MDotPanel::ensure_type();
         info!("Checked for subtemplates");
         // link the template file to our window class
         klass.bind_template();

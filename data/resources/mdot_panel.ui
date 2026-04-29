@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 1.0 -->
+<interface>
+  <!-- interface-name mdot_panel.ui -->
+  <requires lib="gtk" version="4.0"/>
+  <template class="MDotPanel" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkOverlay">
+        <property name="child">
+          <object class="GtkStack" id="panel_stack">
+            <child>
+              <object class="GtkStackPage">
+                <property name="child">
+                  <object class="GtkOverlay">
+                    <property name="child">
+                      <object class="GtkLabel"/>
+                    </property>
+                  </object>
+                </property>
+                <property name="name">placeholder_edt</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkStackPage">
+                <property name="child">
+                  <object class="GtkOverlay">
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkLabel" id="item_type_lbl">
+                            <property name="justify">center</property>
+                            <property name="label" translatable="yes"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="label" translatable="yes">__Name</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkEntry" id="name_entry"/>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkSeparator"/>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="label" translatable="yes">__AttributesLbl</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkFrame">
+                            <property name="child">
+                              <object class="GtkColumnView" id="attributes_clmn"/>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+                <property name="name">edition_edt</property>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </child>
+  </template>
+</interface>

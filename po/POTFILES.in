@@ -3,6 +3,7 @@
 
 # UI definition files
 data/resources/mdot_window.ui
+data/resources/mdot_panel.ui
 
 # Rust files
 src/window/dialogs/open.rs

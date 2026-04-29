@@ -7,5 +7,6 @@
     <file compressed="true">mysql.png</file>
     <file compressed="true" preprocess="xml-stripblanks">mdot_tree.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">mdot_graphrow.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">mdot_panel.ui</file>
   </gresource>
 </gresources>

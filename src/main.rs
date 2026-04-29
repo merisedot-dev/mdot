@@ -2,6 +2,7 @@ pub(crate) mod constants;
 pub(crate) mod mdtree;
 pub(crate) mod utils;
 pub(crate) mod window;
+pub(crate) mod panel;
 
 use adw::Application;
 use gtk::{
