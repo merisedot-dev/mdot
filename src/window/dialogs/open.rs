@@ -1,3 +1,5 @@
+use std::io::Read;
+
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gettextrs::gettext;
 use gtk::{
@@ -6,11 +8,11 @@ use gtk::{
         Cancellable,
         prelude::{FileExt, InputStreamExtManual},
     },
-    glib::{Priority, Variant},
+    glib::{Variant, property::PropertySet},
 };
-use serde_json::{Value, de::from_str, from_value};
+use serde_json::{Value, from_str, from_value};
 use stag::{graph::Graph, script::ExposedCore};
-use tracing::info;
+use tracing::{error, info};
 
 use crate::{constants::WORKS_SCREEN_NAME, window::MDotWindow};
 
@@ -28,30 +30,19 @@ pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
     // call upon file dialog
     if let Ok(file) = dialog.open_future(Some(&caller)).await {
         info!("Picked project file");
-        // fetch informations from project file
-        let content = match file.read(Cancellable::NONE) {
-            Ok(content) => content,
-            _ => {
-                // no file info, returning
-                caller.show_form_err(gettext("__FileReadError"));
-                return;
-            }
-        };
-
         // load project basic file info
-        let proj_name = match file.parse_name().split_once(".") {
-            Some((val, _)) => val.to_string(),
+        let proj_name = match file.parse_name().split("/").last() {
+            Some(val) => val.to_string(),
             None => {
-                tracing::error!("Project file should have a name");
+                error!("Project file should have a name");
                 return; // THE FUCK
             }
         };
-
         // fetch file folder path
         let proj_path = match file.path() {
             Some(val) => val,
             None => {
-                tracing::error!("Project file should have a path...");
+                error!("Project file should have a path...");
                 return; // no use
             }
         };
@@ -59,54 +50,65 @@ pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
         let mut folder_path = proj_path.components();
         folder_path.next_back();
 
-        // read file contents and turn them into a project graph
-        let buf: Vec<u8> = Vec::new();
-        let obj = match content.read_all_future(buf, Priority::HIGH).await {
-            Ok((val, _, _)) => match String::from_utf8(val) {
-                // FIXME where is the text gone ?
-                Ok(val_str) => {
-                    tracing::info!("{}", val_str);
-                    match from_str::<Value>(&val_str) {
-                        Ok(json_val) => json_val,
-                        Err(why) => {
-                            tracing::error!("{:?}", why);
-                            caller.show_form_err(gettext("__MalformedFile"));
-                            return;
-                        }
-                    }
-                }
-                Err(why) => {
-                    tracing::error!("{:?}", why);
-                    caller.show_form_err(gettext("__UnreadableFile"));
-                    return; // no use continuing
-                }
-            },
+        // read the actual file contents and parse them
+        let mut proj_file = match file.read(Cancellable::NONE) {
+            Ok(val) => val.into_read(),
             Err(why) => {
-                tracing::error!("{:?}", why);
-                caller.show_form_err(gettext("__UnreadableFile"));
-                return; // no use continuing
+                error!("{:?}", why);
+                return;
             }
         };
-
-        // split JSON to extract graph and core
-        let graph = match obj.get("graph") {
-            Some(val) => match from_value::<Graph>(val.clone()) {
-                Ok(graph) => graph,
+        let mut contents: Vec<u8> = Vec::new();
+        let json_text = match proj_file.read_to_end(&mut contents) {
+            Ok(_) => match String::from_utf8(contents) {
+                Ok(val) => match from_str::<Value>(&val) {
+                    Ok(json_val) => json_val,
+                    Err(why) => {
+                        error!("{:?}", why);
+                        caller.show_form_err(gettext("__MalformedFile"));
+                        return;
+                    }
+                },
                 Err(why) => {
-                    tracing::error!("{:?}", why);
-                    caller.show_form_err(gettext("__UnreadableGraph"));
+                    error!("{:?}", why);
+                    caller.show_form_err(gettext("__FileReadError"));
                     return;
                 }
             },
-            None => return,
+            Err(why) => {
+                error!("{:?}", why);
+                caller.show_form_err(gettext("__FileReadError"));
+                return;
+            }
         };
-        let conversion_core = match obj.get("core") {
+
+        // Parsing conversion core from json info
+        let core = match json_text.get("core") {
             Some(val) => match val {
-                Value::String(val_str) => ExposedCore::from(val_str.clone()),
-                _ => return, // aberration
+                Value::String(str_val) => ExposedCore::from(str_val.to_string()),
+                _ => {
+                    caller.show_form_err(gettext("__MalformedFile"));
+                    return;
+                }
             },
             None => {
-                caller.show_form_err(gettext("__UnreadableCore"));
+                caller.show_form_err(gettext("__MalformedFile"));
+                return;
+            }
+        };
+
+        // parse graph from json info
+        let graph = match json_text.get("graph") {
+            Some(val) => match from_value::<Graph>(val.clone()) {
+                Ok(graph_obj) => graph_obj,
+                Err(why) => {
+                    error!("{:?}", why);
+                    caller.show_form_err(gettext("__MalformedFile"));
+                    return;
+                }
+            },
+            None => {
+                caller.show_form_err(gettext("__MalformedFile"));
                 return;
             }
         };
@@ -130,8 +132,8 @@ pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
             .imp()
             .data
             .borrow_mut()
-            .graph
-            .replace(graph);
+            .core
+            .set(core);
         caller
             .imp()
             .project
@@ -139,8 +141,11 @@ pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
             .imp()
             .data
             .borrow_mut()
-            .core
-            .replace(conversion_core);
+            .graph
+            .set(graph);
+
+        // Logging
+        info!("Fetched project file info");
 
         // edit visible stack page and display tweaks
         caller.clear_form();

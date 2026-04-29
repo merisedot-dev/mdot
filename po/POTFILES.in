@@ -2,9 +2,9 @@
 # Please keep this file sorted.
 
 # UI definition files
-data/resources/window.ui
+data/resources/mdot_window.ui
 
 # Rust files
 src/window/dialogs/open.rs
 src/window/dialogs/pick_proj.rs
-src/project/error.rs
+src/window/project/error.rs

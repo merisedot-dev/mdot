@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-18 10:59+0200\n"
+"POT-Creation-Date: 2026-04-29 14:41+0200\n"
 "PO-Revision-Date: 2026-02-22 12:01+0100\n"
 "Last-Translator: kheldae <taho.gougeon@gmail.com>\n"
 "Language-Team: \n"
@@ -18,94 +18,88 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: data/resources/window.ui:22 data/resources/window.ui:271
+#: data/resources/mdot_window.ui:22 data/resources/mdot_window.ui:344
 msgid "__Openproject"
 msgstr "Ouvrir"
 
-#: data/resources/window.ui:61 data/resources/window.ui:267
+#: data/resources/mdot_window.ui:61 data/resources/mdot_window.ui:340
 msgid "__Newproject"
 msgstr "Nouveau Projet"
 
-#: data/resources/window.ui:73
+#: data/resources/mdot_window.ui:73
 msgid "__Projname"
 msgstr "Nom du Projet"
 
-#: data/resources/window.ui:83
+#: data/resources/mdot_window.ui:83
 msgid "__TargetSGBD"
 msgstr "SGBD cible"
 
-#: data/resources/window.ui:93
+#: data/resources/mdot_window.ui:93
 msgid "__Projlocation"
 msgstr "Emplacement"
 
-#: data/resources/window.ui:151
+#: data/resources/mdot_window.ui:151
 msgid "__Cancel"
 msgstr "Annuler"
 
-#: data/resources/window.ui:161
+#: data/resources/mdot_window.ui:161
 msgid "__Validate"
 msgstr "Valider"
 
-#: data/resources/window.ui:276
+#: data/resources/mdot_window.ui:246
+msgid "__EntityTools"
+msgstr "Entités"
+
+#: data/resources/mdot_window.ui:278
+msgid "__GraphLinktools"
+msgstr "GraphLinks"
+
+#: data/resources/mdot_window.ui:349
 msgid "__Save"
 msgstr "Enregistrer"
 
-#: data/resources/window.ui:280
+#: data/resources/mdot_window.ui:353
 msgid "__Close"
 msgstr "Fermer"
 
-#: src/window/dialogs/open.rs:26
-msgid "__MDOTProject"
-msgstr "Projet MeriseDot"
-
-#: src/window/dialogs/open.rs:31
+#: src/window/dialogs/open.rs:24
 msgid "__Selectproject"
 msgstr "Sélectionner"
 
-#: src/window/dialogs/open.rs:33
+#: src/window/dialogs/open.rs:25
 msgid "__Open"
 msgstr "Ouvrir"
 
-#: src/window/dialogs/open.rs:44
-msgid "__FileReadError"
-msgstr "Erreur de lecture du fichier"
-
-#: src/window/dialogs/open.rs:78
+#: src/window/dialogs/open.rs:68 src/window/dialogs/open.rs:90
+#: src/window/dialogs/open.rs:95 src/window/dialogs/open.rs:106
+#: src/window/dialogs/open.rs:111
 msgid "__MalformedFile"
 msgstr "Fichier de projet malformé"
 
-#: src/window/dialogs/open.rs:84 src/window/dialogs/open.rs:90
-msgid "__UnreadableFile"
-msgstr "Fichier illisible"
+#: src/window/dialogs/open.rs:74 src/window/dialogs/open.rs:80
+msgid "__FileReadError"
+msgstr "Erreur de lecture du fichier"
 
-#: src/window/dialogs/open.rs:101
-msgid "__UnreadableGraph"
-msgstr "Graphe illisible"
-
-#: src/window/dialogs/open.rs:113
-msgid "__UnreadableCore"
-msgstr "Coeur de conversion inconnu"
-
-#: src/window/dialogs/pick_proj.rs:12
+#: src/window/dialogs/pick_proj.rs:13
 msgid "__Projectlocation"
 msgstr "Emplacement"
 
-#: src/window/dialogs/pick_proj.rs:13
+#: src/window/dialogs/pick_proj.rs:14
 msgid "__Choose"
 msgstr "Choisir"
 
-#: src/project/error.rs:23
+#: src/window/project/error.rs:24
 msgid "__MissingProjName"
 msgstr "Nom du Projet requis"
 
-#: src/project/error.rs:24
+#: src/window/project/error.rs:25
 msgid "__MissingProjPath"
 msgstr "Chemin du Projet requis"
 
-#: src/project/error.rs:25
+#: src/window/project/error.rs:26
 msgid "__MissingProjCore"
 msgstr "Un coeur de conversion est requis"
 
-#: src/project/error.rs:29
+#: src/window/project/error.rs:31
 msgid "__UnaccessibleProjPath"
 msgstr "Chemin inaccessible"
