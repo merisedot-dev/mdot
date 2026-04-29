@@ -12,10 +12,7 @@ use serde_json::{Value, de::from_str, from_value};
 use stag::{graph::Graph, script::ExposedCore};
 use tracing::info;
 
-use crate::{
-    constants::WORKS_SCREEN_NAME,
-    window::MDotWindow,
-};
+use crate::{constants::WORKS_SCREEN_NAME, window::MDotWindow};
 
 pub const OPEN_NAME: &'static str = "win.open";
 
@@ -66,14 +63,18 @@ pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
         let buf: Vec<u8> = Vec::new();
         let obj = match content.read_all_future(buf, Priority::HIGH).await {
             Ok((val, _, _)) => match String::from_utf8(val) {
-                Ok(val_str) => match from_str::<Value>(&val_str) {
-                    Ok(json_val) => json_val,
-                    Err(why) => {
-                        tracing::error!("{:?}", why);
-                        caller.show_form_err(gettext("__MalformedFile"));
-                        return;
+                // FIXME where is the text gone ?
+                Ok(val_str) => {
+                    tracing::info!("{}", val_str);
+                    match from_str::<Value>(&val_str) {
+                        Ok(json_val) => json_val,
+                        Err(why) => {
+                            tracing::error!("{:?}", why);
+                            caller.show_form_err(gettext("__MalformedFile"));
+                            return;
+                        }
                     }
-                },
+                }
                 Err(why) => {
                     tracing::error!("{:?}", why);
                     caller.show_form_err(gettext("__UnreadableFile"));

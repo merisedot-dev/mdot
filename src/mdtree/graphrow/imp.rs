@@ -1,13 +1,23 @@
 use gtk::{
-    CompositeTemplate,
-    glib::{self, subclass::InitializingObject},
+    CompositeTemplate, Image, Label,
+    glib::{self, Properties, subclass::InitializingObject},
     subclass::prelude::*,
 };
 use tracing::info;
 
-#[derive(CompositeTemplate, Default)]
+#[derive(CompositeTemplate, Default, Properties)]
+#[properties(wrapper_type = super::MDotGraphRow)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_graphrow.ui")]
-pub struct MDotGraphRow {}
+pub struct MDotGraphRow {
+    // Information-related properties
+    pub it_name: String,
+    pub icon_name: String,
+    // Child widgets
+    #[template_child]
+    pub item_icon: TemplateChild<Image>,
+    #[template_child]
+    pub item_lbl: TemplateChild<Label>,
+}
 
 #[glib::object_subclass]
 impl ObjectSubclass for MDotGraphRow {
@@ -26,8 +36,16 @@ impl ObjectSubclass for MDotGraphRow {
     }
 }
 
-// Core GTK object trait implementation
-impl ObjectImpl for MDotGraphRow {}
+#[glib::derived_properties]
+impl ObjectImpl for MDotGraphRow {
+    fn constructed(&self) {
+        // super() call
+        self.parent_constructed();
+        // inner setup
+        self.item_lbl.set_label(&self.it_name);
+        self.item_icon.set_icon_name(Some(&self.icon_name));
+    }
+}
 
 // Basic widget implementation
 impl WidgetImpl for MDotGraphRow {}

@@ -7,10 +7,10 @@
     <property name="child">
       <object class="GtkBox">
         <child>
-          <object class="GtkImage"/>
+          <object class="GtkImage" id="item_icon"/>
         </child>
         <child>
-          <object class="GtkLabel"/>
+          <object class="GtkLabel" id="item_lbl"/>
         </child>
       </object>
     </property>
