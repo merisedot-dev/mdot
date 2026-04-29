@@ -10,3 +10,7 @@ pub const PROJ_FILE_EXTENSION: &'static str = ".mrsprj";
 // screen names for easy swap
 pub const NEWPROJ_SCREEN_NAME: &'static str = "newproj_screen";
 pub const WORKS_SCREEN_NAME: &'static str = "work_screen";
+
+// Icon names for MDotGraphRow usage
+pub const ENTITY_ICON_NAME: &'static str = "";
+pub const GRAPHLINK_ICON_NAME: &'static str = "";

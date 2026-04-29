@@ -1,8 +1,14 @@
 mod graphrow;
 mod imp;
 
+use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib;
 use stag::graph::Graph;
+
+use crate::{
+    constants::{ENTITY_ICON_NAME, GRAPHLINK_ICON_NAME},
+    mdtree::graphrow::MDotGraphRow,
+};
 
 glib::wrapper! {
     pub struct MDotGraphTree(ObjectSubclass<imp::MDotGraphTree>)
@@ -18,12 +24,16 @@ impl MDotGraphTree {
     /// Unique constraints.
     pub fn show_project(&self, graph: Graph) {
         // entities conversion
-        for (_, _ent) in graph.get_entities() {
-            // TODO conversion
+        for (_, ent) in graph.get_entities() {
+            self.imp()
+                .elems_list
+                .append(&MDotGraphRow::new(ent.name(), ENTITY_ICON_NAME));
         }
         // graphlinks conversion
-        for _ent in graph.get_lks().iter().map(|(_, v)| v.clone()) {
-            // TODO conversion
+        for ent in graph.get_lks().iter().map(|(_, v)| v.inner.clone()) {
+            self.imp()
+                .elems_list
+                .append(&MDotGraphRow::new(ent.name(), GRAPHLINK_ICON_NAME));
         }
     }
 }

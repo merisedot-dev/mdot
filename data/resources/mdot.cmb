@@ -4,7 +4,7 @@
 <cambalache-project version="1.0.0" target_tk="gtk-4.0" depends="libadwaita-1,webkitgtk-6.0">
   <gresources filename="mdot.gresource.xml" sha256="73c5b69c408ef2224fef1f8dc41396e893f55973161835ff07aaf016abc1337d"/>
   <ui template-class="MDotGraphTree" filename="mdot_tree.ui" sha256="0d4e239f78eabe6feffaab9fba7f1c6181976028d15a0485be460ea0195dfae7"/>
-  <ui template-class="MDotGraphRow" filename="mdot_graphrow.ui" sha256="a041d389615fbc85904a0938ae6ea6c6bf31599253443c58081d3dbba30f8760"/>
+  <ui template-class="MDotGraphRow" filename="mdot_graphrow.ui" sha256="febe986edfc446a8439187f2ea8ad851e2c1badbb4a978d884576d7dc3d48b22"/>
   <ui template-class="MDotWindow" filename="mdot_window.ui" sha256="fe07b0990964bbb2e565a08b1caf64e95d50db35ef59ff2f19ccd011c9cc5fb9">
     <requires>MDotGraphTree</requires>
   </ui>
