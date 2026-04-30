@@ -14,3 +14,7 @@ pub const WORKS_SCREEN_NAME: &'static str = "work_screen";
 // Icon names for MDotGraphRow usage
 pub const ENTITY_ICON_NAME: &'static str = "";
 pub const GRAPHLINK_ICON_NAME: &'static str = "";
+
+// Stack names for the MDotPanel
+pub const DEFAULT_PANEL_NAME: &'static str = "placeholder_edt";
+pub const DEFATUL_GRPHLK_NAME: &'static str = "default_link_stack_page";

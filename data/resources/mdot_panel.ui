@@ -65,6 +65,47 @@
                             </property>
                           </object>
                         </child>
+                        <child>
+                          <object class="GtkSeparator"/>
+                        </child>
+                        <child>
+                          <object class="GtkStack" id="links_stack">
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="child">
+                                  <object class="GtkBox"/>
+                                </property>
+                                <property name="name">default_link_stack_page</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="child">
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkBox">
+                                        <child>
+                                          <object class="GtkLabel">
+                                            <property name="label" translatable="yes">__GraphLinksLbl</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkFrame">
+                                        <property name="child">
+                                          <object class="GtkColumnView" id="grphlk_clmn"/>
+                                        </property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </property>
+                                <property name="name">edit_links_stack_page</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </property>
                   </object>

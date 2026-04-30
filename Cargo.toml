@@ -1,5 +1,7 @@
 [package]
 name = "merisedot"
+description = "SQL design tool, inspired by Cambalache and Gaphor"
+authors = ["kheldae <taho.gougeon@gmail.com>"]
 version = "0.1.0"
 edition = "2024"
 

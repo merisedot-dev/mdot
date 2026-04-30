@@ -12,6 +12,10 @@ pub struct MDotPanel {
     pub panel_stack: TemplateChild<Stack>,
     #[template_child]
     pub attributes_clmn: TemplateChild<ColumnView>,
+    #[template_child]
+    pub links_stack: TemplateChild<Stack>,
+    #[template_child]
+    pub grphlk_clmn: TemplateChild<ColumnView>,
 }
 
 #[glib::object_subclass]
@@ -21,6 +25,7 @@ impl ObjectSubclass for MDotPanel {
     type ParentType = gtk::Box;
 
     fn class_init(klass: &mut Self::Class) {
+        // TODO fetch extra template informations
         // fetch correct building information from template
         klass.bind_template();
         info!("Loaded template for MDotPanel");
@@ -32,7 +37,15 @@ impl ObjectSubclass for MDotPanel {
 }
 
 // Basic override trait
-impl ObjectImpl for MDotPanel {}
+impl ObjectImpl for MDotPanel {
+    fn constructed(&self) {
+        // super() call
+        self.parent_constructed();
+        // inner setup
+        let obj = self.obj();
+        obj.set_defaults();
+    }
+}
 
 // Changing behavior of GtkWidget
 impl WidgetImpl for MDotPanel {}
