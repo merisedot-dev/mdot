@@ -2,6 +2,7 @@
 <!-- Created with Cambalache 1.0 -->
 <interface>
   <!-- interface-name mdot_panel.ui -->
+  <requires lib="gio" version="2.44"/>
   <requires lib="gtk" version="4.0"/>
   <template class="MDotPanel" parent="GtkBox">
     <property name="orientation">vertical</property>
@@ -61,7 +62,38 @@
                         <child>
                           <object class="GtkFrame">
                             <property name="child">
-                              <object class="GtkColumnView" id="attributes_clmn"/>
+                              <object class="GtkColumnView" id="attrs_clmn">
+                                <property name="model">
+                                  <object class="GtkSingleSelection">
+                                    <property name="model">
+                                      <object class="GListStore" id="attrs_store"/>
+                                    </property>
+                                  </object>
+                                </property>
+                                <child>
+                                  <object class="GtkColumnViewColumn">
+                                    <property name="factory">
+                                      <object class="GtkBuilderListItemFactory">
+                                        <property name="bytes"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<template class="GtkListItem">
+	<property name="child>
+		<object class="GtkEntry">
+			<property name="text">
+				<binding name="label">
+					<lookup name="title" type="MDotAttrRecord">
+						<lookup name="item">GtkListItem</lookup>
+					</lookup>
+				</binding>
+			</property>
+		</object>
+	</property>
+</template>]]></property>
+                                      </object>
+                                    </property>
+                                    <property name="title" translatable="yes">__AttrName</property>
+                                  </object>
+                                </child>
+                              </object>
                             </property>
                           </object>
                         </child>
@@ -90,13 +122,6 @@
                                             <property name="label" translatable="yes">__GraphLinksLbl</property>
                                           </object>
                                         </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkFrame">
-                                        <property name="child">
-                                          <object class="GtkColumnView" id="grphlk_clmn"/>
-                                        </property>
                                       </object>
                                     </child>
                                   </object>

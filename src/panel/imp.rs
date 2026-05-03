@@ -1,5 +1,6 @@
 use gtk::{
-    ColumnView, CompositeTemplate, Stack,
+    ColumnView, CompositeTemplate, Entry, Stack,
+    gio::ListStore,
     glib::{self, subclass::InitializingObject},
     subclass::prelude::*,
 };
@@ -8,14 +9,21 @@ use tracing::info;
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_panel.ui")]
 pub struct MDotPanel {
+    // core components and logic fields
+    #[template_child]
+    pub name_entry: TemplateChild<Entry>,
+
+    // attributes handling
     #[template_child]
     pub panel_stack: TemplateChild<Stack>,
     #[template_child]
-    pub attributes_clmn: TemplateChild<ColumnView>,
+    pub attrs_clmn: TemplateChild<ColumnView>,
+    #[template_child]
+    pub attrs_store: TemplateChild<ListStore>,
+
+    // graph links handling
     #[template_child]
     pub links_stack: TemplateChild<Stack>,
-    #[template_child]
-    pub grphlk_clmn: TemplateChild<ColumnView>,
 }
 
 #[glib::object_subclass]
@@ -25,7 +33,6 @@ impl ObjectSubclass for MDotPanel {
     type ParentType = gtk::Box;
 
     fn class_init(klass: &mut Self::Class) {
-        // TODO fetch extra template informations
         // fetch correct building information from template
         klass.bind_template();
         info!("Loaded template for MDotPanel");
