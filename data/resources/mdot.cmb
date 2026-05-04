@@ -5,7 +5,7 @@
   <gresources filename="mdot.gresource.xml" sha256="1ed720c21ab3b91dbab0e9a206a942e1d1f14f5d5e59af63528389e174a4a8f9"/>
   <ui template-class="MDotGraphTree" filename="mdot_tree.ui" sha256="0d4e239f78eabe6feffaab9fba7f1c6181976028d15a0485be460ea0195dfae7"/>
   <ui template-class="MDotGraphRow" filename="mdot_graphrow.ui" sha256="febe986edfc446a8439187f2ea8ad851e2c1badbb4a978d884576d7dc3d48b22"/>
-  <ui template-class="MDotPanel" filename="mdot_panel.ui" sha256="4c5e043f46dee1cd61746e56d2943df6a625a9517c97781b4cfbdc1bee0e76f8"/>
+  <ui template-class="MDotPanel" filename="mdot_panel.ui" sha256="0730afc82f32ff65af12cf39848ab5e37abaccda8b7c1eeea02fa7d9b77058be"/>
   <ui template-class="MDotWindow" filename="mdot_window.ui" sha256="55c9b1c646f401e61be4df42119c093de7896b61d4ebd7cb73987ccb1d4a8ca7">
     <requires>MDotPanel</requires>
     <requires>MDotGraphTree</requires>

@@ -75,19 +75,21 @@
                                     <property name="factory">
                                       <object class="GtkBuilderListItemFactory">
                                         <property name="bytes"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<template class="GtkListItem">
-	<property name="child>
-		<object class="GtkEntry">
-			<property name="text">
-				<binding name="label">
-					<lookup name="title" type="MDotAttrRecord">
-						<lookup name="item">GtkListItem</lookup>
-					</lookup>
-				</binding>
-			</property>
-		</object>
-	</property>
-</template>]]></property>
+<interface>
+	<template class="GtkListItem">
+		<property name="child>
+			<object class="GtkEntry">
+				<property name="text">
+					<binding name="label">
+						<lookup name="title" type="MDotAttrRecord">
+							<lookup name="item">GtkListItem</lookup>
+						</lookup>
+					</binding>
+				</property>
+			</object>
+		</property>
+	</template>
+</interface>]]></property>
                                       </object>
                                     </property>
                                     <property name="title" translatable="yes">__AttrName</property>
