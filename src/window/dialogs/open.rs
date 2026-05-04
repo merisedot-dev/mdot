@@ -8,7 +8,7 @@ use gtk::{
         Cancellable,
         prelude::{FileExt, InputStreamExtManual},
     },
-    glib::{Variant, property::PropertySet},
+    glib::Variant,
 };
 use serde_json::{Value, from_str, from_value};
 use stag::{graph::Graph, script::ExposedCore};
@@ -125,24 +125,8 @@ pub async fn open_dialog(caller: MDotWindow, _: String, _: Option<Variant>) {
             .borrow_mut()
             .set_path(folder_path.as_path());
         // add graph and core
-        caller
-            .imp()
-            .project
-            .borrow_mut()
-            .imp()
-            .data
-            .borrow_mut()
-            .core
-            .set(core);
-        caller
-            .imp()
-            .project
-            .borrow_mut()
-            .imp()
-            .data
-            .borrow_mut()
-            .graph
-            .set(graph);
+        caller.imp().project.borrow_mut().set_core(core);
+        caller.imp().project.borrow_mut().set_graph(graph);
 
         // Logging
         info!("Fetched project file info");

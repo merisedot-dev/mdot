@@ -35,11 +35,7 @@ impl MDotAction for ValidateAction {
             // fetch from components
             proj.set_name(caller.imp().proj_name.text());
             proj.set_path(PathBuf::from(caller.imp().path_lbl.text()));
-            proj.imp()
-                .data
-                .borrow_mut()
-                .core
-                .replace(ExposedCore::from(caller.get_selected_core()));
+            proj.set_core(ExposedCore::from(caller.get_selected_core()));
         }
 
         // fetch actual project

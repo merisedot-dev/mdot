@@ -1,11 +1,11 @@
 pub(crate) mod error;
 mod imp;
 
-use std::{ops::Deref, path::PathBuf};
+use std::{cell::Ref, ops::Deref, path::PathBuf};
 
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib::{self, Object};
-use stag::script::ExposedCore;
+use stag::{graph::Graph, script::ExposedCore};
 
 use crate::{constants::PROJ_FILE_EXTENSION, window::project::error::ProjectError};
 
@@ -30,8 +30,38 @@ impl Project {
         self.imp().data.borrow().path.clone()
     }
 
+    /// Fetches the [Project]'s name. Meant to be used for display purposes.
     pub fn get_name(&self) -> String {
         self.imp().data.borrow().name.clone()
+    }
+}
+
+// graph implementation
+impl Project {
+    /// Fetches the inner [Graph] of the given [Project]. It should allow for
+    /// mutable methods to be called if required (please don't use them if not
+    /// necessary).
+    pub fn get_graph(&self) -> Ref<'_, Graph> {
+        self.imp().graph.borrow()
+    }
+
+    /// Swaps the old stored [Graph] with the new one, the old value being dropped
+    /// in the process.
+    pub fn set_graph(&self, graph: Graph) {
+        self.imp().graph.replace(graph);
+    }
+}
+
+// conversion core implementation
+impl Project {
+    /// Fetches the [ExposedCore] for conversion purposes.
+    pub fn get_core(&self) -> Ref<'_, ExposedCore> {
+        self.imp().core.borrow()
+    }
+
+    /// Changes the crrent [ExposedCore] of the project.
+    pub fn set_core(&self, core: ExposedCore) {
+        self.imp().core.replace(core);
     }
 }
 
@@ -49,7 +79,7 @@ impl Project {
         if proj.path == PathBuf::new() {
             return Err(ProjectError::MISSINGPATH);
         }
-        if proj.core.borrow().deref().clone() == ExposedCore::default() {
+        if *self.get_core().deref() == ExposedCore::default() {
             return Err(ProjectError::MISSINGCORE);
         }
         // everything passed

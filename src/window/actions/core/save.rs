@@ -28,8 +28,8 @@ impl MDotAction for SaveAction {
     ) {
         // prefect project info
         let project = caller.imp().project.borrow();
-        let graph = project.imp().data.borrow().graph.clone();
-        let core = project.imp().data.borrow().core.clone();
+        let graph = project.get_graph();
+        let core = project.get_core();
 
         // open file for writing (and delete what was there)
         let mut file = match File::create(project.filepath()) {
@@ -44,8 +44,8 @@ impl MDotAction for SaveAction {
         // write project file out
         match file.write_all(
             to_string(&json!({
-                "graph": graph.borrow().deref(),
-                "core": core.borrow().name()
+                "graph": graph.deref(),
+                "core": core.deref().name()
             }))
             .unwrap_or_default()
             .as_bytes(),
