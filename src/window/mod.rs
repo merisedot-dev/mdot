@@ -21,7 +21,7 @@ glib::wrapper! {
                     gtk::Root, gtk::ShortcutManager;
 }
 
-// Setup methods
+// Setup methods and building utilities
 impl MDotWindow {
     /// custom constructor to ensure we can have a link to our app
     pub fn new(app: &Application) -> Self {
@@ -29,7 +29,8 @@ impl MDotWindow {
     }
 
     /// Setting up window default values. It is meant to be called at launch and
-    /// only at application launch.
+    /// only at application launch. This will init values only and only if a
+    /// default doesn't exist at creation.
     fn set_defaults(&self) {
         // load default app screen
         self.set_screen(NEWPROJ_SCREEN_NAME);
@@ -67,7 +68,7 @@ impl MDotWindow {
     }
 
     /// Changes the displayed windo subtitle in the header bar. This can be a
-    /// blank name (unlike [Window::set_app_title]).
+    /// blank name (unlike [MDotWindow::set_app_title]).
     pub fn set_app_subtitle(&self, name: impl ToString) {
         self.imp().app_title.set_subtitle(&name.to_string());
     }

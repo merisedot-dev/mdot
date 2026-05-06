@@ -1,4 +1,5 @@
 use adw::subclass::prelude::ObjectSubclassIsExt;
+use tracing::error;
 
 use crate::{
     utils::{MDotActable, MDotAction},
@@ -22,10 +23,19 @@ impl MDotAction for NewEntityAction {
         _: &str,
         _: Option<&gtk::glib::Variant>,
     ) {
-        // create new entity in graph with phony name
+        // prefetch
         let project = caller.imp().project.borrow();
 
-        // TODO work out cairo design handling
+        // create new entity in graph with phony name
+        let name = format!("entity_{}", project.get_graph().get_entities().len());
+        if let Err(why) = project.edt_graph().mk_entity(&name) {
+            error!("{:?}", why);
+            return;
+        }
+
+        // TODO add entity design to cairo drawing space
+        // TODO find where to add the design
+
         // TODO change focus to the newly built entity
         // TODO update edition panel and graphtree
     }

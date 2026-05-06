@@ -1,7 +1,11 @@
 pub(crate) mod error;
 mod imp;
 
-use std::{cell::Ref, ops::Deref, path::PathBuf};
+use std::{
+    cell::{Ref, RefMut},
+    ops::Deref,
+    path::PathBuf,
+};
 
 use adw::subclass::prelude::ObjectSubclassIsExt;
 use gtk::glib::{self, Object};
@@ -36,13 +40,18 @@ impl Project {
     }
 }
 
-// graph implementation
+// graph-focused implementation
 impl Project {
-    /// Fetches the inner [Graph] of the given [Project]. It should allow for
-    /// mutable methods to be called if required (please don't use them if not
-    /// necessary).
+    /// Fetches the inner [Graph] of the given [Project]. Use this method for
+    /// reading purposes only, as it is not suitable for mutable methods.
     pub fn get_graph(&self) -> Ref<'_, Graph> {
         self.imp().graph.borrow()
+    }
+
+    /// Fetches the inner [Graph] as mutable. Use this only for writing purposes
+    /// as mutable borrows can't coexist with any other type of borrow.
+    pub fn edt_graph(&self) -> RefMut<'_, Graph> {
+        self.imp().graph.borrow_mut()
     }
 
     /// Swaps the old stored [Graph] with the new one, the old value being dropped

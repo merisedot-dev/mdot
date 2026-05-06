@@ -219,6 +219,8 @@
                                 <property name="end-child">
                                   <object class="MDotPanel" id="edition_panel"/>
                                 </property>
+                                <property name="resize-end-child">False</property>
+                                <property name="resize-start-child">False</property>
                                 <property name="shrink-end-child">False</property>
                                 <property name="shrink-start-child">False</property>
                                 <property name="start-child">
@@ -229,6 +231,8 @@
                                 </property>
                               </object>
                             </property>
+                            <property name="resize-end-child">False</property>
+                            <property name="resize-start-child">False</property>
                             <property name="shrink-end-child">False</property>
                             <property name="shrink-start-child">False</property>
                             <property name="start-child">
@@ -303,6 +307,8 @@
                                       </object>
                                     </property>
                                     <property name="orientation">vertical</property>
+                                    <property name="resize-end-child">False</property>
+                                    <property name="resize-start-child">False</property>
                                     <property name="shrink-end-child">False</property>
                                     <property name="shrink-start-child">False</property>
                                     <property name="start-child">
