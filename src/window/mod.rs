@@ -1,5 +1,6 @@
 mod actions;
 mod dialogs;
+mod events;
 mod imp;
 pub(crate) mod project;
 
@@ -7,7 +8,7 @@ use adw::{Application, subclass::prelude::ObjectSubclassIsExt};
 use gtk::{
     gio::{self, Settings},
     glib::{self, Object},
-    prelude::{EditableExt, WidgetExt},
+    prelude::{DrawingAreaExtManual, EditableExt, WidgetExt},
 };
 
 use crate::{constants::NEWPROJ_SCREEN_NAME, utils::app_id};
@@ -45,11 +46,28 @@ impl MDotWindow {
             .set(settings)
             .expect("settings should have been set already");
     }
+
+    /// Links off handler functions for events. This isn't used to define how user
+    /// actions are handled, rather how occuring window-level events will go off.
+    fn set_handlers(&self) {
+        // prefetch useful values
+        let proj = self.imp().project.borrow();
+        let graph = proj.get_graph().clone();
+        // linking events to the drawing area
+        self.imp()
+            .graph_drawing
+            .set_draw_func(move |drawing, context, _, _| {
+                events::draw_graph(drawing, context, graph.clone());
+            });
+    }
 }
 
-// fetchers and other calculators
+// fetchers and other attribute calculators
 impl MDotWindow {
     /// Fetches the current selected conversion core for script purposes.
+    ///
+    /// **Warning** : in case of errors in the template, this may return an invalid
+    /// conversion core name, leading to errors.
     pub fn get_selected_core(&self) -> String {
         match self.imp().core_toggle.active_name() {
             Some(val) => val.to_string(),
@@ -62,7 +80,7 @@ impl MDotWindow {
 impl MDotWindow {
     /// Changes the displayed window title in the header bar. This should never
     /// be a blank name for usability reason. If that happens, please revert
-    /// back to [APP_NAME].
+    /// back to the APP_NAME.
     pub fn set_app_title(&self, name: impl ToString) {
         self.imp().app_title.set_title(&name.to_string());
     }

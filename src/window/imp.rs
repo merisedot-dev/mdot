@@ -112,6 +112,7 @@ impl ObjectImpl for MDotWindow {
         let obj = self.obj();
         obj.set_defaults();
         obj.set_settings();
+        obj.set_handlers();
     }
 }
 
@@ -122,6 +123,7 @@ impl WidgetImpl for MDotWindow {}
 impl WindowImpl for MDotWindow {
     fn close_request(&self) -> glib::Propagation {
         // TODO save popup
+        // TODO write out settings
         // pass saved thingies to parent class
         self.parent_close_request()
     }

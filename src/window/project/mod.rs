@@ -1,3 +1,4 @@
+mod drawn;
 pub(crate) mod error;
 mod imp;
 
@@ -63,7 +64,8 @@ impl Project {
 
 // conversion core implementation
 impl Project {
-    /// Fetches the [ExposedCore] for conversion purposes.
+    /// Fetches the [ExposedCore] for conversion purposes. The old value will be
+    /// dropped in the process.
     pub fn get_core(&self) -> Ref<'_, ExposedCore> {
         self.imp().core.borrow()
     }
