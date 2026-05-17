@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Created with Cambalache 1.0.1 -->
 <interface>
+  <!-- interface-name mdot_drawing.ui -->
   <requires lib="gtk" version="4.0"/>
-  <template class="MDotDrawingBoard" parent="GtkDrawingArea"/>
+  <template class="MDotDrawingBoard" parent="GtkWidget"/>
 </interface>

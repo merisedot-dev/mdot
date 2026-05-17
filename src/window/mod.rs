@@ -45,6 +45,13 @@ impl MDotWindow {
             .set(settings)
             .expect("settings should have been set already");
     }
+
+    fn set_handlers(&self) {
+        // prefetch
+        let proj = self.imp().project.borrow();
+        let graph = proj.get_graph();
+        // drawing board handler
+    }
 }
 
 // fetchers and other attribute calculators

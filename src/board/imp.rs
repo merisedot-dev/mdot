@@ -13,6 +13,7 @@ use crate::board::item::DrawnItem;
 #[derive(CompositeTemplate)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_drawing.ui")]
 pub struct MDotDrawingBoard {
+    // information intermediates
     pub items: RefCell<ListStore>,
 }
 
@@ -20,7 +21,7 @@ pub struct MDotDrawingBoard {
 impl ObjectSubclass for MDotDrawingBoard {
     const NAME: &'static str = "MDotDrawingBoard";
     type Type = super::MDotDrawingBoard;
-    type ParentType = gtk::DrawingArea;
+    type ParentType = gtk::Widget;
 
     fn class_init(klass: &mut Self::Class) {
         // Loading template info
@@ -40,8 +41,6 @@ impl ObjectImpl for MDotDrawingBoard {}
 impl WidgetImpl for MDotDrawingBoard {}
 
 // override for GtkDrawingArea
-impl DrawingAreaImpl for MDotDrawingBoard {}
-
 impl Default for MDotDrawingBoard {
     fn default() -> Self {
         Self {

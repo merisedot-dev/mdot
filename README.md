@@ -22,5 +22,5 @@ meson setup build --prefix=~./local && meson install -C build
 [meson]: https://mesonbuild.com/
 [ninja]: https://ninja-build.org/
 [Rust]: https://rust-lang.org/fr/
-[GTK4]
-[libadwaita]
+[GTK4]: https://docs.gtk.org/gtk4/
+[libadwaita]: https://gnome.pages.gitlab.gnome.org/libadwaita/doc/

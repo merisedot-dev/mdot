@@ -114,6 +114,7 @@ impl ObjectImpl for MDotWindow {
         let obj = self.obj();
         obj.set_defaults();
         obj.set_settings();
+        obj.set_handlers();
     }
 }
 

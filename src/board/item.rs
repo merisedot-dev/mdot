@@ -14,6 +14,7 @@ impl DrawnItem {
     }
 }
 
+// implementation holder
 mod imp {
     use gtk::glib::{self, Properties, prelude::*, subclass::prelude::*};
     use std::cell::OnceCell;
