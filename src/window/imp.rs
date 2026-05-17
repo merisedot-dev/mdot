@@ -2,13 +2,14 @@ use std::cell::{OnceCell, RefCell};
 
 use adw::{SplitButton, ToggleGroup, WindowTitle, subclass::prelude::*};
 use gtk::{
-    Button, CompositeTemplate, DrawingArea, Entry, Label, MenuButton, Stack,
+    Button, CompositeTemplate, Entry, Label, MenuButton, Stack,
     gio::{Menu, Settings},
     glib::{self, subclass::InitializingObject, types::StaticTypeExt},
 };
 use tracing::info;
 
 use crate::{
+    board::MDotDrawingBoard,
     mdtree::MDotGraphTree,
     panel::MDotPanel,
     window::{actions::mk_actions, dialogs::*, project::Project},
@@ -24,12 +25,12 @@ pub struct MDotWindow {
     pub proj_menu: TemplateChild<Menu>,
     #[template_child]
     pub graph_tree: TemplateChild<MDotGraphTree>,
+    #[template_child]
+    pub drawing_board: TemplateChild<MDotDrawingBoard>,
 
     // template macro components
     #[template_child]
     pub page_stack: TemplateChild<Stack>,
-    #[template_child]
-    pub graph_drawing: TemplateChild<DrawingArea>,
     #[template_child]
     pub edition_panel: TemplateChild<MDotPanel>,
 
@@ -79,6 +80,7 @@ impl ObjectSubclass for MDotWindow {
         // Check for any required subtype
         MDotGraphTree::ensure_type();
         MDotPanel::ensure_type();
+        MDotDrawingBoard::ensure_type();
         info!("Checked for subtemplates");
         // link the template file to our window class
         klass.bind_template();
@@ -112,7 +114,6 @@ impl ObjectImpl for MDotWindow {
         let obj = self.obj();
         obj.set_defaults();
         obj.set_settings();
-        obj.set_handlers();
     }
 }
 

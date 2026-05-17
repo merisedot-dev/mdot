@@ -1,14 +1,11 @@
 use std::{cell::RefCell, path::PathBuf};
 
 use gtk::{
-    gio::ListStore,
     glib::{self, BoxedAnyObject, Properties},
     prelude::*,
     subclass::prelude::*,
 };
 use stag::{graph::Graph, script::ExposedCore};
-
-use crate::window::project::drawn::DrawnElement;
 
 /// Inner project data for MeriseDot. It is more of a placeholder struct, as the
 /// true data will be held by the inner library (mostly the [Graph] struct).
@@ -26,7 +23,6 @@ pub struct MDotProject {
     #[property(name="name", get, set, type = String, member = name)]
     #[property(name="path", get, set, type = PathBuf, member = path)]
     pub data: RefCell<ProjectData>,
-    pub drawings: RefCell<ListStore>,
 
     // logic-specific fields
     pub graph: BoxedAnyObject, // inner database graph (MCD by default)
@@ -49,7 +45,6 @@ impl Default for MDotProject {
     fn default() -> Self {
         Self {
             data: ProjectData::default().into(),
-            drawings: ListStore::new::<DrawnElement>().into(),
             graph: BoxedAnyObject::new(Graph::default()),
             core: BoxedAnyObject::new(ExposedCore::default()),
         }
