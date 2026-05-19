@@ -5,11 +5,11 @@ glib::wrapper! {
 }
 
 impl DrawnItem {
-    pub fn new(ent: impl ToString, x: impl Into<i32>, y: impl Into<i32>) -> Self {
+    pub fn new(ent: impl ToString, x: i32, y: i32) -> Self {
         Object::builder()
             .property("ent_name", ent.to_string())
-            .property("x", x.into())
-            .property("y", y.into())
+            .property("x", x)
+            .property("y", y)
             .build()
     }
 }

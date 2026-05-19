@@ -2,21 +2,20 @@ use std::cell::RefCell;
 
 use gtk::{
     CompositeTemplate, Snapshot,
-    gio::ListStore,
+    gio::{ListStore, prelude::ListModelExtManual},
     glib::{self, subclass::InitializingObject},
-    gsk::Stroke,
     subclass::prelude::*,
 };
 use tracing::info;
 
-use crate::board::item::DrawnItem;
+use crate::board::{item::DrawnItem, lines::DrawnLine};
 
 #[derive(CompositeTemplate)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_drawing.ui")]
 pub struct MDotDrawingBoard {
     // information intermediates
     pub items: RefCell<ListStore>,
-    // TODO add link positions definition
+    pub lines: RefCell<ListStore>,
 }
 
 #[glib::object_subclass]
@@ -43,9 +42,21 @@ impl ObjectImpl for MDotDrawingBoard {}
 impl WidgetImpl for MDotDrawingBoard {
     fn snapshot(&self, snapshot: &Snapshot) {
         self.parent_snapshot(snapshot);
-        let stroke = Stroke::new(2.);
-        // TODO draw stuff
-        // TODO store drawn stuff
+        // draw entities
+        for ent_name in self
+            .items
+            .borrow()
+            .iter::<DrawnItem>()
+            .filter_map(|i| match i {
+                Ok(val) => Some(val),
+                Err(_) => None,
+            })
+        {
+            // TODO fetch root widget
+            // TODO fetch graph from window
+            // TODO draw entity
+            // TODO segment drawing
+        }
     }
 }
 
@@ -54,6 +65,7 @@ impl Default for MDotDrawingBoard {
     fn default() -> Self {
         Self {
             items: ListStore::new::<DrawnItem>().into(),
+            lines: ListStore::new::<DrawnLine>().into(),
         }
     }
 }
