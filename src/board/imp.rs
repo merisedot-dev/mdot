@@ -1,9 +1,10 @@
 use std::cell::RefCell;
 
 use gtk::{
-    CompositeTemplate,
+    CompositeTemplate, Snapshot,
     gio::ListStore,
     glib::{self, subclass::InitializingObject},
+    gsk::Stroke,
     subclass::prelude::*,
 };
 use tracing::info;
@@ -15,6 +16,7 @@ use crate::board::item::DrawnItem;
 pub struct MDotDrawingBoard {
     // information intermediates
     pub items: RefCell<ListStore>,
+    // TODO add link positions definition
 }
 
 #[glib::object_subclass]
@@ -38,7 +40,14 @@ impl ObjectSubclass for MDotDrawingBoard {
 impl ObjectImpl for MDotDrawingBoard {}
 
 // core GtkWidget override
-impl WidgetImpl for MDotDrawingBoard {}
+impl WidgetImpl for MDotDrawingBoard {
+    fn snapshot(&self, snapshot: &Snapshot) {
+        self.parent_snapshot(snapshot);
+        let stroke = Stroke::new(2.);
+        // TODO draw stuff
+        // TODO store drawn stuff
+    }
+}
 
 // override for GtkDrawingArea
 impl Default for MDotDrawingBoard {
