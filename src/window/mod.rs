@@ -52,6 +52,7 @@ impl MDotWindow {
         self.imp()
             .drawing_board
             .bind_property("project", self, "project")
+            .bidirectional()
             .build();
     }
 }

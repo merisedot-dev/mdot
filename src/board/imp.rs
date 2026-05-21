@@ -1,10 +1,9 @@
 use std::cell::RefCell;
 
 use gtk::{
-    CompositeTemplate, Snapshot,
-    gio::{ListStore, prelude::ListModelExtManual},
+    CompositeTemplate,
+    gio::{ListStore, prelude::*},
     glib::{self, Properties, subclass::InitializingObject},
-    prelude::*,
     subclass::prelude::*,
 };
 use tracing::info;
@@ -30,7 +29,7 @@ pub struct MDotDrawingBoard {
 impl ObjectSubclass for MDotDrawingBoard {
     const NAME: &'static str = "MDotDrawingBoard";
     type Type = super::MDotDrawingBoard;
-    type ParentType = gtk::Widget;
+    type ParentType = gtk::DrawingArea;
 
     fn class_init(klass: &mut Self::Class) {
         // Loading template info
@@ -47,25 +46,11 @@ impl ObjectSubclass for MDotDrawingBoard {
 #[glib::derived_properties]
 impl ObjectImpl for MDotDrawingBoard {}
 
+// override GtkDrawingArea
+impl DrawingAreaImpl for MDotDrawingBoard {}
+
 // core GtkWidget override
-impl WidgetImpl for MDotDrawingBoard {
-    fn snapshot(&self, snapshot: &Snapshot) {
-        self.parent_snapshot(snapshot);
-        // draw entities
-        for drawn_ent in self
-            .items
-            .borrow()
-            .iter::<DrawnItem>()
-            .filter_map(|i| match i {
-                Ok(val) => Some(val),
-                Err(_) => None,
-            })
-        {
-            // TODO draw entity
-            // TODO segment drawing
-        }
-    }
-}
+impl WidgetImpl for MDotDrawingBoard {}
 
 // override for GtkDrawingArea
 impl Default for MDotDrawingBoard {

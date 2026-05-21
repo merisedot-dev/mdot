@@ -3,5 +3,5 @@
 <interface>
   <!-- interface-name mdot_drawing.ui -->
   <requires lib="gtk" version="4.0"/>
-  <template class="MDotDrawingBoard" parent="GtkWidget"/>
+  <template class="MDotDrawingBoard" parent="GtkDrawingArea"/>
 </interface>

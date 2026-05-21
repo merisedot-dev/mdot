@@ -6,7 +6,7 @@
   <ui template-class="MDotGraphTree" filename="mdot_tree.ui" sha256="0d4e239f78eabe6feffaab9fba7f1c6181976028d15a0485be460ea0195dfae7"/>
   <ui template-class="MDotGraphRow" filename="mdot_graphrow.ui" sha256="febe986edfc446a8439187f2ea8ad851e2c1badbb4a978d884576d7dc3d48b22"/>
   <ui template-class="MDotPanel" filename="mdot_panel.ui" sha256="0730afc82f32ff65af12cf39848ab5e37abaccda8b7c1eeea02fa7d9b77058be"/>
-  <ui template-class="MDotDrawingBoard" filename="mdot_drawing.ui" sha256="058512a686f6bcb2a1b64f7af56e766ed4154ba3b59d15324777b4c525ba4af8"/>
+  <ui template-class="MDotDrawingBoard" filename="mdot_drawing.ui" sha256="e16faf9f30ff38f3d05ee1ccbe4831d398d4464d055bafbe13f266a288fdbd73"/>
   <ui template-class="MDotWindow" filename="mdot_window.ui" sha256="7374ae8c3c144d0e052fdf28a423f08f73b37e7a445d51c4019ec5e233eeccea">
     <requires>MDotPanel</requires>
     <requires>MDotDrawingBoard</requires>

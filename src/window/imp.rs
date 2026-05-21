@@ -21,7 +21,7 @@ use crate::{
 #[properties(wrapper_type=super::MDotWindow)]
 pub struct MDotWindow {
     // logic-related elements
-    #[property(get)]
+    #[property(get, set)]
     pub project: RefCell<Project>,
     pub settings: OnceCell<Settings>,
     #[template_child]
