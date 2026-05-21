@@ -14,6 +14,7 @@ glib::wrapper! {
                     gtk::ConstraintTarget, gtk::Root;
 }
 
+// logic implemenation
 impl MDotDrawingBoard {
     /// Store a new [DrawnItem] to the [MDotDrawingBoard]'s store. This will not
     /// update any existing drawable with the same name. Negative coordinates are

@@ -3,19 +3,27 @@ use std::cell::RefCell;
 use gtk::{
     CompositeTemplate, Snapshot,
     gio::{ListStore, prelude::ListModelExtManual},
-    glib::{self, subclass::InitializingObject},
+    glib::{self, Properties, subclass::InitializingObject},
+    prelude::*,
     subclass::prelude::*,
 };
 use tracing::info;
 
-use crate::board::{item::DrawnItem, lines::DrawnLine};
+use crate::{
+    board::{item::DrawnItem, lines::DrawnLine},
+    window::project::Project,
+};
 
-#[derive(CompositeTemplate)]
+#[derive(CompositeTemplate, Properties)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_drawing.ui")]
+#[properties(wrapper_type=super::MDotDrawingBoard)]
 pub struct MDotDrawingBoard {
     // information intermediates
     pub items: RefCell<ListStore>,
     pub lines: RefCell<ListStore>,
+    // TODO binding properties
+    #[property(get, set)]
+    pub project: RefCell<Project>,
 }
 
 #[glib::object_subclass]
@@ -36,6 +44,7 @@ impl ObjectSubclass for MDotDrawingBoard {
 }
 
 // core GObject override
+#[glib::derived_properties]
 impl ObjectImpl for MDotDrawingBoard {}
 
 // core GtkWidget override
@@ -43,7 +52,7 @@ impl WidgetImpl for MDotDrawingBoard {
     fn snapshot(&self, snapshot: &Snapshot) {
         self.parent_snapshot(snapshot);
         // draw entities
-        for ent_name in self
+        for drawn_ent in self
             .items
             .borrow()
             .iter::<DrawnItem>()
@@ -52,8 +61,6 @@ impl WidgetImpl for MDotDrawingBoard {
                 Err(_) => None,
             })
         {
-            // TODO fetch root widget
-            // TODO fetch graph from window
             // TODO draw entity
             // TODO segment drawing
         }
@@ -66,6 +73,7 @@ impl Default for MDotDrawingBoard {
         Self {
             items: ListStore::new::<DrawnItem>().into(),
             lines: ListStore::new::<DrawnLine>().into(),
+            project: RefCell::new(Project::default()),
         }
     }
 }

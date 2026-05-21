@@ -4,7 +4,8 @@ use adw::{SplitButton, ToggleGroup, WindowTitle, subclass::prelude::*};
 use gtk::{
     Button, CompositeTemplate, Entry, Label, MenuButton, Stack,
     gio::{Menu, Settings},
-    glib::{self, subclass::InitializingObject, types::StaticTypeExt},
+    glib::{self, Properties, subclass::InitializingObject, types::StaticTypeExt},
+    prelude::*,
 };
 use tracing::info;
 
@@ -15,10 +16,12 @@ use crate::{
     window::{actions::mk_actions, dialogs::*, project::Project},
 };
 
-#[derive(CompositeTemplate, Default)]
+#[derive(CompositeTemplate, Default, Properties)]
 #[template(resource = "/com/github/merisedotdev/mdot/mdot_window.ui")]
+#[properties(wrapper_type=super::MDotWindow)]
 pub struct MDotWindow {
     // logic-related elements
+    #[property(get)]
     pub project: RefCell<Project>,
     pub settings: OnceCell<Settings>,
     #[template_child]
@@ -106,6 +109,7 @@ impl ObjectSubclass for MDotWindow {
 }
 
 // GObject core trait
+#[glib::derived_properties]
 impl ObjectImpl for MDotWindow {
     fn constructed(&self) {
         // super() call
@@ -114,7 +118,7 @@ impl ObjectImpl for MDotWindow {
         let obj = self.obj();
         obj.set_defaults();
         obj.set_settings();
-        obj.set_handlers();
+        obj.set_bindings();
     }
 }
 

@@ -6,7 +6,7 @@ pub(crate) mod project;
 use adw::{Application, subclass::prelude::ObjectSubclassIsExt};
 use gtk::{
     gio::{self, Settings},
-    glib::{self, Object},
+    glib::{self, Object, object::ObjectExt},
     prelude::{EditableExt, WidgetExt},
 };
 
@@ -46,11 +46,13 @@ impl MDotWindow {
             .expect("settings should have been set already");
     }
 
-    fn set_handlers(&self) {
-        // prefetch
-        let proj = self.imp().project.borrow();
-        let graph = proj.get_graph();
-        // drawing board handler
+    /// Binds properties related to [MDotWindow] to subwidgets. This is meant to
+    /// be called only during construction
+    fn set_bindings(&self) {
+        self.imp()
+            .drawing_board
+            .bind_property("project", self, "project")
+            .build();
     }
 }
 
