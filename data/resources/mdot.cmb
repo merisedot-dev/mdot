@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
-<!-- Created with Cambalache 1.0.1 -->
+<!-- Created with Cambalache 1.0.2 -->
 <cambalache-project version="1.0.0" target_tk="gtk-4.0" depends="libadwaita-1,webkitgtk-6.0">
   <gresources filename="mdot.gresource.xml" sha256="930beb714a4fead0a06d2493236ecdd29a6d1361af17f48983430f8675c9bb94"/>
   <ui template-class="MDotGraphTree" filename="mdot_tree.ui" sha256="0d4e239f78eabe6feffaab9fba7f1c6181976028d15a0485be460ea0195dfae7"/>
   <ui template-class="MDotGraphRow" filename="mdot_graphrow.ui" sha256="febe986edfc446a8439187f2ea8ad851e2c1badbb4a978d884576d7dc3d48b22"/>
   <ui template-class="MDotPanel" filename="mdot_panel.ui" sha256="0730afc82f32ff65af12cf39848ab5e37abaccda8b7c1eeea02fa7d9b77058be"/>
   <ui template-class="MDotDrawingBoard" filename="mdot_drawing.ui" sha256="e16faf9f30ff38f3d05ee1ccbe4831d398d4464d055bafbe13f266a288fdbd73"/>
-  <ui template-class="MDotWindow" filename="mdot_window.ui" sha256="7374ae8c3c144d0e052fdf28a423f08f73b37e7a445d51c4019ec5e233eeccea">
+  <ui template-class="MDotWindow" filename="mdot_window.ui" sha256="6b1ff775fddadefb1fa9c0cf8379b47a4c3dfda8492bb99013dd61b31a2cc4a9">
     <requires>MDotPanel</requires>
     <requires>MDotDrawingBoard</requires>
     <requires>MDotGraphTree</requires>

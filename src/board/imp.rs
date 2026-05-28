@@ -3,7 +3,8 @@ use std::cell::RefCell;
 use gtk::{
     CompositeTemplate,
     gio::{ListStore, prelude::*},
-    glib::{self, Properties, subclass::InitializingObject},
+    glib::{self, Properties, clone, subclass::InitializingObject},
+    prelude::DrawingAreaExtManual,
     subclass::prelude::*,
 };
 use tracing::info;
@@ -20,7 +21,7 @@ pub struct MDotDrawingBoard {
     // information intermediates
     pub items: RefCell<ListStore>,
     pub lines: RefCell<ListStore>,
-    // TODO binding properties
+    // binding properties
     #[property(get, set)]
     pub project: RefCell<Project>,
 }
@@ -44,7 +45,27 @@ impl ObjectSubclass for MDotDrawingBoard {
 
 // core GObject override
 #[glib::derived_properties]
-impl ObjectImpl for MDotDrawingBoard {}
+impl ObjectImpl for MDotDrawingBoard {
+    fn constructed(&self) {
+        // super() call
+        self.parent_constructed();
+        // inner setup
+        DrawingAreaExtManual::set_draw_func(
+            self.obj().as_ref(),
+            clone!(
+                #[weak(rename_to=widget)]
+                self,
+                move |_, ctx, _, _| {
+                    ctx.set_source_rgba(50., 0., 0., 0.);
+                    let _ = ctx.fill();
+                    // TODO test scenario
+                    // TODO prefetch graph
+                    // TODO draw a single entity
+                }
+            ),
+        )
+    }
+}
 
 // override GtkDrawingArea
 impl DrawingAreaImpl for MDotDrawingBoard {}
