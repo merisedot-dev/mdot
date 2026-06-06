@@ -10,7 +10,7 @@ use gtk::{
 use tracing::info;
 
 use crate::{
-    board::{item::DrawnItem, lines::DrawnLine},
+    board::{drawings::Drawable, item::DrawnItem, lines::DrawnLine},
     window::project::Project,
 };
 
@@ -55,15 +55,45 @@ impl ObjectImpl for MDotDrawingBoard {
             clone!(
                 #[weak(rename_to=widget)]
                 self,
-                move |_, ctx, _, _| {
-                    ctx.set_source_rgba(50., 0., 0., 0.);
-                    let _ = ctx.fill();
-                    // TODO test scenario
-                    // TODO prefetch graph
-                    // TODO draw a single entity
+                move |_, ctx, height, width| {
+                    // prefetch graph
+                    let graph = {
+                        let proj = widget.project.borrow();
+                        proj.get_graph().clone()
+                    };
+
+                    // fetch drawable list
+                    for item in widget
+                        .items
+                        .borrow()
+                        .clone()
+                        .iter::<DrawnItem>()
+                        .filter_map(|i| match i {
+                            Ok(value) => Some(value),
+                            Err(_) => None,
+                        })
+                    {
+                        // draw the item using the drawing context info
+                        item.draw(graph.clone(), ctx, height, width);
+                    }
+
+                    // fetch lines list
+                    for line in widget
+                        .lines
+                        .borrow()
+                        .clone()
+                        .iter::<DrawnLine>()
+                        .filter_map(|i| match i {
+                            Ok(value) => Some(value),
+                            Err(_) => None,
+                        })
+                    {
+                        // draw the item using the drawing context info
+                        line.draw(graph.clone(), ctx, height, width);
+                    }
                 }
             ),
-        )
+        );
     }
 }
 
