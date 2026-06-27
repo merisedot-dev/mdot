@@ -11,6 +11,6 @@ use stag::graph::Graph;
 pub trait Drawable {
     /// Draws the [Drawable] using the given context information. Please do not
     /// use borrowed data in there (notably using `RefCell::borrow()`), but try
-    /// to snapshot it.
+    /// to snapshot it beforehand.
     fn draw(&self, graph: Graph, ctx: &Context, height: i32, width: i32);
 }

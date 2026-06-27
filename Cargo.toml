@@ -15,7 +15,7 @@ harness = false
 
 [dependencies]
 adw = { version = "0.8.1", package = "libadwaita", features = ["v1_8"] }
-gettext-rs = "0.7.7"
+gettext-rs = { version = "0.7.7", features = ["gettext-system"] }
 gtk = { version = "0.10.3", package = "gtk4", features = ["v4_20"] }
 indexmap = { version = "2.13.0", features = ["serde"] }
 serde = { version = "1.0.228", features = ["derive"] }
